@@ -4,8 +4,8 @@
   <Point X="0" Y="1"/>
   <Point X="2" Y="3"/>
   <IntValue Value="5"/>
-  <DoubleValue Value="3,33"/>
-  <DecimalValue Value="4,44"/>
+  <DoubleValue Value="3.33"/>
+  <DecimalValue Value="4.44"/>
   <ElementWithValue>Test</ElementWithValue>
 </Entries>
 
