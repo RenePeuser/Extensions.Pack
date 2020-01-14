@@ -9,7 +9,17 @@
     <Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
     <PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions</PackageProjectUrl>
     <RepositoryUrl>https://renepeuser.visualstudio.com/Extensions</RepositoryUrl>
-    <PackageReleaseNotes>Prerelease !!</PackageReleaseNotes>
+    <PackageReleaseNotes>Prerelease !!
+
+A set of extensions for following namespaces:
+
+System
+System.Collections.Generic
+System.Globalization
+System.IO
+System.Linq
+System.Reflection
+System.Xml</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
