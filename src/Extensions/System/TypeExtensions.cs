@@ -388,7 +388,7 @@ namespace Extensions
         /// <summary>Determines whether the specified type is an <see cref="Action" />.</summary>
         /// <param name="type">The type to check for type of <see cref="Action" />.</param>
         /// <returns><c>true</c> if the specified type is <see cref="Action" />; otherwise, <c>false</c>.</returns>
-        internal static bool IsAction(this Type type)
+        public static bool IsAction(this Type type)
         {
             if (!type.IsGenericType)
             {

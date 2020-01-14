@@ -43,7 +43,7 @@ namespace Extensions
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>A dictionary.</returns>
-        internal static OrderedDictionary ToOrderedDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+        public static OrderedDictionary ToOrderedDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
             Throw.IfNull(() => keyValuePairs);
 
@@ -57,7 +57,7 @@ namespace Extensions
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>A dictionary.</returns>
-        internal static ListDictionary ToListDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+        public static ListDictionary ToListDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
             Throw.IfNull(() => keyValuePairs);
 
@@ -71,7 +71,7 @@ namespace Extensions
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>A dictionary.</returns>
-        internal static HybridDictionary ToHybridDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+        public static HybridDictionary ToHybridDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
             Throw.IfNull(() => keyValuePairs);
 
@@ -85,7 +85,7 @@ namespace Extensions
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>A dictionary.</returns>
-        internal static StringDictionary ToStringDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+        public static StringDictionary ToStringDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
             Throw.IfNull(() => keyValuePairs);
 
@@ -100,7 +100,7 @@ namespace Extensions
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>A dictionary.</returns>
-        internal static NameValueCollection ToNameValueCollection<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+        public static NameValueCollection ToNameValueCollection<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
             Throw.IfNull(() => keyValuePairs);
 

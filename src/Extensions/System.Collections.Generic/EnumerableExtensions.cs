@@ -13,7 +13,7 @@ namespace Extensions
     /// <summary>Extension class for <see cref="IEnumerable{T}" /> extensions.</summary>
     public static class EnumerableExtensions
     {
-        internal static IEnumerable<TResult> AllTypesAre<TResult>(this IEnumerable source)
+        public static IEnumerable<TResult> AllTypesAre<TResult>(this IEnumerable source)
         {
             Throw.IfNull(() => source);
 
@@ -27,7 +27,7 @@ namespace Extensions
             }
         }
 
-        internal static IEnumerable<TResult> AllTypesAreEqualsTo<TResult>(this IEnumerable source)
+        public static IEnumerable<TResult> AllTypesAreEqualsTo<TResult>(this IEnumerable source)
         {
             Throw.IfNull(() => source);
 
@@ -906,7 +906,7 @@ namespace Extensions
         /// <typeparam name="T">The generic type, which has to be created.</typeparam>
         /// <param name="source">The source enumeration.</param>
         /// <returns>The converted <see cref="StringCollection" />.</returns>
-        internal static StringCollection ToStringCollection<T>(this IEnumerable<T> source)
+        public static StringCollection ToStringCollection<T>(this IEnumerable<T> source)
         {
             Throw.IfNull(() => source);
 

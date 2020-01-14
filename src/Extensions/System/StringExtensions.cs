@@ -368,17 +368,17 @@ namespace Extensions
             return !value.Contains(notExpected);
         }
 
-        internal static bool ContainsNotAnyOf(this string source, params string[] notContainStrings)
+        public static bool ContainsNotAnyOf(this string source, params string[] notContainStrings)
         {
             return !notContainStrings.Any(source.Contains);
         }
 
-        internal static bool EqualsAnyOf(this string source, params string[] notContainStrings)
+        public static bool EqualsAnyOf(this string source, params string[] notContainStrings)
         {
             return notContainStrings.Any(s => s.ToLower().EqualsTo(source));
         }
 
-        internal static string FirstCharToUpper(this string input)
+        public static string FirstCharToUpper(this string input)
         {
             switch (input)
             {
@@ -391,7 +391,7 @@ namespace Extensions
             }
         }
 
-        internal static string FirstCharToLower(this string input)
+        public static string FirstCharToLower(this string input)
         {
             switch (input)
             {
