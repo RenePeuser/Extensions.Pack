@@ -2,8 +2,6 @@ using System;
 
 namespace Extensions
 {
-    // Hint: With .Net 4.6 you dont need such extensions because
-    // the null propagator operator ?. will handle excactly the same
     public static class ActionExtensions
     {
         public static void NullableInvoke(this Action action)
