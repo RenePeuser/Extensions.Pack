@@ -13,6 +13,13 @@ namespace Extensions
     /// <summary>Extension class for <see cref="IEnumerable{T}" /> extensions.</summary>
     public static class EnumerableExtensions
     {
+        internal static IEnumerable<string> FilterNullOrWhitespace(this IEnumerable<string> source)
+        {
+            Throw.IfNull(() => source);
+
+            return source.Where(s => s.IsNotNullOrWhiteSpace());
+        }
+
         public static IEnumerable<TResult> AllTypesAre<TResult>(this IEnumerable source)
         {
             Throw.IfNull(() => source);
