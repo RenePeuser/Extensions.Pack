@@ -1,3 +1,18 @@
 # Extensions
 
-A set of useful extensions to make your code smooth and nice readable.
+```
+PRERELEASE !!!
+```
+
+A set of extensions for following namespaces:
+
+* System
+* System.Collections.Generic
+* System.Globalization
+* System.IO
+* System.Linq
+* System.Reflection
+* System.Xml
+
+
+
