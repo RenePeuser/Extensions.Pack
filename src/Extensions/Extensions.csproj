@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -20,6 +20,7 @@ System.IO
 System.Linq
 System.Reflection
 System.Xml</PackageReleaseNotes>
+    <PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
