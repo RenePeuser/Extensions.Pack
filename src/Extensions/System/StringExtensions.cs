@@ -367,5 +367,41 @@ namespace Extensions
 
             return !value.Contains(notExpected);
         }
+
+        internal static bool ContainsNotAnyOf(this string source, params string[] notContainStrings)
+        {
+            return !notContainStrings.Any(source.Contains);
+        }
+
+        internal static bool EqualsAnyOf(this string source, params string[] notContainStrings)
+        {
+            return notContainStrings.Any(s => s.ToLower().EqualsTo(source));
+        }
+
+        internal static string FirstCharToUpper(this string input)
+        {
+            switch (input)
+            {
+                case null:
+                    throw new ArgumentNullException(nameof(input));
+                case "":
+                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+                default:
+                    return input.First().ToString().ToUpper() + input.Substring(1);
+            }
+        }
+
+        internal static string FirstCharToLower(this string input)
+        {
+            switch (input)
+            {
+                case null:
+                    throw new ArgumentNullException(nameof(input));
+                case "":
+                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+                default:
+                    return input.First().ToString().ToLower() + input.Substring(1);
+            }
+        }
     }
 }

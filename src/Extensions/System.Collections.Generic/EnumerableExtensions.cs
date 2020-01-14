@@ -13,6 +13,34 @@ namespace Extensions
     /// <summary>Extension class for <see cref="IEnumerable{T}" /> extensions.</summary>
     public static class EnumerableExtensions
     {
+        internal static IEnumerable<TResult> AllTypesAre<TResult>(this IEnumerable source)
+        {
+            Throw.IfNull(() => source);
+
+            foreach (var item in source)
+            {
+                // Hint not use 'item is TResult', because here we want explicit type not the derived type !!!
+                if (item.GetType() == typeof(TResult))
+                {
+                    yield return (TResult)item;
+                }
+            }
+        }
+
+        internal static IEnumerable<TResult> AllTypesAreEqualsTo<TResult>(this IEnumerable source)
+        {
+            Throw.IfNull(() => source);
+
+            foreach (var item in source)
+            {
+                // Hint not use 'item is TResult', because here we want explicit type not the derived type !!!
+                if (item.GetType() == typeof(TResult))
+                {
+                    yield return (TResult)item;
+                }
+            }
+        }
+
         /// <summary>Filters out the objects that are <c>null</c> from an enumeration.</summary>
         /// <typeparam name="T">Generic type for the enumeration.</typeparam>
         /// <param name="source">The enumeration to be filtered.</param>
