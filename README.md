@@ -1,2 +1,3 @@
 # Extensions
-A package of many extensions which are useful for daily usage
+
+A set of useful extensions to make your code smooth and nice readable.

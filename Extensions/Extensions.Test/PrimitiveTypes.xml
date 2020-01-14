@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Entries>
-  <StringElement>Test</StringElement>
-  <IntElement>1</IntElement>
-  <DoubleElement>2.2</DoubleElement>
-  <DezimalElement>3.3</DezimalElement>
-  <FloatElement>4.4</FloatElement>
-</Entries>
-

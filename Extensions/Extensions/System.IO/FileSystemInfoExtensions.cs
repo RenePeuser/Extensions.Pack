@@ -1,0 +1,35 @@
+using System.IO;
+
+namespace Extensions
+{
+    public static class TcFileSystemInfoExtensions
+    {
+        public static string NameWithoutExtension(this FileSystemInfo fileSystemInfo)
+        {
+            Throw.IfNull(() => fileSystemInfo);
+
+            return fileSystemInfo.Name.Replace(fileSystemInfo.Extension, string.Empty);
+        }
+
+        public static bool NotExists(this FileSystemInfo fileSystemInfo)
+        {
+            Throw.IfNull(() => fileSystemInfo);
+
+            return fileSystemInfo.Exists.Negate();
+        }
+
+        public static bool IsFile(this FileSystemInfo fileSystemInfo)
+        {
+            Throw.IfNull(() => fileSystemInfo);
+
+            return fileSystemInfo is FileInfo;
+        }
+
+        public static bool IsDirectory(this FileSystemInfo fileSystemInfo)
+        {
+            Throw.IfNull(() => fileSystemInfo);
+
+            return fileSystemInfo is DirectoryInfo;
+        }
+    }
+}
