@@ -2,7 +2,7 @@ using System.IO;
 
 namespace Extensions
 {
-    public static class TcFileSystemInfoExtensions
+    public static class FileSystemInfoExtensions
     {
         public static string NameWithoutExtension(this FileSystemInfo fileSystemInfo)
         {

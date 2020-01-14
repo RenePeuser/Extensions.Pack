@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Extensions
 {
     /// <summary>Extension class for <see cref="Type" /> extensions.</summary>
-    public static class TcTypeExtensions
+    public static class TypeExtensions
     {
         private const BindingFlags EXPECTED_BINDING_FLAGS =
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;

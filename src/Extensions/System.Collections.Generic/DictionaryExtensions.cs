@@ -5,7 +5,7 @@ using System.Linq;
 namespace Extensions
 {
     /// <summary>Represents the extension methods for <see cref="Dictionary{TKey,TValue}" />.</summary>
-    public static class TcDictionaryExtensions
+    public static class DictionaryExtensions
     {
         /// <summary>Its the same method which use the dictionary class internally.</summary>
         /// <param name="dictionary">The source dictionary.</param>
@@ -133,7 +133,7 @@ namespace Extensions
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The custom default value.</param>
         /// <returns>The value of the expected key.</returns>
-        private static TcDictionaryResult<TKey> GetKeyOrDefaultInternal<TKey, TValue>(
+        private static DictionaryResult<TKey> GetKeyOrDefaultInternal<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TValue value,
             TKey defaultValue)
@@ -144,7 +144,7 @@ namespace Extensions
             var contains = dictionary.ContainsValue(value);
             var result = contains ? dictionary.First(item => item.Value.EqualsTo(value)).Key : defaultValue;
 
-            return new TcDictionaryResult<TKey>(result, contains);
+            return new DictionaryResult<TKey>(result, contains);
         }
 
         /// <summary>Its the same method which use the dictionary class internally.</summary>
@@ -154,7 +154,7 @@ namespace Extensions
         /// <param name="key">The key for which the expected value have to look for.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns>The value of the expected key.</returns>
-        private static TcDictionaryResult<TValue> GetValueOrDefaults<TKey, TValue>(
+        private static DictionaryResult<TValue> GetValueOrDefaults<TKey, TValue>(
             this IDictionary<TKey, TValue> dictionary,
             TKey key,
             TValue defaultValue)
@@ -170,17 +170,17 @@ namespace Extensions
                 result = defaultValue;
             }
 
-            return new TcDictionaryResult<TValue>(result, exists);
+            return new DictionaryResult<TValue>(result, exists);
         }
 
         /// <summary>Representing the generic dictionary result.</summary>
         /// <typeparam name="T">Generic type.</typeparam>
-        public class TcDictionaryResult<T>
+        public class DictionaryResult<T>
         {
             /// <summary>Initializes a new instance of the <see cref="TcDictionaryResult{T}" /> class.</summary>
             /// <param name="value">The value.</param>
             /// <param name="exists">If set to <c>true</c> [exists].</param>
-            internal TcDictionaryResult(T value, bool exists)
+            internal DictionaryResult(T value, bool exists)
             {
                 Value = value;
                 Exists = exists;

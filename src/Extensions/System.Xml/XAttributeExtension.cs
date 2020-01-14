@@ -4,7 +4,7 @@ using System.Xml.Linq;
 namespace Extensions
 {
     /// <summary>Represents the extensions fro the <see cref="XAttribute" /> class.</summary>
-    public static class TcXAttributeExtension
+    public static class XAttributeExtension
     {
         /// <summary>Converts the value of the <see cref="XAttribute" /> to <see cref="int" />.</summary>
         /// <param name="element">The element which contains the expected value.</param>

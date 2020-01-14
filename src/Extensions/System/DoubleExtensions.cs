@@ -3,7 +3,7 @@
 namespace Extensions
 {
     /// <summary>Represents extensions for types of <see cref="double" />.</summary>
-    public static class TcDoubleExtensions
+    public static class DoubleExtensions
     {
         /// <summary>Checks double for not a number.</summary>
         /// <param name="value">The value.</param>

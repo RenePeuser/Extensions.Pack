@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Extensions
 {
     /// <summary>Represents the extension methods for the <see cref="EventInfo" />.</summary>
-    public static class TcEventInfoExtensions
+    public static class EventInfoExtensions
     {
         /// <summary>The create delegate.</summary>
         /// <typeparam name="TSender">The generic type of the sender.</typeparam>

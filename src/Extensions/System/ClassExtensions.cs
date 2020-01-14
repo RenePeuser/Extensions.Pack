@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace Extensions
 {
     /// <summary>Represents the extension methods for the all generic types.</summary>
-    public static class TcClassExtensions
+    public static class ClassExtensions
     {
         /// <summary>Extract the name of a property, method and so on.</summary>
         /// <param name="source">The class from which the expected name have to be extracted.</param>

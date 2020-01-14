@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Extensions
 {
-    internal static class TcFuncFieldInfoExtractor
+    internal static class FuncFieldInfoExtractor
     {
         [DebuggerHidden]
         internal static FieldInfo GetFieldInfo<T>(this Func<T> func, Func<object, bool> predicate)

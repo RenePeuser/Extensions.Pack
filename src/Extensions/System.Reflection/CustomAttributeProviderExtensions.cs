@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Extensions
 {
     /// <summary>Extension methods for <see cref="ICustomAttributeProvider" />.</summary>
-    public static class TcCustomAttributeProviderExtensions
+    public static class CustomAttributeProviderExtensions
     {
         /// <summary>Get all attributes from a specific <see cref="ICustomAttributeProvider" />.</summary>
         /// <param name="customAttributeProvider">The <see cref="ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>

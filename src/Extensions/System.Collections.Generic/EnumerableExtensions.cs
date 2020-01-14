@@ -11,7 +11,7 @@ using System.Text;
 namespace Extensions
 {
     /// <summary>Extension class for <see cref="IEnumerable{T}" /> extensions.</summary>
-    public static class TcEnumerableExtensions
+    public static class EnumerableExtensions
     {
         /// <summary>Filters out the objects that are <c>null</c> from an enumeration.</summary>
         /// <typeparam name="T">Generic type for the enumeration.</typeparam>

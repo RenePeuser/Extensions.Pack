@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace Extensions
 {
     /// <summary>Represents the extensions fro the <see cref="XContainer" /> class.</summary>
-    public static class TcXContainerExtensions
+    public static class XContainerExtensions
     {
         /// <summary>Gets a specific enumeration of <see cref="XElement" /> from a specific <see cref="XElement" /> by its local name of type <see cref="TcLocalName" />.</summary>
         /// <param name="xContainer">The <see cref="XContainer" /> which contains the expected value.</param>

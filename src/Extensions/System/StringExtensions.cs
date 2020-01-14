@@ -7,7 +7,7 @@ using System.Text;
 namespace Extensions
 {
     /// <summary>Represents the extensions for the <see cref="string" /> class.</summary>
-    public static class TcStringExtensions
+    public static class StringExtensions
     {
         /// <summary>Checks if the source string is null or empty.</summary>
         /// <param name="source">The source.</param>

@@ -3,7 +3,7 @@
 namespace Extensions
 {
     /// <summary>The extension class for comparable types.</summary>
-    public static class TcComparableExtensions
+    public static class ComparableExtensions
     {
         /// <summary>Determines whether the source is equal to the specified target.</summary>
         /// <typeparam name="T">The generic comparable type.</typeparam>

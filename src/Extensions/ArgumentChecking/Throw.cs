@@ -341,14 +341,14 @@ namespace Extensions
         [DebuggerHidden]
         private static void IfEmpty(Func<string> argument)
         {
-            if (!TcEnumerableExtensions.IsEmpty(argument()))
+            if (!EnumerableExtensions.IsEmpty(argument()))
             {
                 return;
             }
 
             throw new ArgumentException(
                 "The string must not be empty.",
-                argument.GetParameterName(arg => arg.Is<string>() && TcEnumerableExtensions.IsEmpty(arg.Cast<string>())));
+                argument.GetParameterName(arg => arg.Is<string>() &&EnumerableExtensions.IsEmpty(arg.Cast<string>())));
         }
 
         [DebuggerHidden]

@@ -6,7 +6,7 @@ using System.Linq;
 namespace Extensions
 {
     /// <summary>Represents extensions for types of <see cref="Enum" />.</summary>
-    public static class TcEnumExtensions
+    public static class EnumExtensions
     {
         /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="System.Collections.Generic.List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>

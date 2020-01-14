@@ -8,7 +8,7 @@ using System.Text;
 namespace Extensions
 {
     /// <summary>Class for extensions of generic types.</summary>
-    public static class TcGenericTypeExtensions
+    public static class GenericTypeExtensions
     {
         /// <summary>The default tolerance used to distinguish between two different doubles. The value has proven to be sufficient.</summary>
         private const double DEFAULT_DOUBLE_TOLERANCE = 0.000001;

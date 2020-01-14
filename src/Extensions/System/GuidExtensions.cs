@@ -3,7 +3,7 @@ using System;
 namespace Extensions
 {
     /// <summary>Class for extensions of <see cref="Guid" />.</summary>
-    public static class TcGuidExtensions
+    public static class GuidExtensions
     {
         /// <summary>Determines whether this <see cref="Guid" /> is empty.</summary>
         /// <param name="guid">The <see cref="Guid" /> which have to be checked.</param>

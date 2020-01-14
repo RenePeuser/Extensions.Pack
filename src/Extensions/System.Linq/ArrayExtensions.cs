@@ -3,7 +3,7 @@ using System.Linq;
 namespace Extensions
 {
     /// <summary>The extension class for arrays.</summary>
-    public static class TcArrayExtensions
+    public static class ArrayExtensions
     {
         /// <summary>Checks an array if it contains any of the given values.</summary>
         /// <typeparam name="T">The generic type.</typeparam>

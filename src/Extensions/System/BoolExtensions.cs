@@ -3,7 +3,7 @@ using System;
 namespace Extensions
 {
     /// <summary>Provides extension methods for the <see cref="bool" /> type.</summary>
-    public static class TcBoolExtensions
+    public static class BoolExtensions
     {
         /// <summary>Converts a nullable boolean value into a value of <see cref="bool" /> type.</summary>
         /// <param name="value">The source nullable bool.</param>

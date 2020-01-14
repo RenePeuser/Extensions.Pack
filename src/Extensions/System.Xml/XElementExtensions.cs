@@ -5,7 +5,7 @@ using System.Xml.Linq;
 namespace Extensions
 {
     /// <summary>Represents the extensions fro the <see cref="XElement" /> class.</summary>
-    public static class TcXElementExtensions
+    public static class XElementExtensions
     {
         /// <summary>Converts the value of the <see cref="XElement" /> to <see cref="int" />.</summary>
         /// <param name="element">The element which contains the expected value.</param>

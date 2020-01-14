@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Extensions
 {
     /// <summary>The extension class for expressions.</summary>
-    public static class TcExpressionExtensions
+    public static class ExpressionExtensions
     {
         /// <summary>This method extract the property name of an expression.</summary>
         public static TResult GetValueOfExpression<TResult>(this Expression expression)

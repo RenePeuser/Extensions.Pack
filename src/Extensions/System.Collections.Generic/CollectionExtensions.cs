@@ -6,7 +6,7 @@ using System.Linq;
 namespace Extensions
 {
     /// <summary>Extension methods for ICollection.</summary>
-    public static class TcCollectionExtensions
+    public static class CollectionExtensions
     {
         /// <summary>Clears a collection and adds the given items to the collection.</summary>
         /// <typeparam name="T">The type of the collection items.</typeparam>

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Extensions
 {
     /// <summary>Represents the extensions for the <see cref="int" />.</summary>
-    public static class TcIntegerExtensions
+    public static class IntegerExtensions
     {
         /// <summary>Converts a nullable integer value into a value of <see cref="int" /> type.</summary>
         /// <param name="value">The value of the nullable <see cref="int" />.</param>

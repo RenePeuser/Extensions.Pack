@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Extensions
 {
     /// <summary>Represents the unit tests for the <see cref="MethodInfo" /> class.</summary>
-    public static class TcMethodInfoExtensions
+    public static class MethodInfoExtensions
     {
         /// <summary>Determines whether the method is an async method which returns a <see cref="Task" />.</summary>
         /// <param name="methodInfo">The method information.</param>

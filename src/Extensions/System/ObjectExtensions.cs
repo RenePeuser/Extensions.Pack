@@ -3,7 +3,7 @@
 namespace Extensions
 {
     /// <summary>Represents the extensions for the <see cref="object" />.</summary>
-    public static class TcObjectExtensions
+    public static class ObjectExtensions
     {
         /// <summary>Get all attributes from a specific object.</summary>
         /// <param name="source">The source object.</param>
@@ -15,7 +15,7 @@ namespace Extensions
         {
             Throw.IfNull(() => source);
 
-            return TcCustomAttributeProviderExtensions.GetCustomAttribute<T>(source.GetType(), inherit);
+            return CustomAttributeProviderExtensions.GetCustomAttribute<T>(source.GetType(), inherit);
         }
 
         /// <summary>Get all attributes from a specific object.</summary>
@@ -28,7 +28,7 @@ namespace Extensions
         {
             Throw.IfNull(() => source);
 
-            return TcCustomAttributeProviderExtensions.HasCustomAttribute<T>(source.GetType(), inherit);
+            return CustomAttributeProviderExtensions.HasCustomAttribute<T>(source.GetType(), inherit);
         }
 
         /// <summary>Checks it the object is decorated with immutable attribute with true.</summary>

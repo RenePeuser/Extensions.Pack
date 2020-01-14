@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Extensions
 {
-    public static class TcAssemblyExtensions
+    public static class AssemblyExtensions
     {
         public static string GetResourceAsString(this Assembly assembly, string resourceName)
         {

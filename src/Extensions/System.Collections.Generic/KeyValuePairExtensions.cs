@@ -8,7 +8,7 @@ using System.Linq;
 namespace Extensions
 {
     /// <summary>The key value pair extensions.</summary>
-    public static class TcKeyValuePairExtensions
+    public static class KeyValuePairExtensions
     {
         /// <summary>Converts an enumeration of key value pairs to a dictionary.</summary>
         /// <param name="keyValuePairs">The enumeration of key value pairs.</param>
