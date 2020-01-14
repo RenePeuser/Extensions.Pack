@@ -91,10 +91,17 @@ namespace Extensions
         /// <summary>Checks whether a source object is of a given type.</summary>
         /// <param name="source">The source object that has to be checked.</param>
         /// <typeparam name="T">The expected generic type.</typeparam>
-        /// <returns><c>T</c> of the safe casted object; otherwise <c>null</c>.</returns>
         public static bool Is<T>(this object source)
         {
             return source is T;
+        }
+
+        /// <summary>Checks whether a source object is not of a given type.</summary>
+        /// <param name="source">The source object that has to be checked.</param>
+        /// <typeparam name="T">The expected generic type.</typeparam>
+        internal static bool IsNot<T>(this object source)
+        {
+            return Is<T>(source).Negate();
         }
 
         /// <summary>Checks if an object is a specific type.</summary>
