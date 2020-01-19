@@ -31,7 +31,7 @@ steps:
     projects: './src/Extensions.Pack.sln'
     arguments: '--configuration $(buildConfiguration)'
 
-- script: dotnet pack ./src/Extensions/Extensions.Pack.csproj --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
+- script: dotnet pack ./src/Extensions.Pack/Extensions.Pack.csproj --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
   displayName: 'dotnet pack $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
