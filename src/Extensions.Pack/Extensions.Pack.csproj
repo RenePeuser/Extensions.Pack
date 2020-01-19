@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <Authors>Rene Peuser</Authors>
+    <Company>Rene Peuser Softwaresolutions</Company>
+    <Description>A set of useful extensions to make your code smooth and nice readable.</Description>
+    <Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
+    <RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
+    <PackageReleaseNotes>Prerelease !!
+
+A set of extensions for following namespaces:
+
+System
+System.Collections.Generic
+System.Globalization
+System.IO
+System.Linq
+System.Reflection
+System.Xml</PackageReleaseNotes>
+    <PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
+    <PackageId>Extensions.Pack</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DocumentationFile>D:\AzureDevOps\Extensions\src\Extensions\Extensions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

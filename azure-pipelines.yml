@@ -21,17 +21,17 @@ steps:
     runtime: 'core'
     updateAssemblyInfo: true
 
-- script: dotnet build --configuration $(buildConfiguration) ./src/Extensions.sln  /p:Version='$(GitVersion.NuGetVersion)'
+- script: dotnet build --configuration $(buildConfiguration) ./src/Extensions.Pack.sln  /p:Version='$(GitVersion.NuGetVersion)'
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
     command: 'test'
-    projects: './src/Extensions.sln'
+    projects: './src/Extensions.Pack.sln'
     arguments: '--configuration $(buildConfiguration)'
 
-- script: dotnet pack ./src/Extensions/Extensions.csproj --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
+- script: dotnet pack ./src/Extensions/Extensions.Pack.csproj --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
   displayName: 'dotnet pack $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
