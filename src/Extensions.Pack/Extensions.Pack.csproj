@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <Authors>Rene Peuser</Authors>
     <Company>Rene Peuser Softwaresolutions</Company>
@@ -22,6 +22,7 @@ System.Reflection
 System.Xml</PackageReleaseNotes>
     <PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
     <PackageId>Extensions.Pack</PackageId>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
