@@ -23,11 +23,11 @@ steps:
     packageType: sdk
     includePreviewVersions: true
 
-// - task: GitVersion@5
-//   displayName: git version
-//   inputs:
-//     runtime: 'core'
-//     updateAssemblyInfo: true
+ - task: GitVersion@5
+   displayName: git version
+   inputs:
+     runtime: 'core'
+     updateAssemblyInfo: true
 
 - script: dotnet build --configuration $(buildConfiguration) ./src/Extensions.Pack.sln  /p:Version='$(GitVersion.NuGetVersion)'
   displayName: 'dotnet build $(buildConfiguration)'
