@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
-    <Authors>Rene Peuser</Authors>
-    <Company>Rene Peuser Softwaresolutions</Company>
-    <Description>A set of useful extensions to make your code smooth and nice readable.</Description>
-    <Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
-    <RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
-    <PackageReleaseNotes>Prerelease !!
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+		<Authors>Rene Peuser</Authors>
+		<Company>Rene Peuser Softwaresolutions</Company>
+		<Description>A set of useful extensions to make your code smooth and nice readable.</Description>
+		<Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
+		<RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
+		<PackageReleaseNotes>
+Prerelease !!
 
 A set of extensions for following namespaces:
 
@@ -19,22 +19,30 @@ System.Globalization
 System.IO
 System.Linq
 System.Reflection
-System.Xml</PackageReleaseNotes>
-    <PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
-    <PackageId>Extensions.Pack</PackageId>
-    <OutputType>Library</OutputType>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
+System.Xml
+		</PackageReleaseNotes>
+		<PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
+		<PackageId>Extensions.Pack</PackageId>
+		<OutputType>Library</OutputType>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>D:\AzureDevOps\Extensions\src\Extensions\Extensions.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+		<DocumentationFile>D:\AzureDevOps\Extensions\src\Extensions\Extensions.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\License.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="GitVersionTask" Version="5.5.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
 
 </Project>
