@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 
 namespace Extensions.Pack
 {
@@ -25,7 +25,7 @@ namespace Extensions.Pack
         /// <returns>The array of original items, or empty array if original array was null.</returns>
         public static T[] GetNonNullArray<T>(this T[] array)
         {
-            return array ?? new T[] { };
+            return array ?? System.Array.Empty<T>();
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace Extensions.Pack
     /// <summary>Represents extensions for types of <see cref="Enum" />.</summary>
     public static class EnumExtensions
     {
-        /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="System.Collections.Generic.List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
+        /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <param name="ignoreTypes">The types which have to be ignored from the original type list.</param>
         /// <returns>The list with all fields of the generic enumeration type except the types which have to be ignored.</returns>
@@ -30,9 +30,7 @@ namespace Extensions.Pack
         public static T ToEnumOrDefault<T>(this string value)
             where T : struct, IComparable, IFormattable, IConvertible
         {
-            T result;
-
-            if (!Enum.TryParse(value, true, out result))
+            if (!Enum.TryParse(value, true, out T result))
             {
                 return default;
             }
@@ -49,9 +47,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => value);
 
-            T result;
-
-            if (!Enum.TryParse(value, true, out result))
+            if (!Enum.TryParse(value, true, out T result))
             {
                 throw new ArgumentException(
                     string.Format(
@@ -91,7 +87,7 @@ namespace Extensions.Pack
             return value.Cast<int>();
         }
 
-        /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="System.Collections.Generic.List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
+        /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <returns>The list with all fields of the generic enumeration type.</returns>
         public static List<T> GetEnumValuesOf<T>()
@@ -103,7 +99,7 @@ namespace Extensions.Pack
             return Enum.GetValues(typeof(T)).ToListOfType<T>();
         }
 
-        /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="System.Collections.Generic.List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
+        /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <param name="type">The enum type.</param>
         /// <returns>The list with all fields of the generic enumeration type.</returns>

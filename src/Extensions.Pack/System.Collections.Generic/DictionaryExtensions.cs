@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -162,8 +162,7 @@ namespace Extensions.Pack
             Throw.IfNull(() => dictionary);
             Throw.IfNull<object>(() => key);
 
-            TValue result;
-            var exists = dictionary.TryGetValue(key, out result);
+            var exists = dictionary.TryGetValue(key, out var result);
 
             if (!exists)
             {
@@ -175,9 +174,9 @@ namespace Extensions.Pack
 
         /// <summary>Representing the generic dictionary result.</summary>
         /// <typeparam name="T">Generic type.</typeparam>
-        public class DictionaryResult<T>
+        private class DictionaryResult<T>
         {
-            /// <summary>Initializes a new instance of the <see cref="TcDictionaryResult{T}" /> class.</summary>
+            /// <summary>Initializes a new instance of the <see cref="DictionaryResult{T}" /> class.</summary>
             /// <param name="value">The value.</param>
             /// <param name="exists">If set to <c>true</c> [exists].</param>
             internal DictionaryResult(T value, bool exists)
@@ -190,7 +189,7 @@ namespace Extensions.Pack
             /// <value>The value.</value>
             public T Value { get; }
 
-            /// <summary>Gets a value indicating whether this <see cref="TcDictionaryResult{T}" /> is exists.</summary>
+            /// <summary>Gets a value indicating whether this <see cref="DictionaryResult{T}" /> is exists.</summary>
             /// <value><c>true</c> if exists; otherwise, <c>false</c>.</value>
             public bool Exists { get; }
         }

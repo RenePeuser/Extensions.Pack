@@ -103,9 +103,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => value);
 
-            bool boolValue;
-
-            if (bool.TryParse(value, out boolValue))
+            if (bool.TryParse(value, out var boolValue))
             {
                 return boolValue;
             }
@@ -125,9 +123,7 @@ namespace Extensions.Pack
                 return false;
             }
 
-            bool boolValue;
-
-            return bool.TryParse(value, out boolValue) && boolValue;
+            return bool.TryParse(value, out var boolValue) && boolValue;
         }
 
         /// <summary>Determines string is not null, not empty and no whitespace.</summary>
@@ -187,8 +183,7 @@ namespace Extensions.Pack
         {
             Throw.IfNullOrWhiteSpace(() => source);
 
-            DateTime dateTime;
-            var result = DateTime.TryParse(source, dateTimeFormatInfo, dateTimeStyles, out dateTime);
+            var result = DateTime.TryParse(source, dateTimeFormatInfo, dateTimeStyles, out var dateTime);
 
             if (!result)
             {
@@ -375,33 +370,27 @@ namespace Extensions.Pack
 
         public static bool EqualsAnyOf(this string source, params string[] notContainStrings)
         {
-            return notContainStrings.Any(s => s.ToLower().EqualsTo(source));
+            return notContainStrings.Any(s => s.ToLower(CultureInfo.InvariantCulture).EqualsTo(source));
         }
 
         public static string FirstCharToUpper(this string input)
         {
-            switch (input)
+            return input switch
             {
-                case null:
-                    throw new ArgumentNullException(nameof(input));
-                case "":
-                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
-                default:
-                    return input.First().ToString().ToUpper() + input.Substring(1);
-            }
+                null => throw new ArgumentNullException(nameof(input)),
+                "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+                _ => $"{input.First().ToString(CultureInfo.InvariantCulture).ToUpper(CultureInfo.InvariantCulture)}{input[1..]}"
+            };
         }
 
         public static string FirstCharToLower(this string input)
         {
-            switch (input)
+            return input switch
             {
-                case null:
-                    throw new ArgumentNullException(nameof(input));
-                case "":
-                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
-                default:
-                    return input.First().ToString().ToLower() + input.Substring(1);
-            }
+                null => throw new ArgumentNullException(nameof(input)),
+                "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+                _ => input.First().ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) + input[1..]
+            };
         }
     }
 }

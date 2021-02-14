@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -61,7 +61,7 @@ namespace Extensions.Pack
             return element.To(defaultValue, Convert.ToString);
         }
 
-        /// <summary>Gets a specific <see cref="XAttribute" /> from a specific <see cref="XElement" /> by its attribute name of type <see cref="TcAttributeName" />.</summary>
+        /// <summary>Gets a specific <see cref="XAttribute" /> from a specific <see cref="XElement" /> by its attribute name.</summary>
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="attributeName">The attribute name of the expected attribute.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
@@ -70,7 +70,7 @@ namespace Extensions.Pack
             Throw.IfNull(() => element);
             Throw.IfNull(() => attributeName);
 
-            var attribute = element.Attributes().FirstOrDefault(a => a.Name.LocalName.Equals(attributeName));
+            var attribute = element.Attributes().FirstOrDefault(a => a.Name.LocalName.EqualsTo(attributeName));
 
             return attribute;
         }

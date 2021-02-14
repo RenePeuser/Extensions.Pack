@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -62,7 +62,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => methodInfo);
 
-            return methodInfo.InvokeGeneric(genericType, new object[] { });
+            return methodInfo.InvokeGeneric(genericType, Array.Empty<object>());
         }
 
         /// <summary>Gets the parameters of a method info as an enumeration of <see cref="ParameterExpression" />.</summary>

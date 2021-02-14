@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,25 +14,14 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => expression);
 
-            switch (expression)
+            return expression switch
             {
-                case MemberExpression memberExpression:
-
-                    return memberExpression.GetValueOfExpression<TResult>();
-                case ConstantExpression constantExpression:
-
-                    return constantExpression.GetValueOfExpression<TResult>();
-                case UnaryExpression unaryExpression:
-
-                    return unaryExpression.GetValueOfExpression<TResult>();
-                case MethodCallExpression methodCallExpression:
-
-                    return methodCallExpression.GetValueOfExpression<TResult>();
-
-                default:
-
-                    throw new InvalidOperationException("Unknown expression for extracting value");
-            }
+                MemberExpression memberExpression => memberExpression.GetValueOfExpression<TResult>(),
+                ConstantExpression constantExpression => constantExpression.GetValueOfExpression<TResult>(),
+                UnaryExpression unaryExpression => unaryExpression.GetValueOfExpression<TResult>(),
+                MethodCallExpression methodCallExpression => methodCallExpression.GetValueOfExpression<TResult>(),
+                _ => throw new InvalidOperationException("Unknown expression for extracting value")
+            };
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
@@ -46,18 +35,12 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => expression);
 
-            switch (expression)
+            return expression switch
             {
-                case MemberExpression memberExpression:
-
-                    return memberExpression.Member.Name;
-                case UnaryExpression unaryExpression:
-
-                    return unaryExpression.Operand.As<MemberExpression>()?.Member.Name;
-                default:
-
-                    return "Unknown";
-            }
+                MemberExpression memberExpression => memberExpression.Member.Name,
+                UnaryExpression unaryExpression => unaryExpression.Operand.As<MemberExpression>()?.Member.Name,
+                _ => "Unknown"
+            };
         }
 
         /// <summary>This method extract the type of the argument or return type of an method call expression.</summary>
@@ -65,21 +48,13 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => expression);
 
-            switch (expression)
+            return expression switch
             {
-                case MemberExpression memberExpression:
-
-                    return memberExpression.Member.As<FieldInfo>().FieldType;
-                case UnaryExpression unaryExpression:
-
-                    return unaryExpression.Operand.As<MemberExpression>()?.Member.As<FieldInfo>().FieldType;
-                case MethodCallExpression methodCallExpression:
-
-                    return methodCallExpression.Method.ReturnType;
-                default:
-
-                    return null;
-            }
+                MemberExpression memberExpression => memberExpression.Member.As<FieldInfo>().FieldType,
+                UnaryExpression unaryExpression => unaryExpression.Operand.As<MemberExpression>()?.Member.As<FieldInfo>().FieldType,
+                MethodCallExpression methodCallExpression => methodCallExpression.Method.ReturnType,
+                _ => null
+            };
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
@@ -87,7 +62,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(() => constantExpression);
 
-            return (TResult) constantExpression.Value;
+            return (TResult)constantExpression.Value;
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
@@ -126,7 +101,7 @@ namespace Extensions.Pack
 
             var result = fieldInfo.GetValue(constantExpression.Value);
 
-            return (TResult) result;
+            return (TResult)result;
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
@@ -208,7 +183,7 @@ namespace Extensions.Pack
 
             var result = fieldInfo.GetValue(constantExpression.Value);
 
-            return (T) result;
+            return (T)result;
         }
 
         /// <summary>Extracts the value of a specific member expression.</summary>
@@ -242,7 +217,7 @@ namespace Extensions.Pack
 
             var result = fieldInfo.GetValue(constantExpression.Value);
 
-            return (T) result;
+            return (T)result;
         }
 
         /// <summary>This is a generic extension to get the name of a property or method and so on.</summary>
