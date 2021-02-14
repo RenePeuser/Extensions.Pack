@@ -21,7 +21,7 @@ System.Xml
 
 Package was upgarded to Net5.0, if you want to use it in lower version take an earlier version.
 		</PackageReleaseNotes>
-		<PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
+		<PackageTags>C#;.Net;Net5;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
 		<PackageId>Extensions.Pack</PackageId>
 		<OutputType>Library</OutputType>
 		<LangVersion>latest</LangVersion>
