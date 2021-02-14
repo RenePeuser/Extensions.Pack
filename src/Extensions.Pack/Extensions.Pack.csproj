@@ -27,8 +27,12 @@ Package was upgarded to Net5.0, if you want to use it in lower version take an e
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-		<DocumentationFile>D:\AzureDevOps\Extensions\src\Extensions\Extensions.xml</DocumentationFile>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>..\..\Extensions.Pack.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>..\..\Extensions.Pack.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
