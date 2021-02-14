@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Extensions.Pack
 {
@@ -12,6 +14,8 @@ namespace Extensions.Pack
     {
         /// <summary>The default tolerance used to distinguish between two different doubles. The value has proven to be sufficient.</summary>
         private const double DEFAULT_DOUBLE_TOLERANCE = 0.000001;
+
+        private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter() } };
 
         /// <summary>Simplify the usage of the equality comparer to compare two objects.</summary>
         /// <typeparam name="T">The generic type of the objects which have to be compared.</typeparam>
@@ -325,6 +329,11 @@ namespace Extensions.Pack
             where T : struct
         {
             return !nullable.HasValue;
+        }
+
+        public static string ToJson<T>(this T source)
+        {
+            return JsonSerializer.Serialize(source, JsonSerializerOptions);
         }
     }
 }

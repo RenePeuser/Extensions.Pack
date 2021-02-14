@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Extensions.Pack
 {
@@ -115,6 +116,17 @@ namespace Extensions.Pack
             Throw.IfLessThan(() => upperLimit, lowerLimit);
 
             return !source.IsInRange(lowerLimit, upperLimit);
+        }
+
+        /// <summary>
+        /// Converts an <see cref="IComparable"/> to an <see cref="CultureInfo"/> invariant string
+        /// </summary>
+        /// <typeparam name="T">The type of your comparable.</typeparam>
+        /// <param name="comparable">The <see cref="IComparable"/>which has to be converted to an invariant string.</param>
+        /// <returns></returns>
+        public static string ToInvariantString<T>(this T comparable) where T : IComparable
+        {
+            return comparable.ToString();
         }
     }
 }
