@@ -9,8 +9,6 @@
 		<PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
 		<RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
 		<PackageReleaseNotes>
-Prerelease !!
-
 A set of extensions for following namespaces:
 
 System
@@ -20,6 +18,8 @@ System.IO
 System.Linq
 System.Reflection
 System.Xml
+
+Package was upgarded to Net5.0, if you want to use it in lower version take an earlier version.
 		</PackageReleaseNotes>
 		<PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
 		<PackageId>Extensions.Pack</PackageId>
