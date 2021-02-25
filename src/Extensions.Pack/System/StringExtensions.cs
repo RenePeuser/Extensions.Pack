@@ -421,18 +421,6 @@ namespace Extensions.Pack
             return defaultValue;
         }
 
-        public static string ToToad(this string sql, Dictionary<string, object> dynamicParameters)
-        {
-            var clearSql = sql;
-            foreach (var keyValuePair in dynamicParameters)
-            {
-                var paramValue = keyValuePair.Value;
-                clearSql = clearSql.Replace($"{keyValuePair.Key}", $"'{paramValue}'");
-            }
-
-            return clearSql;
-        }
-
         public static bool TryChangeType<T>(this string source, out T targetType)
         {
             if (source.TryChangeType(typeof(T), out var objectResult))
