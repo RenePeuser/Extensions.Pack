@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -24,11 +24,11 @@ namespace Extensions.Pack
             return dictionary;
         }
 
-        /// <summary>Returns a <see cref="System.String" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
+        /// <summary>Returns a <see cref="string" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
         /// <typeparam name="T">The generic type.</typeparam>
         /// <param name="compiledExpression">The compiled expression.</param>
         /// <param name="argument">The argument to invoke the function.</param>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public static string ToString<T>(this KeyValuePair<string, Func<T, object>> compiledExpression, T argument)
         {
             Throw.IfNull<object>(() => argument);

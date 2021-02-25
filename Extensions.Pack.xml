@@ -204,7 +204,7 @@
             <typeparam name="T">Generic type.</typeparam>
         </member>
         <member name="M:Extensions.Pack.DictionaryExtensions.DictionaryResult`1.#ctor(`0,System.Boolean)">
-            <summary>Initializes a new instance of the <see cref="!:TcDictionaryResult&lt;T&gt;" /> class.</summary>
+            <summary>Initializes a new instance of the <see cref="T:Extensions.Pack.DictionaryExtensions.DictionaryResult`1" /> class.</summary>
             <param name="value">The value.</param>
             <param name="exists">If set to <c>true</c> [exists].</param>
         </member>
@@ -213,7 +213,7 @@
             <value>The value.</value>
         </member>
         <member name="P:Extensions.Pack.DictionaryExtensions.DictionaryResult`1.Exists">
-            <summary>Gets a value indicating whether this <see cref="!:TcDictionaryResult&lt;T&gt;" /> is exists.</summary>
+            <summary>Gets a value indicating whether this <see cref="T:Extensions.Pack.DictionaryExtensions.DictionaryResult`1" /> is exists.</summary>
             <value><c>true</c> if exists; otherwise, <c>false</c>.</value>
         </member>
         <member name="T:Extensions.Pack.EnumerableExtensions">
@@ -947,31 +947,31 @@
             <summary>Represents the extensions fro the <see cref="T:System.Xml.Linq.XContainer" /> class.</summary>
         </member>
         <member name="M:Extensions.Pack.XContainerExtensions.ElementBy(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type.</summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="localName">The local name of the expected element.</param>
             <returns>A specific elements which expect the expected local name<see cref="T:System.Xml.Linq.XElement" />.</returns>
         </member>
         <member name="M:Extensions.Pack.XContainerExtensions.ElementsBy(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type.</summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="localName">The local name of the expected element.</param>
             <returns>A specific enumeration of elements which expect the expected local name<see cref="T:System.Xml.Linq.XElement" />.</returns>
         </member>
         <member name="M:Extensions.Pack.XContainerExtensions.ElementByAttribute(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>Gets a specific of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type.</summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="attributeName">The attribute name of the attribute element.</param>
             <returns>A specific element which expect the expected local name<see cref="T:System.Xml.Linq.XElement" />.</returns>
         </member>
         <member name="M:Extensions.Pack.XContainerExtensions.ElementsByAttribute(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type.</summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="attributeName">The attribute name of the attribute element.</param>
             <returns>A specific enumeration of elements which expect the expected attribute name<see cref="T:System.Xml.Linq.XElement" />.</returns>
         </member>
         <member name="M:Extensions.Pack.XContainerExtensions.ElementByAttribute(System.Xml.Linq.XContainer,System.String,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type.</summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="attributeName">Name of the attribute.</param>
             <param name="attributeValue">The attribute value.</param>
@@ -1017,7 +1017,7 @@
             <returns>The converted <see cref="T:System.String" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.Pack.XElementExtensions.AttributeBy(System.Xml.Linq.XElement,System.String)">
-            <summary>Gets a specific <see cref="T:System.Xml.Linq.XAttribute" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its attribute name of type <see cref="!:TcAttributeName" />.</summary>
+            <summary>Gets a specific <see cref="T:System.Xml.Linq.XAttribute" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its attribute name.</summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="attributeName">The attribute name of the expected attribute.</param>
             <returns>The converted <see cref="T:System.String" /> or the default value.</returns>
@@ -1349,12 +1349,12 @@
         </member>
         <member name="M:Extensions.Pack.GuidExtensions.IsEmpty(System.Guid)">
             <summary>Determines whether this <see cref="T:System.Guid" /> is empty.</summary>
-            <param name="guid">The <see cref="T:System.Guid" /> which have to be checked.</param>
+            <param name="guidValue">The <see cref="T:System.Guid" /> which have to be checked.</param>
             <returns><c>True</c>if the <see cref="T:System.Guid" /> is empty; otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Extensions.Pack.GuidExtensions.IsNotEmpty(System.Guid)">
             <summary>Determines whether this <see cref="T:System.Guid" /> is empty.</summary>
-            <param name="guid">The <see cref="T:System.Guid" /> which have to be checked.</param>
+            <param name="guidValue">The <see cref="T:System.Guid" /> which have to be checked.</param>
             <returns><c>True</c>if the <see cref="T:System.Guid" /> is not empty; otherwise <c>false</c>.</returns>
         </member>
         <member name="T:Extensions.Pack.IntegerExtensions">
