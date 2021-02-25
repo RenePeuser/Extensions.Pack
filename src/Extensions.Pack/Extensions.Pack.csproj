@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
 		<PackageLicenseFile>License.txt</PackageLicenseFile>
 		<Authors>Rene Peuser</Authors>
 		<Company>Rene Peuser Softwaresolutions</Company>
@@ -8,7 +10,7 @@
 		<Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
 		<PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
 		<RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
-		<PackageReleaseNotes>
+        <PackageReleaseNotes>
 A set of extensions for following namespaces:
 
 System
