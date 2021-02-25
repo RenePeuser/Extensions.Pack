@@ -909,6 +909,21 @@ namespace Extensions.Pack
             return stringBuilder.ToString();
         }
 
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunksize)
+        {
+            while (source.Any())
+            {
+                yield return source.Take(chunksize);
+                source = source.Skip(chunksize);
+            }
+        }
+
+        public static T SingleOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T defaultValue)
+        {
+            var result = source.SingleOrDefault(predicate);
+            return result.IsNull() ? defaultValue : result;
+        }
+
         /// <summary>Converts an <see cref="IEnumerable{T}" /> to a <see cref="StringCollection" />.</summary>
         /// <typeparam name="T">The generic type, which has to be created.</typeparam>
         /// <param name="source">The source enumeration.</param>

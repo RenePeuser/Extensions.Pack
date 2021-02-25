@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace Extensions.Pack
 {
+    public record InMemoryFileAsByte(byte[] FileContent, string Name);
+
+    public record EmbeddedFileStream(Stream Stream, string Name);
+
+    public record InMemoryFileAsStream(Stream FileStream, string FileName) : IAsyncDisposable
+    {
+        public ValueTask DisposeAsync()
+        {
+            return FileStream.DisposeAsync();
+        }
+    }
+
     public static class AssemblyExtensions
     {
-        [Obsolete("Use new method 'Task<string> GetEmbeddedFileAsStringAsync(this Assembly assembly, string embededResourceName)' instead.")]
-        public static string GetResourceAsString(this Assembly assembly, string resourceName)
-        {
-            Throw.IfNull(() => assembly);
-            Throw.IfNullOrEmpty(() => resourceName);
-
-            var resource = assembly.GetManifestResourceNames().FirstOrDefault(n => n.EqualsTo(resourceName));
-            Throw.If(() => resource, r => r.IsNull(), $"The resource: '{resourceName}' was not found in the assembly: '{assembly.GetName()}'");
-
-            using var stream = assembly.GetManifestResourceStream(resource);
-            using var streamReader = new StreamReader(stream);
-            return streamReader.ReadToEnd();
-        }
-
         public static async Task<string> GetEmbeddedFileAsStringAsync(this Assembly assembly, string embededResourceName)
         {
             var result = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
@@ -29,10 +27,38 @@ namespace Extensions.Pack
             return await streamReader.ReadToEndAsync().ConfigureAwait(false);
         }
 
+        public static Task<byte[]> GetEmbeddedFileAsByteArrayAsync(this Assembly assembly, string embededResourceName)
+        {
+            return assembly.GetFileAsByteArrayFromAsync(embededResourceName);
+        }
+
+        public static async Task<InMemoryFileAsByte> GetEmbeddedFileAsByteAsync(this Assembly assembly, string embededResourceName)
+        {
+            var bytes = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
+            return new InMemoryFileAsByte(bytes, embededResourceName);
+        }
+
+        public static EmbeddedFileStream GetEmbeddedFileStream(this Assembly assembly, string fileName)
+        {
+            var stream = assembly.GetEmbeddedFileAsStream(fileName);
+            return new EmbeddedFileStream(stream, fileName);
+        }
+
+        public static Stream GetEmbeddedFileAsStream(this Assembly assembly, string fileName)
+        {
+            var manifestResourceNames = assembly.GetManifestResourceNames();
+            var name = manifestResourceNames.FirstOrDefault(name => name.Contains(fileName));
+            if (name.IsNull())
+            {
+                throw new InvalidOperationException($"Unable to locate the file: '{fileName}'. The '{assembly.GetName()}', does not contains the requested embedded resource. Available are: '{manifestResourceNames.Flatten(";")}'");
+            }
+
+            return assembly.GetManifestResourceStream(name);
+        }
+
         private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly, string fileName)
         {
-            var name = assembly.GetManifestResourceNames().First(name => name.Contains(fileName));
-            await using var stream = assembly.GetManifestResourceStream(name);
+            await using var stream = assembly.GetEmbeddedFileAsStream(fileName);
             await using var ms = new MemoryStream();
             await stream!.CopyToAsync(ms).ConfigureAwait(false);
             return ms.ToArray();

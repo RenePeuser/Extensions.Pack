@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Extensions.Pack
 {
@@ -334,6 +336,42 @@ namespace Extensions.Pack
         public static string ToJson<T>(this T source)
         {
             return JsonSerializer.Serialize(source, JsonSerializerOptions);
+        }
+
+        public static Task<InMemoryFileAsStream> ToCsvAsync<T>(this IEnumerable<T> elements) where T : class
+        {
+            return Task.Run(() => elements.ToCsv(typeof(T).Name));
+        }
+
+        public static Task<InMemoryFileAsStream> ToCsvAsync<T>(this IEnumerable<T> elements, string fileName) where T : class
+        {
+            return Task.Run(() => elements.ToCsv(fileName));
+        }
+
+        public static InMemoryFileAsStream ToCsv<T>(this IEnumerable<T> elements) where T : class
+        {
+            return elements.ToCsv(typeof(T).Name);
+        }
+
+        public static InMemoryFileAsStream ToCsv<T>(this IEnumerable<T> elements, string fileName) where T : class
+        {
+            fileName = fileName.EndWith(".csv") ? fileName : $"{fileName}.csv";
+
+            var type = typeof(T);
+            var properties = type.GetProperties();
+            var stringBuilder = new StringBuilder();
+
+            // 1. Write header
+            stringBuilder.AppendLine(properties.Select(p => p.Name).Flatten(";"));
+
+            // 2. Write values
+            foreach (var element in elements)
+            {
+                stringBuilder.AppendLine(properties.Select(p => p.GetValue(element).ToString()).Flatten(";"));
+            }
+
+            var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(stringBuilder.ToString()));
+            return new InMemoryFileAsStream(memoryStream, fileName);
         }
     }
 }

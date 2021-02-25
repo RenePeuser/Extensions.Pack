@@ -125,5 +125,15 @@ namespace Extensions.Pack
 
             return type.GetField(name).GetCustomAttributes(false).OfType<T>().SingleOrDefault();
         }
+
+        public static bool IsDefined<T>(this T value) where T : Enum
+        {
+            return Enum.IsDefined(typeof(T), value);
+        }
+
+        public static bool IsUnDefined<T>(this T value) where T : Enum
+        {
+            return value.IsDefined().Negate();
+        }
     }
 }

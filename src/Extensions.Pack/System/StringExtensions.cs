@@ -392,5 +392,72 @@ namespace Extensions.Pack
                 _ => input.First().ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) + input[1..]
             };
         }
+
+        public static Uri ToUri(this string source)
+        {
+            return new Uri(source);
+        }
+
+        public static string BuildUriPathWith(this string basePath, params string[] pathSegments)
+        {
+            var normalizeBasPath = basePath.TrimEnd('/');
+            var normalizePathSegments = pathSegments.Select(segment => segment.TrimStart('/'));
+
+            return normalizeBasPath.Concat(normalizePathSegments).Flatten("/");
+        }
+
+        public static int ToIntOrDefault(this string value, int defaultValue = 0)
+        {
+            if (value.IsNullOrWhiteSpace())
+            {
+                return defaultValue;
+            }
+
+            if (int.TryParse(value, out var result))
+            {
+                return result;
+            }
+
+            return defaultValue;
+        }
+
+        public static string ToToad(this string sql, Dictionary<string, object> dynamicParameters)
+        {
+            var clearSql = sql;
+            foreach (var keyValuePair in dynamicParameters)
+            {
+                var paramValue = keyValuePair.Value;
+                clearSql = clearSql.Replace($"{keyValuePair.Key}", $"'{paramValue}'");
+            }
+
+            return clearSql;
+        }
+
+        public static bool TryChangeType<T>(this string source, out T targetType)
+        {
+            if (source.TryChangeType(typeof(T), out var objectResult))
+            {
+                targetType = objectResult.Cast<T>();
+                return true;
+            }
+
+            targetType = default;
+            return false;
+        }
+
+        public static bool TryChangeType(this string source, Type newType, out object targetType)
+        {
+            try
+            {
+                targetType = Convert.ChangeType(source, newType, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                targetType = null;
+                return false;
+            }
+
+            return true;
+        }
     }
 }

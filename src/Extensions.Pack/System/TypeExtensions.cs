@@ -11,8 +11,7 @@ namespace Extensions.Pack
     /// <summary>Extension class for <see cref="Type" /> extensions.</summary>
     public static class TypeExtensions
     {
-        private const BindingFlags EXPECTED_BINDING_FLAGS =
-            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+        private const BindingFlags EXPECTED_BINDING_FLAGS = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
         private static readonly IEnumerable<Type> sDictionaryGenericTypeDefinitions = new[] { typeof(IDictionary<,>), typeof(IReadOnlyDictionary<,>) };
 
