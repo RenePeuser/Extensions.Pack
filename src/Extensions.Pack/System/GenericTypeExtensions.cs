@@ -333,11 +333,6 @@ namespace Extensions.Pack
             return !nullable.HasValue;
         }
 
-        public static string ToJson<T>(this T source)
-        {
-            return JsonSerializer.Serialize(source, JsonSerializerOptions);
-        }
-
         public static Task<InMemoryFileAsStream> ToCsvAsync<T>(this IEnumerable<T> elements) where T : class
         {
             return Task.Run(() => elements.ToCsv(typeof(T).Name));
