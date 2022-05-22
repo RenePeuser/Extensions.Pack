@@ -58,10 +58,17 @@ namespace Extensions.Pack
 
         private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly, string fileName)
         {
-            await using var stream = assembly.GetEmbeddedFileAsStream(fileName);
-            await using var ms = new MemoryStream();
-            await stream!.CopyToAsync(ms).ConfigureAwait(false);
-            return ms.ToArray();
+
+            var stream = assembly.GetEmbeddedFileAsStream(fileName);
+            await using (stream.ConfigureAwait(false))
+            {
+                var ms = new MemoryStream();
+                await using (ms.ConfigureAwait(false))
+                {
+                    await stream!.CopyToAsync(ms).ConfigureAwait(false);
+                    return ms.ToArray();
+                }
+            }
         }
     }
 }

@@ -859,6 +859,22 @@
             <param name="actionHandler">The action handler.</param>
             <returns>The <see cref="T:System.Delegate" />.</returns>
         </member>
+        <member name="M:Extensions.Pack.InMemoryFileExtensions.ToMultipartFormDataContent(Extensions.Pack.InMemoryFileAsByte,System.String)">
+            <summary>
+            Creates a <see cref="T:System.Net.Http.MultipartFormDataContent"/> from an <see cref="T:Extensions.Pack.InMemoryFileAsByte"/>. 
+            </summary>
+            <param name="source">The <see cref="T:System.Net.Http.MultipartFormDataContent"/></param>
+            <param name="controllerParameterName">This has to be the parameter name of your controller method !!!</param>
+            <returns></returns>
+        </member>
+        <member name="M:Extensions.Pack.InMemoryFileExtensions.ToMultipartFormDataContent(Extensions.Pack.InMemoryFileAsStream,System.String)">
+            <summary>
+            Creates a <see cref="T:System.Net.Http.MultipartFormDataContent"/> from an <see cref="T:Extensions.Pack.InMemoryFileAsStream"/>. 
+            </summary>
+            <param name="source">The <see cref="T:System.Net.Http.MultipartFormDataContent"/></param>
+            <param name="controllerParameterName">This has to be the parameter name of your controller method !!!</param>
+            <returns></returns>
+        </member>
         <member name="T:Extensions.Pack.MethodInfoExtensions">
             <summary>Represents the unit tests for the <see cref="T:System.Reflection.MethodInfo" /> class.</summary>
         </member>
