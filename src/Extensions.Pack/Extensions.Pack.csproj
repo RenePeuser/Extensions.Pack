@@ -1,8 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+
+    <!-- Common settings !-->
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisLevel>latest</AnalysisLevel>
+        <!--<Nullable>enable</Nullable>-->
+    </PropertyGroup>
+
+    <PropertyGroup>
 		<PackageLicenseFile>License.txt</PackageLicenseFile>
 		<Authors>Rene Peuser</Authors>
 		<Company>Rene Peuser Softwaresolutions</Company>

@@ -14,17 +14,17 @@ namespace Extensions.Pack
 
         public static string ToJson<T>(this T source, JsonConverter customConverter)
         {
-            return JsonSerializer.Serialize(source, new() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+            return JsonSerializer.Serialize(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
         }
 
-        public static T? FromJson<T>(this string source)
+        public static T FromJson<T>(this string source)
         {
             return JsonSerializer.Deserialize<T>(source, JsonSerializerOptions);
         }
 
-        public static T? FromJson<T>(this string source, JsonConverter customConverter)
+        public static T FromJson<T>(this string source, JsonConverter customConverter)
         {
-            return JsonSerializer.Deserialize<T>(source, new() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+            return JsonSerializer.Deserialize<T>(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
         }
     }
 }

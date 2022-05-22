@@ -12,9 +12,10 @@ namespace Extensions.Pack
 
     public record InMemoryFileAsStream(Stream FileStream, string FileName) : IAsyncDisposable
     {
-        public ValueTask DisposeAsync()
+        public async ValueTask DisposeAsync()
         {
-            return FileStream.DisposeAsync();
+            await FileStream.DisposeAsync().ConfigureAwait(false);
+            GC.SuppressFinalize(this);
         }
     }
 
