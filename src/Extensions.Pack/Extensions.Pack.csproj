@@ -52,7 +52,7 @@ Package was upgraded to Net6.0, if you want to use it in lower version take an e
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="GitVersion.MsBuild" Version="5.6.6">
+	  <PackageReference Include="GitVersion.MsBuild" Version="5.10.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
