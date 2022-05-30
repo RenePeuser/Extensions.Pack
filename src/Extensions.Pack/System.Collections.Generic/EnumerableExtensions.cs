@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
@@ -909,12 +910,17 @@ namespace Extensions.Pack
             return stringBuilder.ToString();
         }
 
-        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunksize)
+        public static IImmutableList<IImmutableList<T>> ChunkImmutable<T>(this IEnumerable<T> source, int chunksize)
         {
-            while (source.Any())
+            return Chunk(source, chunksize).ToImmutableList();
+
+            static IEnumerable<IImmutableList<T>> Chunk(IEnumerable<T> source, int chunksize)
             {
-                yield return source.Take(chunksize);
-                source = source.Skip(chunksize);
+                while (source.Any())
+                {
+                    yield return source.Take(chunksize).ToImmutableList();
+                    source = source.Skip(chunksize);
+                }
             }
         }
 
