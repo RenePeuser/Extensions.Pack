@@ -24,24 +24,12 @@ namespace Extensions.Pack
 
     public static class AssemblyExtensions
     {
-        public static async Task<InMemoryFileAsString> GetEmbeddedFileAsync(this Assembly assembly, string embededResourceName)
+        public static async Task<InMemoryFileAsString> GetEmbeddedFileAsStringAsync(this Assembly assembly, string embededResourceName)
         {
             var result = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
             using var streamReader = new StreamReader(new MemoryStream(result));
             var stringContent = await streamReader.ReadToEndAsync().ConfigureAwait(false);
             return new InMemoryFileAsString(stringContent, embededResourceName);
-        }
-
-        public static async Task<string> GetEmbeddedFileAsStringAsync(this Assembly assembly, string embededResourceName)
-        {
-            var result = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
-            using var streamReader = new StreamReader(new MemoryStream(result));
-            return await streamReader.ReadToEndAsync().ConfigureAwait(false);
-        }
-
-        public static Task<byte[]> GetEmbeddedFileAsByteArrayAsync(this Assembly assembly, string embededResourceName)
-        {
-            return assembly.GetFileAsByteArrayFromAsync(embededResourceName);
         }
 
         public static async Task<InMemoryFileAsByte> GetEmbeddedFileAsByteAsync(this Assembly assembly, string embededResourceName)
