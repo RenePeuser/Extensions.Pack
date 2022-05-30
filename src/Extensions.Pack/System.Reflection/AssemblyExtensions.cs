@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Extensions.Pack
 {
-    public record InMemoryFileAsByte(byte[] FileContent, string Name);
+    public record InMemoryFileAsByteArray(byte[] FileContent, string Name);
 
     public record InMemoryFileAsString(string FileContent, string Name);
 
@@ -32,10 +32,10 @@ namespace Extensions.Pack
             return new InMemoryFileAsString(stringContent, embededResourceName);
         }
 
-        public static async Task<InMemoryFileAsByte> GetEmbeddedFileAsByteAsync(this Assembly assembly, string embededResourceName)
+        public static async Task<InMemoryFileAsByteArray> GetEmbeddedFileAsByteArrayAsync(this Assembly assembly, string embededResourceName)
         {
             var bytes = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
-            return new InMemoryFileAsByte(bytes, embededResourceName);
+            return new InMemoryFileAsByteArray(bytes, embededResourceName);
         }
 
         public static EmbeddedFileStream GetEmbeddedFileStream(this Assembly assembly, string fileName)
