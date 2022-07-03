@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -14,8 +15,8 @@ namespace Extensions.Pack
         public static bool IsEqualTo<T>(this T source, T target)
             where T : IComparable
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull<object>(() => target);
+            Throw.IfNull<object>(source);
+            Throw.IfNull<object>(target);
 
             return source.CompareTo(target) == 0;
         }
@@ -28,8 +29,8 @@ namespace Extensions.Pack
         public static bool IsLessThan<T>(this T source, T target)
             where T : IComparable
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull<object>(() => target);
+            Throw.IfNull<object>(source);
+            Throw.IfNull<object>(target);
 
             return source.CompareTo(target) < 0;
         }
@@ -42,8 +43,8 @@ namespace Extensions.Pack
         public static bool IsLessOrEqual<T>(this T source, T target)
             where T : IComparable
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull<object>(() => target);
+            Throw.IfNull<object>(source);
+            Throw.IfNull<object>(target);
 
             return !source.IsGreaterThan(target);
         }
@@ -56,8 +57,8 @@ namespace Extensions.Pack
         public static bool IsGreaterThan<T>(this T source, T target)
             where T : IComparable
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull<object>(() => target);
+            Throw.IfNull<object>(source);
+            Throw.IfNull<object>(target);
 
             return source.CompareTo(target) > 0;
         }
@@ -70,8 +71,8 @@ namespace Extensions.Pack
         public static bool IsGreaterOrEqual<T>(this T source, T target)
             where T : IComparable
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull<object>(() => target);
+            Throw.IfNull<object>(source);
+            Throw.IfNull<object>(target);
 
             return !source.IsLessThan(target);
         }
@@ -85,7 +86,7 @@ namespace Extensions.Pack
         public static bool IsInRange<T>(this T source, T lowerLimit, T upperLimit)
             where T : IComparable
         {
-            Throw.IfLessThan(() => upperLimit, lowerLimit);
+            Throw.IfLessThan(upperLimit, lowerLimit);
 
             return source.IsLessOrEqual(upperLimit) && source.IsGreaterOrEqual(lowerLimit);
         }
@@ -99,7 +100,7 @@ namespace Extensions.Pack
         public static bool IsInRangeExcluding<T>(this T source, T lowerLimit, T upperLimit)
             where T : IComparable
         {
-            Throw.IfLessOrEqual(() => upperLimit, lowerLimit);
+            Throw.IfLessOrEqual(upperLimit, lowerLimit);
 
             return source.IsLessThan(upperLimit) && source.IsGreaterThan(lowerLimit);
         }
@@ -113,7 +114,7 @@ namespace Extensions.Pack
         public static bool IsOutOfRange<T>(this T source, T lowerLimit, T upperLimit)
             where T : IComparable
         {
-            Throw.IfLessThan(() => upperLimit, lowerLimit);
+            Throw.IfLessThan(upperLimit, lowerLimit);
 
             return !source.IsInRange(lowerLimit, upperLimit);
         }
@@ -126,7 +127,9 @@ namespace Extensions.Pack
         /// <returns></returns>
         public static string ToInvariantString<T>(this T comparable) where T : IComparable
         {
-            return comparable.ToString();
+            Throw.IfNull<object>(comparable);
+
+            return comparable.ToString()!;
         }
     }
 }

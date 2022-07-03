@@ -5,9 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -17,14 +16,12 @@ namespace Extensions.Pack
         /// <summary>The default tolerance used to distinguish between two different doubles. The value has proven to be sufficient.</summary>
         private const double DEFAULT_DOUBLE_TOLERANCE = 0.000001;
 
-        private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter() } };
-
         /// <summary>Simplify the usage of the equality comparer to compare two objects.</summary>
         /// <typeparam name="T">The generic type of the objects which have to be compared.</typeparam>
         /// <param name="source">The source object to compare.</param>
         /// <param name="target">The target object to compare.</param>
         /// <returns><c>true</c> if the objects are equal; otherwise <c>false</c>.</returns>
-        public static bool EqualsTo<T>(this T source, T target)
+        public static bool EqualsTo<T>(this T? source, T? target)
         {
             return EqualityComparer<T>.Default.Equals(source, target);
         }
@@ -72,7 +69,7 @@ namespace Extensions.Pack
         /// <param name="source">The source object to compare.</param>
         /// <param name="target">The target object to compare.</param>
         /// <returns><c>false</c> if the objects are equal; otherwise <c>true</c>.</returns>
-        public static bool NotEqualsTo<T>(this T source, T target)
+        public static bool NotEqualsTo<T>(this T? source, T? target)
         {
             return !source.EqualsTo(target);
         }
@@ -130,7 +127,7 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T IfNotNullThen<T>(this T source, Func<T, Action> action)
+        public static T? IfNotNullThen<T>(this T? source, Func<T, Action> action)
             where T : class
         {
             if (source == null)
@@ -138,7 +135,7 @@ namespace Extensions.Pack
                 return null;
             }
 
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             action(source)();
 
@@ -150,15 +147,15 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T IfNotNullThen<T>(this T source, Action action)
+        public static T? IfNotNullThen<T>(this T? source, Action action)
             where T : class
         {
-            if (source == null)
+            if (source is null)
             {
-                return null;
+                return default;
             }
 
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             action();
 
@@ -170,7 +167,7 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T IfNotNullThen<T>(this T source, Action<T> action)
+        public static T? IfNotNullThen<T>(this T? source, Action<T> action)
             where T : class
         {
             if (source == null)
@@ -178,7 +175,7 @@ namespace Extensions.Pack
                 return null;
             }
 
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             action(source);
 
@@ -190,7 +187,7 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T IfNullThen<T>(this T source, Func<T, Action> action)
+        public static T? IfNullThen<T>(this T? source, Func<T, Action> action)
             where T : class
         {
             if (source != null)
@@ -198,9 +195,9 @@ namespace Extensions.Pack
                 return source;
             }
 
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
-            action(null)();
+            action(null!)();
 
             return null;
         }
@@ -210,7 +207,7 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T IfNullThen<T>(this T source, Action action)
+        public static T? IfNullThen<T>(this T? source, Action action)
             where T : class
         {
             if (source != null)
@@ -218,7 +215,7 @@ namespace Extensions.Pack
                 return source;
             }
 
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             action();
 
@@ -234,9 +231,9 @@ namespace Extensions.Pack
         public static string ToString<T>(this T source, string title, params Expression<Func<T, object>>[] infoSelector)
             where T : class
         {
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => title);
-            Throw.IfNull(() => infoSelector);
+            Throw.IfNull(source);
+            Throw.IfNull(title);
+            Throw.IfNull(infoSelector);
 
             var compiledExpressions = infoSelector.ToCompiledExpressionWithInfo();
             var stringBuilder = new StringBuilder();
@@ -254,8 +251,8 @@ namespace Extensions.Pack
         public static string ToString<T>(this T source, params Expression<Func<T, object>>[] infoSelector)
             where T : class
         {
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => infoSelector);
+            Throw.IfNull(source);
+            Throw.IfNull(infoSelector);
 
             var compiledExpressions = infoSelector.ToCompiledExpressionWithInfo();
             var stringBuilder = new StringBuilder();
@@ -272,8 +269,8 @@ namespace Extensions.Pack
         /// <returns>A string which was prepared by the info selector.</returns>
         public static string ToString<T>(this T source, Dictionary<string, Func<T, object>> compiledExpressions)
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull(() => compiledExpressions);
+            Throw.IfNull<object>(source);
+            Throw.IfNull(compiledExpressions);
 
             var stringBuilder = new StringBuilder();
             compiledExpressions.ForEach(item => stringBuilder.Append(item.ToString(source)));
@@ -288,7 +285,7 @@ namespace Extensions.Pack
         /// <returns>The created enumeration of the specific type with the specific expected count of items.</returns>
         public static IEnumerable<T> Repeat<T>(this T source, int count)
         {
-            Throw.IfLessThan(() => count, 0);
+            Throw.IfLessThan(count, 0);
 
             return Enumerable.Repeat(source, count);
         }
@@ -300,7 +297,7 @@ namespace Extensions.Pack
         public static int ToInt<T>(this T source)
             where T : IConvertible
         {
-            Throw.IfNull<object>(() => source);
+            Throw.IfNull<object>(source);
 
             return Convert.ToInt32(source, CultureInfo.InvariantCulture);
         }
@@ -312,8 +309,8 @@ namespace Extensions.Pack
         /// <returns>The concatenated enumeration.</returns>
         public static IEnumerable<T> Concat<T>(this T source, IEnumerable<T> items)
         {
-            Throw.IfNull<object>(() => source);
-            Throw.IfNull(() => items);
+            Throw.IfNull<object>(source);
+            Throw.IfNull(items);
 
             yield return source;
 
@@ -362,7 +359,7 @@ namespace Extensions.Pack
             // 2. Write values
             foreach (var element in elements)
             {
-                stringBuilder.AppendLine(properties.Select(p => p.GetValue(element).ToString()).Flatten(";"));
+                stringBuilder.AppendLine(properties.Select(p => p.GetValue(element)!.ToString()!).Flatten(";"));
             }
 
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(stringBuilder.ToString()));

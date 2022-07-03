@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -10,9 +11,9 @@ namespace Extensions.Pack
     public static class ExpressionExtensions
     {
         /// <summary>This method extract the property name of an expression.</summary>
-        public static TResult GetValueOfExpression<TResult>(this Expression expression)
+        public static TResult? GetValueOfExpression<TResult>(this Expression expression)
         {
-            Throw.IfNull(() => expression);
+            Throw.IfNull(expression);
 
             return expression switch
             {
@@ -25,15 +26,15 @@ namespace Extensions.Pack
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
-        public static TResult GetValueOfExpression<TResult>(this MethodCallExpression methodCallExpression)
+        public static TResult? GetValueOfExpression<TResult>(this MethodCallExpression methodCallExpression)
         {
             return Expression.Lambda(methodCallExpression).Compile().DynamicInvoke().As<TResult>();
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
-        public static string GetNameOfExpression(this Expression expression)
+        public static string? GetNameOfExpression(this Expression expression)
         {
-            Throw.IfNull(() => expression);
+            Throw.IfNull(expression);
 
             return expression switch
             {
@@ -44,35 +45,35 @@ namespace Extensions.Pack
         }
 
         /// <summary>This method extract the type of the argument or return type of an method call expression.</summary>
-        public static Type GetTypeOfExpression(this Expression expression)
+        public static Type? GetTypeOfExpression(this Expression expression)
         {
-            Throw.IfNull(() => expression);
+            Throw.IfNull(expression);
 
             return expression switch
             {
-                MemberExpression memberExpression => memberExpression.Member.As<FieldInfo>().FieldType,
-                UnaryExpression unaryExpression => unaryExpression.Operand.As<MemberExpression>()?.Member.As<FieldInfo>().FieldType,
+                MemberExpression memberExpression => memberExpression.Member.Cast<FieldInfo>().FieldType,
+                UnaryExpression unaryExpression => unaryExpression.Operand.As<MemberExpression>()?.Member.Cast<FieldInfo>().FieldType,
                 MethodCallExpression methodCallExpression => methodCallExpression.Method.ReturnType,
                 _ => null
             };
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
-        public static TResult GetValueOfExpression<TResult>(this ConstantExpression constantExpression)
+        public static TResult? GetValueOfExpression<TResult>(this ConstantExpression constantExpression)
         {
-            Throw.IfNull(() => constantExpression);
+            Throw.IfNull(constantExpression);
 
-            return (TResult)constantExpression.Value;
+            return constantExpression.Value.As<TResult>();
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
-        public static TResult GetValueOfExpression<TResult>(this UnaryExpression unaryExpression)
+        public static TResult? GetValueOfExpression<TResult>(this UnaryExpression unaryExpression)
         {
-            Throw.IfNull(() => unaryExpression);
+            Throw.IfNull(unaryExpression);
 
             var memberExpression = unaryExpression.Operand.As<MemberExpression>();
 
-            if (memberExpression != null)
+            if (memberExpression.IsNotNull())
             {
                 return memberExpression.GetValueOfExpression<TResult>();
             }
@@ -81,9 +82,9 @@ namespace Extensions.Pack
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
-        public static TResult GetValueOfExpression<TResult>(this MemberExpression memberExpression)
+        public static TResult? GetValueOfExpression<TResult>(this MemberExpression memberExpression)
         {
-            Throw.IfNull(() => memberExpression);
+            Throw.IfNull(memberExpression);
 
             var constantExpression = memberExpression.Expression.As<ConstantExpression>();
 
@@ -101,7 +102,7 @@ namespace Extensions.Pack
 
             var result = fieldInfo.GetValue(constantExpression.Value);
 
-            return (TResult)result;
+            return result.As<TResult>();
         }
 
         /// <summary>This method extract the property name of an expression.</summary>
@@ -110,7 +111,7 @@ namespace Extensions.Pack
         /// <returns>The name of the expected property.</returns>
         public static string ExtractPropertyName<T>(this Expression<Func<T>> propertyExpression)
         {
-            Throw.IfNull(() => propertyExpression);
+            Throw.IfNull(propertyExpression);
 
             var memberExpression = propertyExpression.Body.As<MemberExpression>();
 
@@ -126,7 +127,10 @@ namespace Extensions.Pack
                 throw new ArgumentException("Member of member expression is not a property info", nameof(propertyExpression));
             }
 
-            if (propertyInfo.GetGetMethod(true).IsStatic)
+            var methodInfo = propertyInfo.GetGetMethod(true);
+            Throw.IfNull(methodInfo);
+
+            if (methodInfo.IsStatic)
             {
                 throw new ArgumentException("Gets the accessors of the property info is static", nameof(propertyExpression));
             }
@@ -138,9 +142,9 @@ namespace Extensions.Pack
         /// <typeparam name="T">The generic type of the expected value.</typeparam>
         /// <param name="argumentExpression">The argument expression.</param>
         /// <returns>T.</returns>
-        public static T GetMethod<T>(this Expression<T> argumentExpression)
+        public static T? GetMethod<T>(this Expression<T> argumentExpression)
         {
-            Throw.IfNull(() => argumentExpression);
+            Throw.IfNull(argumentExpression);
 
             var methodCallExpression = argumentExpression.Body.As<MethodCallExpression>();
 
@@ -156,9 +160,9 @@ namespace Extensions.Pack
         /// <typeparam name="T">The generic type of the expected value.</typeparam>
         /// <param name="argumentExpression">The argument expression.</param>
         /// <returns>T.</returns>
-        public static T GetMemberValue<T>(this Expression<Func<T>> argumentExpression)
+        public static T? GetMemberValue<T>(this Expression<Func<T>> argumentExpression)
         {
-            Throw.IfNull(() => argumentExpression);
+            Throw.IfNull(argumentExpression);
 
             var memberExpression = argumentExpression.Body.As<MemberExpression>();
 
@@ -183,16 +187,16 @@ namespace Extensions.Pack
 
             var result = fieldInfo.GetValue(constantExpression.Value);
 
-            return (T)result;
+            return result.As<T>();
         }
 
         /// <summary>Extracts the value of a specific member expression.</summary>
         /// <typeparam name="T">The generic type of the expected value.</typeparam>
         /// <param name="argumentExpression">The argument expression.</param>
         /// <returns>T.</returns>
-        public static T GetMemberValue<T>(this Expression<T> argumentExpression)
+        public static T? GetMemberValue<T>(this Expression<T> argumentExpression)
         {
-            Throw.IfNull(() => argumentExpression);
+            Throw.IfNull(argumentExpression);
 
             var memberExpression = argumentExpression.Body.As<MemberExpression>();
 
@@ -217,7 +221,7 @@ namespace Extensions.Pack
 
             var result = fieldInfo.GetValue(constantExpression.Value);
 
-            return (T)result;
+            return result.As<T>();
         }
 
         /// <summary>This is a generic extension to get the name of a property or method and so on.</summary>
@@ -225,7 +229,7 @@ namespace Extensions.Pack
         /// <returns>The name of the expected property method and so on.</returns>
         public static string NameOf(this Expression expression)
         {
-            Throw.IfNull(() => expression);
+            Throw.IfNull(expression);
 
             var lambdaExpression = expression.As<LambdaExpression>();
 
@@ -234,8 +238,7 @@ namespace Extensions.Pack
                 throw new ArgumentException("Expression is not a LambdaExpression");
             }
 
-            string name = null;
-
+            var name = "n.A";
             var memberExpression = lambdaExpression.Body.As<MemberExpression>();
 
             if (memberExpression != null)
@@ -276,7 +279,7 @@ namespace Extensions.Pack
         /// <returns>A dictionary which contains as key the right hand operand name and as value the compiled expression.</returns>
         public static Dictionary<string, Func<T, object>> ToCompiledExpressionWithInfo<T>(this Expression<Func<T, object>>[] expressions)
         {
-            Throw.IfNull(() => expressions);
+            Throw.IfNull(expressions);
 
             var result = expressions.ToDictionary(item => item.NameOf(), item => item.Compile());
 

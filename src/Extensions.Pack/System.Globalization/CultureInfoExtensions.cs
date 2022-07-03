@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -7,7 +8,7 @@ namespace Extensions.Pack
     {
         public static IEnumerable<string> GetDesignators(this CultureInfo cultureInfo)
         {
-            Throw.IfNull(() => cultureInfo);
+            Throw.IfNull(cultureInfo);
 
             var dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
 

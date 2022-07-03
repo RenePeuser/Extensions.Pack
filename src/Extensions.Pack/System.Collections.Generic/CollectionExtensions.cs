@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -14,8 +15,8 @@ namespace Extensions.Pack
         /// <param name="items">The items to add to the collection.</param>
         public static void ClearAndAddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => items);
+            Throw.IfNull(collection);
+            Throw.IfNull(items);
 
             collection.Clear();
             collection.AddRange(items);
@@ -27,8 +28,8 @@ namespace Extensions.Pack
         /// <param name="items">The items to add to the collection.</param>
         public static void ClearAndAddRange<T>(this ICollection<T> collection, params T[] items)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => items);
+            Throw.IfNull(collection);
+            Throw.IfNull(items);
 
             collection.Clear();
             collection.AddRange(items);
@@ -40,8 +41,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => items);
+            Throw.IfNull(collection);
+            Throw.IfNull(items);
 
             items.ToList().ForEach(collection.Add);
         }
@@ -52,8 +53,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         public static void AddRange<T>(this ICollection<T> collection, params T[] items)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => items);
+            Throw.IfNull(collection);
+            Throw.IfNull(items);
 
             items.ForEach(collection.Add);
         }
@@ -64,8 +65,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => items);
+            Throw.IfNull(collection);
+            Throw.IfNull(items);
 
             items.ToList().ForEach(item => collection.Remove(item));
         }
@@ -76,8 +77,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         public static void RemoveRange<T>(this ICollection<T> collection, Func<T, bool> selector)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => selector);
+            Throw.IfNull(collection);
+            Throw.IfNull(selector);
 
             var itemsToRemove = collection.Where(selector).ToList();
             collection.RemoveRange(itemsToRemove);
@@ -89,8 +90,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         public static void RemoveAll<T>(this ICollection<T> collection, Func<T, bool> predicate)
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => predicate);
+            Throw.IfNull(collection);
+            Throw.IfNull(predicate);
 
             var itemsToRemove = collection.Where(predicate).ToList();
             collection.RemoveRange(itemsToRemove);
@@ -103,8 +104,8 @@ namespace Extensions.Pack
         public static void AddOnce<T>(this ICollection<T> collection, T item)
             where T : class
         {
-            Throw.IfNull(() => collection);
-            Throw.IfNull(() => item);
+            Throw.IfNull(collection);
+            Throw.IfNull(item);
 
             if (!collection.Contains(item))
             {
@@ -119,7 +120,7 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         public static void ReplaceAt<T>(this Collection<T> collection, int index, T newItem)
         {
-            Throw.IfNull(() => collection);
+            Throw.IfNull(collection);
 
             collection[index] = newItem;
         }
@@ -131,7 +132,7 @@ namespace Extensions.Pack
         /// <param name="newItem">The new item.</param>
         public static void Replace<T>(this Collection<T> sourceCollection, T oldItem, T newItem)
         {
-            Throw.IfNull(() => sourceCollection);
+            Throw.IfNull(sourceCollection);
 
             var index = sourceCollection.IndexOf(oldItem);
             sourceCollection.ReplaceAt(index, newItem);
@@ -143,8 +144,8 @@ namespace Extensions.Pack
         /// <param name="source">The source collection to unite from.</param>
         public static void UnionByReplacing<T>(this ICollection<T> target, ICollection<T> source)
         {
-            Throw.IfNull(() => target);
-            Throw.IfNull(() => source);
+            Throw.IfNull(target);
+            Throw.IfNull(source);
 
             foreach (var item in source)
             {
@@ -164,8 +165,8 @@ namespace Extensions.Pack
         public static void SyncCollectionFrom<T>(this ICollection<T> target, IEnumerable<T> source)
             where T : class
         {
-            Throw.IfNull(() => target);
-            Throw.IfNull(() => source);
+            Throw.IfNull(target);
+            Throw.IfNull(source);
 
             var sourceItems = source.ToList();
 
@@ -182,9 +183,9 @@ namespace Extensions.Pack
         public static void SyncCollectionFrom<T, TProperty>(this ICollection<T> target, IEnumerable<T> source, Func<T, TProperty> selector)
             where T : class
         {
-            Throw.IfNull(() => target);
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => selector);
+            Throw.IfNull(target);
+            Throw.IfNull(source);
+            Throw.IfNull(selector);
 
             var sourceItems = source.ToList();
 
@@ -204,9 +205,9 @@ namespace Extensions.Pack
             Func<T, TProperty> selector)
             where T : class
         {
-            Throw.IfNull(() => target);
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => selector);
+            Throw.IfNull(target);
+            Throw.IfNull(source);
+            Throw.IfNull(selector);
 
             var sourceItems = source.ToList();
             InvokeActionForExceptItems(target, sourceItems, selector, target.Add);
@@ -219,8 +220,8 @@ namespace Extensions.Pack
         public static void SyncCollectionWithoutDeleteFrom<T>(this ICollection<T> target, IEnumerable<T> source)
             where T : class
         {
-            Throw.IfNull(() => target);
-            Throw.IfNull(() => source);
+            Throw.IfNull(target);
+            Throw.IfNull(source);
 
             var sourceItems = source.ToList();
             InvokeActionForExceptItems(target, sourceItems, target.Add);

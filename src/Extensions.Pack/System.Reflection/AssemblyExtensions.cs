@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -46,6 +47,9 @@ namespace Extensions.Pack
 
         public static Stream GetEmbeddedFileAsStream(this Assembly assembly, string fileName)
         {
+            Throw.IfNull(assembly);
+            Throw.IfNullOrWhiteSpace(fileName);
+
             var manifestResourceNames = assembly.GetManifestResourceNames();
             var name = manifestResourceNames.FirstOrDefault(name => name.Contains(fileName));
             if (name.IsNull())
@@ -53,13 +57,16 @@ namespace Extensions.Pack
                 throw new InvalidOperationException($"Unable to locate the file: '{fileName}'. The '{assembly.GetName()}', does not contains the requested embedded resource. Available are: '{manifestResourceNames.Flatten(";")}'");
             }
 
-            return assembly.GetManifestResourceStream(name);
+            var manifestResourceStream = assembly.GetManifestResourceStream(name);
+            Throw.IfNull(manifestResourceStream);
+
+            return manifestResourceStream;
         }
 
         private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly, string fileName)
         {
-
             var stream = assembly.GetEmbeddedFileAsStream(fileName);
+
             await using (stream.ConfigureAwait(false))
             {
                 var ms = new MemoryStream();

@@ -1,13 +1,14 @@
-using System;
+﻿using System;
 using System.IO;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
     public static class DriveInfoExtensions
     {
-        public static double AvailableFreeSpaceGb(this DriveInfo driveInfo, int decimals = 1)
+        public static double AvailableFreeSpaceGb(this DriveInfo driveInfo)
         {
-            Throw.IfNull(() => driveInfo);
+            Throw.IfNull(driveInfo);
 
             var divisor = Math.Pow(1024, 3);
             var result = driveInfo.TotalFreeSpace / divisor;

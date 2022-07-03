@@ -6,7 +6,10 @@
         <LangVersion>latestmajor</LangVersion>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisLevel>latest</AnalysisLevel>
-        <!--<Nullable>enable</Nullable>-->
+        <Nullable>enable</Nullable> 
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -52,7 +55,8 @@ Package was upgraded to Net6.0, if you want to use it in lower version take an e
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="GitVersion.MsBuild" Version="5.10.1">
+	  <PackageReference Include="Argument.Check" Version="2.0.0-alpha.58" />
+	  <PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>

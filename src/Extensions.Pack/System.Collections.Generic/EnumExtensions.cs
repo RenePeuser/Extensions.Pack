@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -15,7 +16,7 @@ namespace Extensions.Pack
         public static List<T> GetEnumValuesExceptOf<T>(params T[] ignoreTypes)
             where T : struct, IComparable, IFormattable, IConvertible
         {
-            Throw.IfNull(() => ignoreTypes);
+            Throw.IfNull(ignoreTypes);
 
             var enumValues = GetEnumValuesOf<T>();
             enumValues.RemoveRange(ignoreTypes);
@@ -45,7 +46,7 @@ namespace Extensions.Pack
         public static T ToEnum<T>(this string value)
             where T : struct, IComparable, IFormattable, IConvertible
         {
-            Throw.IfNull(() => value);
+            Throw.IfNull(value);
 
             if (!Enum.TryParse(value, true, out T result))
             {
@@ -94,7 +95,7 @@ namespace Extensions.Pack
             where T : struct, IComparable, IFormattable, IConvertible
         {
             var type = typeof(T);
-            Throw.If(() => type, t => t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
+            Throw.If(type, t => t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
 
             return Enum.GetValues(typeof(T)).ToListOfType<T>();
         }
@@ -105,8 +106,8 @@ namespace Extensions.Pack
         /// <returns>The list with all fields of the generic enumeration type.</returns>
         public static List<T> GetEnumValuesOf<T>(this Type type)
         {
-            Throw.IfNull(() => type);
-            Throw.If(() => type, t => t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
+            Throw.IfNull(type);
+            Throw.If(type, t => t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
 
             return Enum.GetValues(type).ToListOfType<T>();
         }
@@ -115,15 +116,20 @@ namespace Extensions.Pack
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <param name="enumValue">The enum value.</param>
         /// <returns>The custom attribute.</returns>
-        public static T GetAttributeOfType<T>(this Enum enumValue)
+        public static T? GetAttributeOfType<T>(this Enum enumValue)
             where T : Attribute
         {
-            Throw.IfNull(() => enumValue);
+            Throw.IfNull(enumValue);
 
             var type = enumValue.GetType();
             var name = Enum.GetName(type, enumValue);
 
-            return type.GetField(name).GetCustomAttributes(false).OfType<T>().SingleOrDefault();
+            Throw.IfNullOrWhiteSpace(name);
+
+            var fieldInfo = type.GetField(name);
+            Throw.IfNull(fieldInfo);
+
+            return fieldInfo.GetCustomAttributes(false).OfType<T>().SingleOrDefault();
         }
 
         public static bool IsDefined<T>(this T value) where T : Enum

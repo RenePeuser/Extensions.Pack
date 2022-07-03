@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -27,7 +28,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified action is true; otherwise, <c>false</c>.</returns>
         public static bool IfTrueThen(this bool source, Action action)
         {
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             if (source)
             {
@@ -43,7 +44,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified action is false; otherwise, <c>false</c>.</returns>
         public static bool IfFalseThen(this bool source, Action action)
         {
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             if (!source)
             {

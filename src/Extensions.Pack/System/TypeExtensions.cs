@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -26,7 +27,7 @@ namespace Extensions.Pack
         /// <returns>Indicates whether the type is decorated with ImmutableAttribute.</returns>
         public static bool IsImmutable(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var result = CustomAttributeExtensions.GetCustomAttribute<ImmutableObjectAttribute>(type);
 
@@ -43,7 +44,7 @@ namespace Extensions.Pack
         /// <returns>Indicates whether the type is decorated with ImmutableAttribute.</returns>
         public static bool IsNotImmutable(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return !IsImmutable(type);
         }
@@ -53,7 +54,7 @@ namespace Extensions.Pack
         /// <returns>Indicates whether the type is CLS compliant. <see cref="Type" />.</returns>
         public static bool IsClsCompliant(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var attribute = CustomAttributeExtensions.GetCustomAttribute<CLSCompliantAttribute>(type);
 
@@ -71,7 +72,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if <c>T</c>; is a subclass of the type; otherwise <c>false</c>.</returns>
         public static bool IsSubClassOf<T>(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return type.IsSubclassOf(typeof(T));
         }
@@ -82,7 +83,7 @@ namespace Extensions.Pack
         /// <returns>True, if it is the specific type.</returns>
         public static bool IsTypeOf<T>(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return type == typeof(T);
         }
@@ -92,7 +93,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if <c>Type</c>; is a <see cref="Action{TResult}" />; otherwise <c>false</c>.</returns>
         public static bool IsTask(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return typeof(Task).IsAssignableFrom(type);
         }
@@ -102,7 +103,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if <c>Type</c>; is undefined; otherwise <c>false</c>.</returns>
         public static bool IsUndefined(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             if (type.FullName == null)
             {
@@ -117,9 +118,9 @@ namespace Extensions.Pack
         /// <summary>Gets the constructor of a specific type.</summary>
         /// <param name="type">The source type which has to be created which has to be of type of <c>T</c>.</param>
         /// <returns>The <see cref="ConstructorInfo" />.</returns>
-        public static ConstructorInfo GetConstructor(this Type type)
+        public static ConstructorInfo? GetConstructor(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var constructor = type.GetConstructors(EXPECTED_BINDING_FLAGS).FirstOrDefault();
 
@@ -131,9 +132,9 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified type is a system type; otherwise, <c>false</c>.</returns>
         public static bool IsSystemType(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
-            return type.FullName.StartWith(nameof(System));
+            return type.FullName!.StartWith(nameof(System));
         }
 
         /// <summary>Determines whether the specified type is static.</summary>
@@ -141,7 +142,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified type is static; otherwise, <c>false</c>.</returns>
         public static bool IsStatic(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return type.IsClass && type.IsAbstract && type.IsSealed;
         }
@@ -151,7 +152,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if type is <see cref="IEnumerable" />; otherwise, <c>false</c>.</returns>
         public static bool IsEnumerable(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return typeof(IEnumerable).IsAssignableFrom(type);
         }
@@ -161,7 +162,7 @@ namespace Extensions.Pack
         /// <returns>The expected interface, if it exists. <see cref="Type" />.</returns>
         public static bool IsDictionary(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             if (type == typeof(IDictionary))
             {
@@ -201,7 +202,7 @@ namespace Extensions.Pack
         /// <returns>The expected interface, if it exists.</returns>
         public static bool IsEnumerator(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return IsInterfaceImplemented<IEnumerator>(type) || type == typeof(IEnumerator);
         }
@@ -213,7 +214,7 @@ namespace Extensions.Pack
         public static bool IsInterfaceImplemented<T>(this Type type)
             where T : class
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var result = GetInterface<T>(type);
 
@@ -224,10 +225,10 @@ namespace Extensions.Pack
         /// <param name="type">The source type which has to be created which has to be of type of <c>T</c>.</param>
         /// <typeparam name="T">Generic type of the expected interface.</typeparam>
         /// <returns>The expected interface, if it exists. <see cref="Type" />.</returns>
-        public static Type GetInterface<T>(this Type type)
+        public static Type? GetInterface<T>(this Type type)
             where T : class
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var genericType = typeof(T);
             var result = type.GetInterface(genericType.Name);
@@ -241,7 +242,7 @@ namespace Extensions.Pack
         /// <returns>The <see cref="Array" /> with the expected length.</returns>
         public static Array ToArray(this Type type, uint length)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return Array.CreateInstance(type, length);
         }
@@ -251,7 +252,7 @@ namespace Extensions.Pack
         /// <returns>The enumeration of <see cref="PropertyInfo" />.</returns>
         public static IEnumerable<PropertyInfo> GetAllProperties(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var properties = type.GetProperties();
             var inheritInterfaces = type.GetInterfaces();
@@ -266,7 +267,7 @@ namespace Extensions.Pack
         /// <returns>The enumeration of <see cref="PropertyInfo" />.</returns>
         public static bool IsDelegate(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             return typeof(Delegate).IsAssignableFrom(type);
         }
@@ -276,7 +277,7 @@ namespace Extensions.Pack
         /// <returns>The enumeration of <see cref="PropertyInfo" />.</returns>
         public static IEnumerable<MethodInfo> GetAllMethods(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var methods = type.GetMethods().Where(m => m.ReturnType != typeof(void) && !m.IsSpecialName);
             var inheritInterfaces = type.GetInterfaces();
@@ -291,7 +292,7 @@ namespace Extensions.Pack
         /// <returns>The enumeration of <see cref="PropertyInfo" />.</returns>
         public static ConstructorInfo GetConstructorWithMaxParameters(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
                 .Select(c => new { Constructur = c, Parameters = c.GetParameters() })
@@ -307,7 +308,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified type is <see cref="Func{TResult}" />; otherwise, <c>false</c>.</returns>
         public static bool IsFunc(this Type type)
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             if (!type.IsGenericType)
             {
@@ -325,12 +326,12 @@ namespace Extensions.Pack
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The arguments type info.</param>
         /// <returns>The return value of the invoked method. </returns>
-        public static object InvokeGenericMethod(this Type classType, string methodName, Type[] argumentTypes, params object[] arguments)
+        public static object? InvokeGenericMethod(this Type classType, string methodName, Type[] argumentTypes, params object[] arguments)
         {
-            Throw.IfNull(() => classType);
-            Throw.IfNullOrWhiteSpace(() => methodName);
-            Throw.IfNull(() => argumentTypes);
-            Throw.IfNull(() => arguments);
+            Throw.IfNull(classType);
+            Throw.IfNullOrWhiteSpace(methodName);
+            Throw.IfNull(argumentTypes);
+            Throw.IfNull(arguments);
 
             var expectedMethod = classType.GetMethods(EXPECTED_BINDING_FLAGS).First(m => m.Name == methodName);
             var genericMethod = expectedMethod.MakeGenericMethod(argumentTypes);
@@ -346,13 +347,13 @@ namespace Extensions.Pack
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The arguments type info.</param>
         /// <returns>The return value of the invoked method.</returns>
-        public static object InvokeGenericMethod<TClass>(this TClass source, string methodName, Type argumentTypes, params object[] arguments)
+        public static object? InvokeGenericMethod<TClass>(this TClass source, string methodName, Type argumentTypes, params object[] arguments)
             where TClass : class
         {
-            Throw.IfNull(() => source);
-            Throw.IfNullOrWhiteSpace(() => methodName);
-            Throw.IfNull(() => argumentTypes);
-            Throw.IfNull(() => arguments);
+            Throw.IfNull(source);
+            Throw.IfNullOrWhiteSpace(methodName);
+            Throw.IfNull(argumentTypes);
+            Throw.IfNull(arguments);
 
             var expectedMethod = typeof(TClass).GetMethods(EXPECTED_BINDING_FLAGS).First(m => m.Name == methodName);
             var genericMethod = expectedMethod.MakeGenericMethod(argumentTypes);
@@ -367,12 +368,12 @@ namespace Extensions.Pack
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The method parameters.</param>
         /// <returns>The return value of the invoked method. </returns>
-        public static object InvokeExpectedMethod(this Type classType, string methodName, Type[] argumentTypes, params object[] arguments)
+        public static object? InvokeExpectedMethod(this Type classType, string methodName, Type[] argumentTypes, params object[] arguments)
         {
-            Throw.IfNull(() => classType);
-            Throw.IfNullOrWhiteSpace(() => methodName);
-            Throw.IfNull(() => argumentTypes);
-            Throw.IfNull(() => arguments);
+            Throw.IfNull(classType);
+            Throw.IfNullOrWhiteSpace(methodName);
+            Throw.IfNull(argumentTypes);
+            Throw.IfNull(arguments);
 
             var argumentsTypes = arguments.Select(a => a.GetType());
 
@@ -401,7 +402,7 @@ namespace Extensions.Pack
 
         public static IEnumerable<T> GetCustomAttributes<T>(this Type type, bool inherit = false) where T : Attribute
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var attributes = type.GetCustomAttributes(typeof(T), inherit).ToListOfType<T>();
             return attributes;
@@ -409,14 +410,14 @@ namespace Extensions.Pack
 
         public static bool HasCustomAttribute<T>(this Type type, bool inherit = false) where T : Attribute
         {
-            Throw.IfNull(() => type);
+            Throw.IfNull(type);
 
             var attribute = type.GetCustomAttribute<T>(inherit);
             var hasCustomAttribute = attribute != null;
             return hasCustomAttribute;
         }
 
-        public static T GetCustomAttribute<T>(this Type type, bool inherit = false) where T : Attribute
+        public static T? GetCustomAttribute<T>(this Type type, bool inherit = false) where T : Attribute
         {
             return type.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }
