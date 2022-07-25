@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -15,7 +16,7 @@ namespace Extensions.Pack
         public static IEnumerable<T> GetCustomAttributes<T>(this ICustomAttributeProvider customAttributeProvider)
             where T : Attribute
         {
-            Throw.IfNull(() => customAttributeProvider);
+            Throw.IfNull(customAttributeProvider);
 
             return customAttributeProvider.GetCustomAttributes<T>(false);
         }
@@ -28,7 +29,7 @@ namespace Extensions.Pack
         public static IEnumerable<T> GetCustomAttributes<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
             where T : Attribute
         {
-            Throw.IfNull(() => customAttributeProvider);
+            Throw.IfNull(customAttributeProvider);
 
             var attributes = customAttributeProvider.GetCustomAttributes(typeof(T), inherit).ToListOfType<T>();
 
@@ -42,7 +43,7 @@ namespace Extensions.Pack
         public static bool HasCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider)
             where T : Attribute
         {
-            Throw.IfNull(() => customAttributeProvider);
+            Throw.IfNull(customAttributeProvider);
 
             var hasCustomAttribute = customAttributeProvider.HasCustomAttribute<T>(false);
 
@@ -57,7 +58,7 @@ namespace Extensions.Pack
         public static bool HasCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
             where T : Attribute
         {
-            Throw.IfNull(() => customAttributeProvider);
+            Throw.IfNull(customAttributeProvider);
 
             var attribute = customAttributeProvider.GetCustomAttribute<T>(inherit);
             var hasCustomAttribute = attribute != null;
@@ -69,10 +70,10 @@ namespace Extensions.Pack
         /// <param name="customAttributeProvider">The <see cref="ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
         /// <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static T GetCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider)
+        public static T? GetCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider)
             where T : Attribute
         {
-            Throw.IfNull(() => customAttributeProvider);
+            Throw.IfNull(customAttributeProvider);
 
             return customAttributeProvider.GetCustomAttribute<T>(false);
         }
@@ -82,10 +83,10 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks.</param>
         /// <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static T GetCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
+        public static T? GetCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
             where T : Attribute
         {
-            Throw.IfNull(() => customAttributeProvider);
+            Throw.IfNull(customAttributeProvider);
 
             return customAttributeProvider.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }

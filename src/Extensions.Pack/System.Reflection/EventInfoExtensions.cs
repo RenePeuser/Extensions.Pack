@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -14,11 +15,14 @@ namespace Extensions.Pack
         /// <returns>The <see cref="Delegate" />.</returns>
         public static Delegate CreateDelegate<TSender, TEventArgs>(this EventInfo eventInfo, Action<TSender, TEventArgs> actionHandler)
         {
-            Throw.IfNull(() => eventInfo);
-            Throw.IfNull(() => actionHandler);
+            Throw.IfNull(eventInfo);
+            Throw.IfNull(actionHandler);
+
+            var eventHandlerType = eventInfo.EventHandlerType;
+            Throw.IfNull(eventHandlerType);
 
             var createdDelegate = Delegate.CreateDelegate(
-                eventInfo.EventHandlerType,
+                eventHandlerType,
                 actionHandler.Target,
                 actionHandler.Method);
             return createdDelegate;

@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -56,21 +57,21 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
-        public static string ValueOrDefault(this XElement element, string defaultValue = null)
+        public static string? ValueOrDefault(this XElement element, string? defaultValue = null)
         {
             return element.To(defaultValue, Convert.ToString);
         }
 
-        /// <summary>Gets a specific <see cref="XAttribute" /> from a specific <see cref="XElement" /> by its attribute name of type <see cref="TcAttributeName" />.</summary>
+        /// <summary>Gets a specific <see cref="XAttribute" /> from a specific <see cref="XElement" /> by its attribute name.</summary>
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="attributeName">The attribute name of the expected attribute.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
-        public static XAttribute AttributeBy(this XElement element, string attributeName)
+        public static XAttribute? AttributeBy(this XElement element, string attributeName)
         {
-            Throw.IfNull(() => element);
-            Throw.IfNull(() => attributeName);
+            Throw.IfNull(element);
+            Throw.IfNull(attributeName);
 
-            var attribute = element.Attributes().FirstOrDefault(a => a.Name.LocalName.Equals(attributeName));
+            var attribute = element.Attributes().FirstOrDefault(a => a.Name.LocalName.EqualsTo(attributeName));
 
             return attribute;
         }
@@ -81,9 +82,9 @@ namespace Extensions.Pack
         /// <param name="defaultValue">The default value.</param>
         /// <param name="converter">The converter.</param>
         /// <returns>The converted or default value.</returns>
-        private static T To<T>(this XElement element, T defaultValue, Func<string, T> converter)
+        private static T? To<T>(this XElement? element, T defaultValue, Func<string, T> converter)
         {
-            if (element == null)
+            if (element is null)
             {
                 return defaultValue;
             }
@@ -94,7 +95,6 @@ namespace Extensions.Pack
             }
 
             var result = converter(element.Value);
-
             return result;
         }
     }

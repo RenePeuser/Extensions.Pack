@@ -60,7 +60,7 @@ namespace Extensions.Pack
         /// <returns>System.Int32.</returns>
         public static int Ceiling(this double value)
         {
-            return (int) Math.Ceiling(value);
+            return (int)Math.Ceiling(value);
         }
 
         /// <summary>Compares double values with default tolerance but excludes NaN from comparison with tolerance.</summary>

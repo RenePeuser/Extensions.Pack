@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -10,10 +12,10 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks.</param>
         /// <typeparam name="T">Generic object of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static T GetCustomAttribute<T>(this object source, bool inherit = false)
+        public static T? GetCustomAttribute<T>(this object source, bool inherit = false)
             where T : Attribute
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return CustomAttributeProviderExtensions.GetCustomAttribute<T>(source.GetType(), inherit);
         }
@@ -26,7 +28,7 @@ namespace Extensions.Pack
         public static bool HasCustomAttribute<T>(this object source, bool inherit = false)
             where T : Attribute
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return CustomAttributeProviderExtensions.HasCustomAttribute<T>(source.GetType(), inherit);
         }
@@ -36,7 +38,7 @@ namespace Extensions.Pack
         /// <returns>The expected interface, if it exists. <see cref="Type" />.</returns>
         public static bool IsImmutable(this object source)
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return source.GetType().IsImmutable();
         }
@@ -65,16 +67,15 @@ namespace Extensions.Pack
         /// <param name="source">The source object which have to be casted.</param>
         /// <typeparam name="T">The generic type which will be expected.</typeparam>
         /// <returns><c>T</c> of the safe casted object; otherwise <c>null</c>.</returns>
-        public static T As<T>(this object source)
+        public static T? As<T>(this object? source)
         {
-            var result = default(T);
 
-            if (source is T)
+            if (source is T result)
             {
-                result = (T) source;
+                return result;
             }
 
-            return result;
+            return default;
         }
 
         /// <summary>Cast an object to a specific type unsafe.</summary>
@@ -83,9 +84,9 @@ namespace Extensions.Pack
         /// <returns><c>T</c> of the safe casted object; otherwise <c>null</c>.</returns>
         public static T Cast<T>(this object source)
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
-            return (T) source;
+            return (T)source;
         }
 
         /// <summary>Checks whether a source object is of a given type.</summary>
@@ -110,7 +111,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if object is the expected type; otherwise <c>false</c>.</returns>
         public static bool IsTypeOf<T>(this object source)
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return source.GetType().IsTypeOf<T>();
         }
@@ -121,7 +122,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if object is the expected type; otherwise <c>false</c>.</returns>
         public static bool IsNotTypeOf<T>(this object source)
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return !source.IsTypeOf<T>();
         }
@@ -132,7 +133,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if <c>T</c>; is a subclass of the type; otherwise <c>false</c>.</returns>
         public static bool IsSubClassOf<T>(this object source)
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return source.GetType().IsSubclassOf(typeof(T));
         }
@@ -144,7 +145,7 @@ namespace Extensions.Pack
         public static bool IsInterfaceImplemented<T>(this object source)
             where T : class
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             return source.GetType().IsInterfaceImplemented<T>();
         }
@@ -152,31 +153,31 @@ namespace Extensions.Pack
         /// <summary>Determines whether the specified source is not null.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>true</c> if the source is not null; otherwise, <c>false</c>.</returns>
-        public static bool IsNotNull(this object source)
+        public static bool IsNotNull([NotNullWhen(true)] this object? source)
         {
-            // No argument checking here, because the extension checks for null.
-            return !source.EqualsTo(null);
+            return source is not null;
         }
 
         /// <summary>Determines whether the specified source is null.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>true</c> if the source is null; otherwise, <c>false</c>.</returns>
-        public static bool IsNull(this object source)
+        public static bool IsNull([NotNullWhen(false)] this object? source)
         {
             // No argument checking here, because the extension checks for null.
-            return source.EqualsTo(null);
+            return source is null;
         }
 
         /// <summary>If the given object is the specified type, the <paramref name="action" /> is executed, otherwise nothing happens.</summary>
         /// <typeparam name="TType">The type to check for.</typeparam>
         /// <param name="source">The object which should be checked.</param>
         /// <param name="action">The action to execute.</param>
-        public static void IfType<TType>(this object source, Action<TType> action)
+        public static void IfType<TType>(this object source, Action<TType?> action)
             where TType : class
         {
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             var expectedType = source.As<TType>();
+
 
             expectedType.IfNotNullThen(() => action(expectedType));
         }

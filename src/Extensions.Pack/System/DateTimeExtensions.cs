@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -35,10 +35,11 @@ namespace Extensions.Pack
             return result == 12;
         }
 
-        public static string ActiveDesignator(this DateTime dateTime)
+        public static string? ActiveDesignator(this DateTime dateTime)
         {
             var designators = CultureInfo.CurrentCulture.GetDesignators();
             var shortDateTime = dateTime.ToShortTimeString();
+
             return designators.FirstOrDefault(item => shortDateTime.Contains(item));
         }
 

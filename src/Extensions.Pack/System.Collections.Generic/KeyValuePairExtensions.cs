@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -15,23 +16,23 @@ namespace Extensions.Pack
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <returns>A dictionary.</returns>
-        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs) where TKey : notnull
         {
-            Throw.IfNull(() => keyValuePairs);
+            Throw.IfNull(keyValuePairs);
 
             var dictionary = keyValuePairs.ToDictionary(item => item.Key, item => item.Value);
 
             return dictionary;
         }
 
-        /// <summary>Returns a <see cref="System.String" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
+        /// <summary>Returns a <see cref="string" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
         /// <typeparam name="T">The generic type.</typeparam>
         /// <param name="compiledExpression">The compiled expression.</param>
         /// <param name="argument">The argument to invoke the function.</param>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public static string ToString<T>(this KeyValuePair<string, Func<T, object>> compiledExpression, T argument)
         {
-            Throw.IfNull<object>(() => argument);
+            Throw.IfNull<object>(argument);
 
             var result = string.Format(CultureInfo.InvariantCulture, "{0}[{1}] ", compiledExpression.Key, compiledExpression.Value.Invoke(argument));
 
@@ -45,7 +46,7 @@ namespace Extensions.Pack
         /// <returns>A dictionary.</returns>
         public static OrderedDictionary ToOrderedDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
-            Throw.IfNull(() => keyValuePairs);
+            Throw.IfNull(keyValuePairs);
 
             var result = Create<OrderedDictionary, TKey, TValue>(keyValuePairs);
 
@@ -59,7 +60,7 @@ namespace Extensions.Pack
         /// <returns>A dictionary.</returns>
         public static ListDictionary ToListDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
-            Throw.IfNull(() => keyValuePairs);
+            Throw.IfNull(keyValuePairs);
 
             var result = Create<ListDictionary, TKey, TValue>(keyValuePairs);
 
@@ -73,7 +74,7 @@ namespace Extensions.Pack
         /// <returns>A dictionary.</returns>
         public static HybridDictionary ToHybridDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
-            Throw.IfNull(() => keyValuePairs);
+            Throw.IfNull(keyValuePairs);
 
             var result = Create<HybridDictionary, TKey, TValue>(keyValuePairs);
 
@@ -87,10 +88,10 @@ namespace Extensions.Pack
         /// <returns>A dictionary.</returns>
         public static StringDictionary ToStringDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
-            Throw.IfNull(() => keyValuePairs);
+            Throw.IfNull(keyValuePairs);
 
             var stringDictionary = new StringDictionary();
-            keyValuePairs.ForEach(item => stringDictionary.Add(item.Key.ToString(), item.Value.ToString()));
+            keyValuePairs.ForEach(item => stringDictionary.Add(item.Key!.ToString()!, item.Value!.ToString()!));
 
             return stringDictionary;
         }
@@ -102,10 +103,10 @@ namespace Extensions.Pack
         /// <returns>A dictionary.</returns>
         public static NameValueCollection ToNameValueCollection<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
         {
-            Throw.IfNull(() => keyValuePairs);
+            Throw.IfNull(keyValuePairs);
 
             var nameValueCollection = new NameValueCollection();
-            keyValuePairs.ForEach(item => nameValueCollection.Add(item.Key.ToString(), item.Value.ToString()));
+            keyValuePairs.ForEach(item => nameValueCollection.Add(item.Key!.ToString(), item.Value!.ToString()));
 
             return nameValueCollection;
         }
@@ -120,7 +121,7 @@ namespace Extensions.Pack
             where TDictionary : IDictionary, new()
         {
             var expectedDicitonary = new TDictionary();
-            keyValuePairs.ForEach(item => expectedDicitonary.Add(item.Key.ToString(), item.Value.ToString()));
+            keyValuePairs.ForEach(item => expectedDicitonary.Add(item.Key!.ToString()!, item.Value!.ToString()));
 
             return expectedDicitonary;
         }

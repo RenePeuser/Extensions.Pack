@@ -2,4 +2,4 @@ major-version-bump-message: '\+semver:\s?(breaking|major)'
 minor-version-bump-message: '\+semver:\s?(feature|minor)'
 patch-version-bump-message: '\+semver:\s?(fix|patch)'
 assembly-informational-format: '{FullSemVer}'
-no-bump-message: '\+semver:\s?(none|skip)'
+commit-message-incrementing: Enabled

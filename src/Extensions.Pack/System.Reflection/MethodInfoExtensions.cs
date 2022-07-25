@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -14,7 +15,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
         public static bool IsAsyncMethod(this MethodInfo methodInfo)
         {
-            Throw.IfNull(() => methodInfo);
+            Throw.IfNull(methodInfo);
 
             return methodInfo.ReturnType.IsTask();
         }
@@ -22,7 +23,7 @@ namespace Extensions.Pack
         /// <summary>Determines whether the method is not an async method which returns a <see cref="Task" />.</summary>
         public static bool IsNotAsyncMethod(this MethodInfo methodInfo)
         {
-            Throw.IfNull(() => methodInfo);
+            Throw.IfNull(methodInfo);
 
             return methodInfo.ReturnType.IsTask().IsFalse();
         }
@@ -32,9 +33,9 @@ namespace Extensions.Pack
         /// <param name="genericType">Type of the generic.</param>
         /// <param name="arguments">The arguments.</param>
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
-        public static object InvokeGeneric(this MethodInfo methodInfo, Type genericType, object[] arguments)
+        public static object? InvokeGeneric(this MethodInfo methodInfo, Type genericType, object[] arguments)
         {
-            Throw.IfNull(() => methodInfo);
+            Throw.IfNull(methodInfo);
 
             return methodInfo.InvokeGeneric(null, genericType, arguments);
         }
@@ -45,9 +46,9 @@ namespace Extensions.Pack
         /// <param name="genericType">Type of the generic.</param>
         /// <param name="arguments">The arguments.</param>
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
-        public static object InvokeGeneric(this MethodInfo methodInfo, object instance, Type genericType, object[] arguments)
+        public static object? InvokeGeneric(this MethodInfo methodInfo, object? instance, Type genericType, object[] arguments)
         {
-            Throw.IfNull(() => methodInfo);
+            Throw.IfNull(methodInfo);
 
             var genericMethod = methodInfo.MakeGenericMethod(genericType);
 
@@ -58,11 +59,11 @@ namespace Extensions.Pack
         /// <param name="methodInfo">The method information.</param>
         /// <param name="genericType">Type of the generic.</param>
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
-        public static object InvokeGeneric(this MethodInfo methodInfo, Type genericType)
+        public static object? InvokeGeneric(this MethodInfo methodInfo, Type genericType)
         {
-            Throw.IfNull(() => methodInfo);
+            Throw.IfNull(methodInfo);
 
-            return methodInfo.InvokeGeneric(genericType, new object[] { });
+            return methodInfo.InvokeGeneric(genericType, Array.Empty<object>());
         }
 
         /// <summary>Gets the parameters of a method info as an enumeration of <see cref="ParameterExpression" />.</summary>

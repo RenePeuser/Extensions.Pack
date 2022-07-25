@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Xml.Linq;
 
 namespace Extensions.Pack
@@ -55,7 +55,7 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
-        public static string ValueOrDefault(this XAttribute element, string defaultValue = null)
+        public static string? ValueOrDefault(this XAttribute element, string defaultValue = "")
         {
             return element.To(defaultValue, Convert.ToString);
         }
@@ -68,7 +68,7 @@ namespace Extensions.Pack
         /// <returns>The converted or default value.</returns>
         private static T To<T>(this XAttribute element, T defaultValue, Func<string, T> converter)
         {
-            if (element == null)
+            if (element.IsNull())
             {
                 return defaultValue;
             }

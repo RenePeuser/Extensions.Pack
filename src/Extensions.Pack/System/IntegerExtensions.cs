@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -95,8 +96,8 @@ namespace Extensions.Pack
         /// <param name="action">The action to execute.</param>
         public static void Times(this int source, Action action)
         {
-            Throw.IfNull(() => action);
-            Throw.IfLessThan(() => source, 0);
+            Throw.IfNull(action);
+            Throw.IfLessThan(source, 0);
 
             source.Times(index => action());
         }
@@ -106,8 +107,8 @@ namespace Extensions.Pack
         /// <param name="action">The action to execute.</param>
         public static void Times(this int source, Action<int> action)
         {
-            Throw.IfNull(() => action);
-            Throw.IfLessThan(() => source, 0);
+            Throw.IfNull(action);
+            Throw.IfLessThan(source, 0);
 
             source.Times(action, 0);
         }
@@ -118,7 +119,7 @@ namespace Extensions.Pack
         /// <param name="startIndex">The start index.</param>
         public static void Times(this int source, Action<int> action, int startIndex)
         {
-            Throw.IfNull(() => action);
+            Throw.IfNull(action);
 
             for (var i = startIndex; i.IsLessThan(source.Plus(startIndex)); i++)
             {
@@ -133,8 +134,8 @@ namespace Extensions.Pack
         /// <returns>The enumerable containing the yielded results.</returns>
         public static IEnumerable<T> Times<T>(this int source, Func<T> func)
         {
-            Throw.IfNull(() => func);
-            Throw.IfLessThan(() => source, 0);
+            Throw.IfNull(func);
+            Throw.IfLessThan(source, 0);
 
             return source.Times(index => func());
         }
@@ -146,8 +147,8 @@ namespace Extensions.Pack
         /// <returns>The enumerable containing the yielded results.</returns>
         public static IEnumerable<T> Times<T>(this int source, Func<int, T> func)
         {
-            Throw.IfNull(() => func);
-            Throw.IfLessThan(() => source, 0);
+            Throw.IfNull(func);
+            Throw.IfLessThan(source, 0);
 
             return source.Times(func, 0);
         }
@@ -160,7 +161,7 @@ namespace Extensions.Pack
         /// <returns>The enumerable containing the yielded results.</returns>
         public static IEnumerable<T> Times<T>(this int source, Func<int, T> func, int startIndex)
         {
-            Throw.IfNull(() => func);
+            Throw.IfNull(func);
 
             for (var i = startIndex; i.IsLessThan(source.Plus(startIndex)); i++)
             {

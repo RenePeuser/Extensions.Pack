@@ -1,16 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
-    <Authors>Rene Peuser</Authors>
-    <Company>Rene Peuser Softwaresolutions</Company>
-    <Description>A set of useful extensions to make your code smooth and nice readable.</Description>
-    <Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
-    <PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
-    <RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
-    <PackageReleaseNotes>Prerelease !!
+    <!-- Common settings !-->
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <Nullable>enable</Nullable> 
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
 
+    <PropertyGroup>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+		<Authors>Rene Peuser</Authors>
+		<Company>Rene Peuser Softwaresolutions</Company>
+		<Description>A set of useful extensions to make your code smooth and nice readable.</Description>
+		<Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
+		<PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
+		<RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
+        <PackageReleaseNotes>
 A set of extensions for following namespaces:
 
 System
@@ -19,20 +29,38 @@ System.Globalization
 System.IO
 System.Linq
 System.Reflection
-System.Xml</PackageReleaseNotes>
-    <PackageTags>C#;.Net;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
-    <PackageId>Extensions.Pack</PackageId>
-  </PropertyGroup>
+System.Xml
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <DocumentationFile>D:\AzureDevOps\Extensions\src\Extensions\Extensions.xml</DocumentationFile>
-  </PropertyGroup>
+Package was upgraded to Net6.0, if you want to use it in lower version take an earlier version.
+Nullable enable fully activated
+		</PackageReleaseNotes>
+		<PackageTags>C#;.Net;Net5;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
+		<PackageId>Extensions.Pack</PackageId>
+		<OutputType>Library</OutputType>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>..\..\Extensions.Pack.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>..\..\Extensions.Pack.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\License.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Argument.Check" Version="2.0.0-alpha.59" />
+	  <PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
 
 </Project>

@@ -5,36 +5,36 @@
 
 trigger:
   - master
-  - refs/tags/*
-
+  - develop
+  
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
+  GitVersion.SemVer: ''
 
 steps:
 
-- task: GitVersion@5
-  displayName: git version
+- task: UseDotNet@2
   inputs:
-    runtime: 'core'
-    updateAssemblyInfo: true
+    packageType: 'sdk'
+    version: '6.0.x'
 
-- script: dotnet build --configuration $(buildConfiguration) ./src/Extensions.Pack.sln  /p:Version='$(GitVersion.NuGetVersion)'
+- script: dotnet build --configuration $(buildConfiguration) /p:AssemblyVerison='$(GitVersion.SemVer)'
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet test
-  inputs:
-    command: 'test'
-    projects: './src/Extensions.Pack.sln'
-    arguments: '--configuration $(buildConfiguration)'
+- script: dotnet test
+  displayName: 'dotnet test'
 
-- script: dotnet pack ./src/Extensions.Pack/Extensions.Pack.csproj --output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) /p:Version='$(GitVersion.NuGetVersion)'
-  displayName: 'dotnet pack $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: './src/Extensions.Pack/Extensions.Pack.csproj'
+    versioningScheme: 'off'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
+  displayName: Publish Artifacts
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'

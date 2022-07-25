@@ -1,4 +1,6 @@
+﻿using System;
 using System.Linq;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -12,7 +14,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if the source includes at least one of the given values; otherwise, <c>False</c>.</returns>
         public static bool HasAny<T>(this T[] source, params object[] values)
         {
-            Throw.IfNull(() => source);
+            Throw.IfNull(source);
 
             var result = source.Any(item => item.EqualsTo<object>(values) || values.Any(value => item.EqualsTo(value)));
 
@@ -25,7 +27,7 @@ namespace Extensions.Pack
         /// <returns>The array of original items, or empty array if original array was null.</returns>
         public static T[] GetNonNullArray<T>(this T[] array)
         {
-            return array ?? new T[] { };
+            return array ?? Array.Empty<T>();
         }
     }
 }

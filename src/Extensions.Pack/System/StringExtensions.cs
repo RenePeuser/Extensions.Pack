@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -12,7 +14,7 @@ namespace Extensions.Pack
         /// <summary>Checks if the source string is null or empty.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>True</c> if source string is null or empty; otherwise <c>False</c>.</returns>
-        public static bool IsNullOrEmpty(this string source)
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? source)
         {
             return string.IsNullOrEmpty(source);
         }
@@ -20,7 +22,7 @@ namespace Extensions.Pack
         /// <summary>Checks if the source string is NOT null or empty.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>True</c> if source string is null or empty; otherwise <c>False</c>.</returns>
-        public static bool IsNotNullOrEmpty(this string source)
+        public static bool IsNotNullOrEmpty([NotNullWhen(true)] this string? source)
         {
             return !source.IsNullOrEmpty();
         }
@@ -47,8 +49,8 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string starts with expected value; otherwise <c>False</c>.</returns>
         public static bool StartWith(this string source, string value)
         {
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => value);
+            Throw.IfNull(source);
+            Throw.IfNull(value);
 
             return source.StartsWith(value, StringComparison.OrdinalIgnoreCase);
         }
@@ -59,8 +61,8 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string starts with expected value; otherwise <c>False</c>.</returns>
         public static bool EndWith(this string source, string value)
         {
-            Throw.IfNull(() => source);
-            Throw.IfNull(() => value);
+            Throw.IfNull(source);
+            Throw.IfNull(value);
 
             var result = source.EndsWith(value, StringComparison.OrdinalIgnoreCase);
 
@@ -70,7 +72,7 @@ namespace Extensions.Pack
         /// <summary>Checks if the source string is null or whitespace.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>True</c> if source string is null or only a whitespace; otherwise <c>False</c>.</returns>
-        public static bool IsNullOrWhiteSpace(this string source)
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? source)
         {
             return string.IsNullOrWhiteSpace(source);
         }
@@ -78,7 +80,7 @@ namespace Extensions.Pack
         /// <summary>Checks if the source string is null or whitespace.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>True</c> if source string is null or only a whitespace; otherwise <c>False</c>.</returns>
-        public static bool IsNotNullOrWhiteSpace(this string source)
+        public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)] this string? source)
         {
             return source.IsNullOrWhiteSpace().IsFalse();
         }
@@ -101,11 +103,9 @@ namespace Extensions.Pack
         /// <returns>The boolean value.</returns>
         public static bool ToBool(this string value)
         {
-            Throw.IfNull(() => value);
+            Throw.IfNull(value);
 
-            bool boolValue;
-
-            if (bool.TryParse(value, out boolValue))
+            if (bool.TryParse(value, out var boolValue))
             {
                 return boolValue;
             }
@@ -125,9 +125,7 @@ namespace Extensions.Pack
                 return false;
             }
 
-            bool boolValue;
-
-            return bool.TryParse(value, out boolValue) && boolValue;
+            return bool.TryParse(value, out var boolValue) && boolValue;
         }
 
         /// <summary>Determines string is not null, not empty and no whitespace.</summary>
@@ -161,7 +159,7 @@ namespace Extensions.Pack
         /// <returns>The converted <see cref="DateTime" />.</returns>
         public static DateTime ToDateTime(this string source)
         {
-            Throw.IfNullOrWhiteSpace(() => source);
+            Throw.IfNullOrWhiteSpace(source);
 
             return source.ToDateTime(DateTimeFormatInfo.InvariantInfo);
         }
@@ -172,8 +170,8 @@ namespace Extensions.Pack
         /// <returns>The converted <see cref="DateTime" />.</returns>
         public static DateTime ToDateTime(this string source, DateTimeFormatInfo dateTimeFormatInfo)
         {
-            Throw.IfNullOrWhiteSpace(() => source);
-            Throw.IfNull(() => dateTimeFormatInfo);
+            Throw.IfNullOrWhiteSpace(source);
+            Throw.IfNull(dateTimeFormatInfo);
 
             return source.ToDateTime(DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None);
         }
@@ -185,10 +183,9 @@ namespace Extensions.Pack
         /// <returns>The converted <see cref="DateTime" />.</returns>
         public static DateTime ToDateTime(this string source, DateTimeFormatInfo dateTimeFormatInfo, DateTimeStyles dateTimeStyles)
         {
-            Throw.IfNullOrWhiteSpace(() => source);
+            Throw.IfNullOrWhiteSpace(source);
 
-            DateTime dateTime;
-            var result = DateTime.TryParse(source, dateTimeFormatInfo, dateTimeStyles, out dateTime);
+            var result = DateTime.TryParse(source, dateTimeFormatInfo, dateTimeStyles, out var dateTime);
 
             if (!result)
             {
@@ -204,8 +201,8 @@ namespace Extensions.Pack
         /// <returns>The resulting string.</returns>
         public static string FormatInvariantCulture(this string source, params object[] formatArguments)
         {
-            Throw.IfNullOrWhiteSpace(() => source);
-            Throw.IfNull(() => formatArguments);
+            Throw.IfNullOrWhiteSpace(source);
+            Throw.IfNull(formatArguments);
 
             var formatedString = string.Format(CultureInfo.InvariantCulture, source, formatArguments);
 
@@ -219,7 +216,7 @@ namespace Extensions.Pack
         /// <returns>The expected string blocks.</returns>
         public static IEnumerable<string> SplitBlocks(this string value, int expectedBlocks, int blockLength)
         {
-            Throw.IfNullOrWhiteSpace(() => value);
+            Throw.IfNullOrWhiteSpace(value);
 
             if (value.Length.NotEqualsTo(expectedBlocks.MultiplyBy(blockLength)))
             {
@@ -269,7 +266,7 @@ namespace Extensions.Pack
         /// <returns>System.String.</returns>
         public static string SubstringUpTo(this string value, int length)
         {
-            Throw.IfNullOrWhiteSpace(() => value);
+            Throw.IfNullOrWhiteSpace(value);
 
             return value.SubstringUpTo(0, length);
         }
@@ -281,7 +278,7 @@ namespace Extensions.Pack
         /// <returns>System.String.</returns>
         public static string SubstringUpTo(this string value, int startIndex, int length)
         {
-            Throw.IfNullOrWhiteSpace(() => value);
+            Throw.IfNullOrWhiteSpace(value);
 
             var stringLength = value.Length;
             var maxLength = startIndex.Plus(length).IsLessOrEqual(stringLength) ? length : stringLength - startIndex;
@@ -295,8 +292,8 @@ namespace Extensions.Pack
         /// <returns>System.String.</returns>
         public static string Repeat(this string source, int count)
         {
-            Throw.IfNull(() => source);
-            Throw.IfLessThan(() => count, 0);
+            Throw.IfNull(source);
+            Throw.IfLessThan(count, 0);
 
             return Enumerable.Repeat(source, count).Flatten();
         }
@@ -307,7 +304,7 @@ namespace Extensions.Pack
         /// <returns>The concatenated string.</returns>
         public static string ConcatWith(this string value, params string[] values)
         {
-            Throw.IfNull(() => values);
+            Throw.IfNull(values);
 
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(value);
@@ -321,7 +318,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified value is valid binary string; otherwise, <c>false</c>.</returns>
         public static bool IsValidBinaryString(this string value)
         {
-            Throw.IfNullOrWhiteSpace(() => value);
+            Throw.IfNullOrWhiteSpace(value);
 
             return value.All(character => character.EqualsTo('0') || character.EqualsTo('1'));
         }
@@ -331,7 +328,7 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified value is valid binary string; otherwise, <c>false</c>.</returns>
         public static bool IsNotValidBinaryString(this string value)
         {
-            Throw.IfNullOrWhiteSpace(() => value);
+            Throw.IfNullOrWhiteSpace(value);
 
             return !value.IsValidBinaryString();
         }
@@ -340,10 +337,10 @@ namespace Extensions.Pack
         /// <param name="fullqualifiedTypeName">The full qualified type name.</param>
         /// <param name="fullQualifiedAssemblyName">The full qualified assembly name.</param>
         /// <returns>The type info.</returns>
-        public static Type FromAssembly(this string fullqualifiedTypeName, string fullQualifiedAssemblyName)
+        public static Type? FromAssembly(this string fullqualifiedTypeName, string fullQualifiedAssemblyName)
         {
-            Throw.IfNullOrWhiteSpace(() => fullqualifiedTypeName);
-            Throw.IfNullOrWhiteSpace(() => fullQualifiedAssemblyName);
+            Throw.IfNullOrWhiteSpace(fullqualifiedTypeName);
+            Throw.IfNullOrWhiteSpace(fullQualifiedAssemblyName);
 
             return Type.GetType(fullqualifiedTypeName + ", " + fullQualifiedAssemblyName);
         }
@@ -354,8 +351,8 @@ namespace Extensions.Pack
         /// <returns>True if the strings are the same (ignoring case), else false.</returns>
         public static bool EqualsToIgnoringCase(this string value1, string value2)
         {
-            Throw.IfNull(() => value1);
-            Throw.IfNull(() => value2);
+            Throw.IfNull(value1);
+            Throw.IfNull(value2);
 
             return value1.ToUpperInvariant().EqualsTo(value2.ToUpperInvariant());
         }
@@ -363,7 +360,7 @@ namespace Extensions.Pack
         /// <summary>Nots the contains.</summary>
         public static bool DoesNotContain(this string value, string notExpected)
         {
-            Throw.IfNullOrWhiteSpace(() => value);
+            Throw.IfNullOrWhiteSpace(value);
 
             return !value.Contains(notExpected);
         }
@@ -375,33 +372,88 @@ namespace Extensions.Pack
 
         public static bool EqualsAnyOf(this string source, params string[] notContainStrings)
         {
-            return notContainStrings.Any(s => s.ToLower().EqualsTo(source));
+            return notContainStrings.Any(s => s.ToLower(CultureInfo.InvariantCulture).EqualsTo(source));
         }
 
         public static string FirstCharToUpper(this string input)
         {
-            switch (input)
+            return input switch
             {
-                case null:
-                    throw new ArgumentNullException(nameof(input));
-                case "":
-                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
-                default:
-                    return input.First().ToString().ToUpper() + input.Substring(1);
-            }
+                null => throw new ArgumentNullException(nameof(input)),
+                "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+                _ => $"{input.First().ToString(CultureInfo.InvariantCulture).ToUpper(CultureInfo.InvariantCulture)}{input[1..]}"
+            };
         }
 
         public static string FirstCharToLower(this string input)
         {
-            switch (input)
+            return input switch
             {
-                case null:
-                    throw new ArgumentNullException(nameof(input));
-                case "":
-                    throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
-                default:
-                    return input.First().ToString().ToLower() + input.Substring(1);
+                null => throw new ArgumentNullException(nameof(input)),
+                "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+                _ => input.First().ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) + input[1..]
+            };
+        }
+
+        public static Uri ToUri(this string source)
+        {
+            return new Uri(source);
+        }
+
+        public static string BuildUriPathWith(this string basePath, params string[] pathSegments)
+        {
+            var normalizeBasPath = basePath.TrimEnd('/');
+            var normalizePathSegments = pathSegments.Select(segment => segment.TrimStart('/'));
+
+            return normalizeBasPath.Concat(normalizePathSegments).Flatten("/");
+        }
+
+        public static int ToIntOrDefault(this string value, int defaultValue = 0)
+        {
+            if (value.IsNullOrWhiteSpace())
+            {
+                return defaultValue;
             }
+
+            if (int.TryParse(value, out var result))
+            {
+                return result;
+            }
+
+            return defaultValue;
+        }
+
+        public static bool TryChangeType<T>(this string source, out T? targetType)
+        {
+            if (source.TryChangeType(typeof(T), out var objectResult))
+            {
+                if (objectResult.IsNull())
+                {
+                    targetType = default;
+                    return false;
+                }
+
+                targetType = objectResult.Cast<T>();
+                return true;
+            }
+
+            targetType = default;
+            return false;
+        }
+
+        public static bool TryChangeType(this string source, Type newType, out object? targetType)
+        {
+            try
+            {
+                targetType = Convert.ChangeType(source, newType, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                targetType = null;
+                return false;
+            }
+
+            return true;
         }
     }
 }
