@@ -49,12 +49,16 @@ namespace Extensions.Pack
         /// <typeparam name="TKey">The generic type of the key.</typeparam>
         /// <typeparam name="TValue">The generic type of the value.</typeparam>
         /// <returns>The value of the expected key.</returns>
-        public static TValue? GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
         {
             Throw.IfNull(dictionary);
+            Throw.IfNull<object>(defaultValue);
             Throw.IfNull<object>(key);
 
-            return dictionary!.GetValueOrDefaults(key, defaultValue).Value;
+            var value = dictionary.GetValueOrDefaults(key, defaultValue).Value;
+            Throw.IfNull<object>(value);
+
+            return value;
         }
 
         /// <summary>Gets the key.</summary>
@@ -69,28 +73,6 @@ namespace Extensions.Pack
             Throw.IfNull<object>(value);
 
             var result = dictionary!.GetKeyOrDefaultInternal(value, default);
-
-            if (result.Exists.IsFalse())
-            {
-                throw new ArgumentException("Values of dictionary does not contains expected value.");
-            }
-
-            return result.Value;
-        }
-
-        /// <summary>Its the same method which use the dictionary class internally.</summary>
-        /// <param name="dictionary">The source dictionary.</param>
-        /// <param name="key">The key for which the expected value have to look for.</param>
-        /// <param name="defaultValue">The custom default value.</param>
-        /// <typeparam name="TKey">The generic type of the key.</typeparam>
-        /// <typeparam name="TValue">The generic type of the value.</typeparam>
-        /// <returns>The value of the expected key.</returns>
-        public static TValue? GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
-        {
-            Throw.IfNull(dictionary);
-            Throw.IfNull<object>(key);
-
-            var result = dictionary.GetValueOrDefaults(key, defaultValue);
 
             if (result.Exists.IsFalse())
             {

@@ -155,15 +155,6 @@
             <param name="value">The value.</param>
             <returns>The generic key of the dictionary.</returns>
         </member>
-        <member name="M:Extensions.Pack.DictionaryExtensions.GetValue``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
-            <summary>Its the same method which use the dictionary class internally.</summary>
-            <param name="dictionary">The source dictionary.</param>
-            <param name="key">The key for which the expected value have to look for.</param>
-            <param name="defaultValue">The custom default value.</param>
-            <typeparam name="TKey">The generic type of the key.</typeparam>
-            <typeparam name="TValue">The generic type of the value.</typeparam>
-            <returns>The value of the expected key.</returns>
-        </member>
         <member name="M:Extensions.Pack.DictionaryExtensions.GetKeyOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``1,``0)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <typeparam name="TKey">The generic type of the key.</typeparam>
