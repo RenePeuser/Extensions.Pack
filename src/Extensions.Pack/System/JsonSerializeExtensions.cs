@@ -27,12 +27,28 @@ namespace Extensions.Pack
 
         public static T? FromJsonStringOrDefault<T>(this string source)
         {
-            return JsonSerializer.Deserialize<T>(source, JsonSerializerOptions);
+            try
+            {
+                // Try catch because of invalid json strings !
+                return JsonSerializer.Deserialize<T>(source, JsonSerializerOptions);
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
 
         public static T? FromJsonStringOrDefault<T>(this string source, JsonConverter customConverter)
         {
-            return JsonSerializer.Deserialize<T>(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+            try
+            {
+                return JsonSerializer.Deserialize<T>(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+            }
+            catch (Exception)
+            {
+                // Try catch because of invalid json strings !
+                return default;
+            }
         }
 
         public static T FromJsonStringAs<T>(this string source)

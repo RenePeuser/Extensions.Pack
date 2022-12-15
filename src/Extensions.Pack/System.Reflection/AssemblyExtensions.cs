@@ -11,10 +11,10 @@ namespace Extensions.Pack
 
     public record InMemoryFileAsString(string FileContent, string Name);
 
-    public record EmbeddedFileStream(Stream Stream, string Name);
+    public record EmbeddedFileStream(MemoryStream Stream, string Name);
 
 
-    public record InMemoryFileAsStream(Stream FileStream, string FileName) : IAsyncDisposable
+    public record InMemoryFileAsStream(MemoryStream FileStream, string FileName) : IAsyncDisposable
     {
         public async ValueTask DisposeAsync()
         {
@@ -45,7 +45,7 @@ namespace Extensions.Pack
             return new EmbeddedFileStream(stream, fileName);
         }
 
-        public static Stream GetEmbeddedFileAsStream(this Assembly assembly, string fileName)
+        public static MemoryStream GetEmbeddedFileAsStream(this Assembly assembly, string fileName)
         {
             Throw.IfNull(assembly);
             Throw.IfNullOrWhiteSpace(fileName);
@@ -60,7 +60,7 @@ namespace Extensions.Pack
             var manifestResourceStream = assembly.GetManifestResourceStream(name);
             Throw.IfNull(manifestResourceStream);
 
-            return manifestResourceStream;
+            return (MemoryStream)manifestResourceStream;
         }
 
         private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly, string fileName)
