@@ -159,7 +159,7 @@ namespace Extensions.Pack
 
         /// <summary>Representing the generic dictionary result.</summary>
         /// <typeparam name="T">Generic type.</typeparam>
-        private class DictionaryResult<T>
+        private sealed class DictionaryResult<T>
         {
             /// <summary>Initializes a new instance of the <see cref="DictionaryResult{T}" /> class.</summary>
             /// <param name="value">The value.</param>
