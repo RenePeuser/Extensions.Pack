@@ -1,17 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <!-- Common settings !-->
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <LangVersion>latestmajor</LangVersion>
-        <EnableNETAnalyzers>true</EnableNETAnalyzers>
-        <AnalysisLevel>latest</AnalysisLevel>
-        <Nullable>enable</Nullable>
-        <WarningsAsErrors>Nullable</WarningsAsErrors>
-        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    </PropertyGroup>
-
     <PropertyGroup>
         <PackageLicenseFile>License.txt</PackageLicenseFile>
         <Authors>Rene Peuser</Authors>
@@ -33,8 +21,7 @@
             System.Xml
             Microsoft.Extensions.DependencyInjection
 
-            Package was upgraded to Net6.0, if you want to use it in lower version take an earlier version.
-            Nullable enable fully activated. Lots of new helpfull http client extensions included
+            Package upgraded to .Net 7
         </PackageReleaseNotes>
         <PackageTags>C#;.Net;Net5;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
         <PackageId>Extensions.Pack</PackageId>
@@ -60,7 +47,7 @@
     <ItemGroup>
         <PackageReference Include="Argument.Check" Version="2.0.0" />
         <PackageReference Include="ConsoleTables" Version="2.4.2" />
-        <PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
+        <PackageReference Include="GitVersion.MsBuild" Version="5.11.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
