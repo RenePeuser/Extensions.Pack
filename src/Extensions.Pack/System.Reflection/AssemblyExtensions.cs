@@ -137,10 +137,14 @@ namespace Extensions.Pack
                 throw new InvalidOperationException($"Unable to locate the file: '{fileName}'. The '{assembly.GetName()}', does not contains the requested embedded resource. Available are: '{manifestResourceNames.Flatten(";")}'");
             }
 
-            var manifestResourceStream = assembly.GetManifestResourceStream(name);
+            using var manifestResourceStream = assembly.GetManifestResourceStream(name);
             Throw.IfNull(manifestResourceStream);
 
-            return (MemoryStream)manifestResourceStream;
+            var memoryStream = new MemoryStream();
+            manifestResourceStream.CopyTo(memoryStream);
+            memoryStream.Position = 0;
+
+            return memoryStream;
         }
 
         public static string GetJsonString(this string jsonValueOrEmbeddedFile, Assembly callingAssembly)
