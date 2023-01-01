@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Extensions.Pack.Exceptions
+namespace Extensions.Pack
 {
     [JsonConverter(typeof(ProblemDetailsJsonConverter))]
     internal sealed class ProblemDetails

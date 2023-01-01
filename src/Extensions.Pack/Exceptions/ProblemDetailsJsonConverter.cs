@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Extensions.Pack.Exceptions
+namespace Extensions.Pack
 {
     internal sealed class ProblemDetailsJsonConverter : JsonConverter<ProblemDetails>
     {

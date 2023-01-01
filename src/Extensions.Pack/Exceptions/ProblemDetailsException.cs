@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 
-namespace Extensions.Pack.Exceptions
+namespace Extensions.Pack
 {
     internal sealed class ProblemDetailsException : Exception
     {
