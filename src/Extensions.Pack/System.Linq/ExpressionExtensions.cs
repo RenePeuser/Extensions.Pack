@@ -88,14 +88,14 @@ namespace Extensions.Pack
 
             var constantExpression = memberExpression.Expression.As<ConstantExpression>();
 
-            if (constantExpression == null)
+            if (constantExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a constant expression", nameof(memberExpression));
             }
 
             var fieldInfo = memberExpression.Member.As<FieldInfo>();
 
-            if (fieldInfo == null)
+            if (fieldInfo.IsNull())
             {
                 throw new ArgumentException("Member of member expression is not a field info", nameof(memberExpression));
             }
@@ -115,14 +115,14 @@ namespace Extensions.Pack
 
             var memberExpression = propertyExpression.Body.As<MemberExpression>();
 
-            if (memberExpression == null)
+            if (memberExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a member expression", nameof(propertyExpression));
             }
 
             var propertyInfo = memberExpression.Member.As<PropertyInfo>();
 
-            if (propertyInfo == null)
+            if (propertyInfo.IsNull())
             {
                 throw new ArgumentException("Member of member expression is not a property info", nameof(propertyExpression));
             }
@@ -148,7 +148,7 @@ namespace Extensions.Pack
 
             var methodCallExpression = argumentExpression.Body.As<MethodCallExpression>();
 
-            if (methodCallExpression == null)
+            if (methodCallExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a member expression", nameof(argumentExpression));
             }
@@ -166,21 +166,21 @@ namespace Extensions.Pack
 
             var memberExpression = argumentExpression.Body.As<MemberExpression>();
 
-            if (memberExpression == null)
+            if (memberExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a member expression", nameof(argumentExpression));
             }
 
             var constantExpression = memberExpression.Expression.As<ConstantExpression>();
 
-            if (constantExpression == null)
+            if (constantExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a constant expression", nameof(argumentExpression));
             }
 
             var fieldInfo = memberExpression.Member.As<FieldInfo>();
 
-            if (fieldInfo == null)
+            if (fieldInfo.IsNull())
             {
                 throw new ArgumentException("Member of member expression is not a field info", nameof(argumentExpression));
             }
@@ -200,21 +200,21 @@ namespace Extensions.Pack
 
             var memberExpression = argumentExpression.Body.As<MemberExpression>();
 
-            if (memberExpression == null)
+            if (memberExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a member expression", nameof(argumentExpression));
             }
 
             var constantExpression = memberExpression.Expression.As<ConstantExpression>();
 
-            if (constantExpression == null)
+            if (constantExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a constant expression", nameof(argumentExpression));
             }
 
             var fieldInfo = memberExpression.Member.As<FieldInfo>();
 
-            if (fieldInfo == null)
+            if (fieldInfo.IsNull())
             {
                 throw new ArgumentException("Member of member expression is not a field info", nameof(argumentExpression));
             }
@@ -233,7 +233,7 @@ namespace Extensions.Pack
 
             var lambdaExpression = expression.As<LambdaExpression>();
 
-            if (lambdaExpression == null)
+            if (lambdaExpression.IsNull())
             {
                 throw new ArgumentException("Expression is not a LambdaExpression");
             }

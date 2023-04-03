@@ -72,7 +72,7 @@ namespace Extensions.Pack
 
             var result = source.FirstOrDefaultOfType<TSource>();
 
-            if (result == null)
+            if (result.IsNull())
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -123,7 +123,7 @@ namespace Extensions.Pack
 
             var result = source.FirstOrDefaultOfType(predicate);
 
-            if (result == null)
+            if (result.IsNull())
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -849,21 +849,19 @@ namespace Extensions.Pack
             Throw.IfNull(slave);
             Throw.IfNull(selectors);
 
-            using (var masterEnumerator = master.GetEnumerator())
-            using (var slaveEnumerator = slave.GetEnumerator())
+            using var masterEnumerator = master.GetEnumerator();
+            using var slaveEnumerator = slave.GetEnumerator();
+            while (masterEnumerator.MoveNext())
             {
-                while (masterEnumerator.MoveNext())
+                var allValues = masterEnumerator.GetSelectorResults(selectors).ToList();
+
+                while (slaveEnumerator.MoveNext())
                 {
-                    var allValues = masterEnumerator.GetSelectorResults(selectors).ToList();
+                    var slaveValues = slaveEnumerator.GetSelectorResults(selectors);
 
-                    while (slaveEnumerator.MoveNext())
+                    if (allValues.SequenceEqual(slaveValues))
                     {
-                        var slaveValues = slaveEnumerator.GetSelectorResults(selectors);
-
-                        if (allValues.SequenceEqual(slaveValues))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }

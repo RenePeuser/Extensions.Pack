@@ -27,7 +27,7 @@ namespace Extensions.Pack
         public static T GetOrThrowMissingException<T>(this IServiceProvider services)
         {
             var service = services.GetService<T>();
-            if (service is null)
+            if (service.IsNull())
             {
                 throw new ProblemDetailsException("Service could not be resolved",
                                                   $"The service: {typeof(T).Name} could not be resolved please check your service registrations",
@@ -99,7 +99,7 @@ namespace Extensions.Pack
             where T : class
         {
             var settings = configuration.GetSection(settingsKeyPath).Get<T>();
-            if (settings is null)
+            if (settings.IsNull())
             {
                 throw new MissingSettingsException<T>();
             }

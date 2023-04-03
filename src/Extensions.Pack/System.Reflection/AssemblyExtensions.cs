@@ -88,9 +88,9 @@ namespace Extensions.Pack
         {
             var manifestResourceNames = assembly.GetManifestResourceNames();
             var name = manifestResourceNames.FirstOrDefault(name => name.ToLower(CultureInfo.InvariantCulture).Contains($"{fileName.ToLower(CultureInfo.InvariantCulture)}"));
-            if (name is null)
+            if (name.IsNull())
             {
-                throw new EmbededResuorceNotFoundException($"Embeded resource with name: '{fileName}' does not exists. Available for your assembly: '{assembly.GetName().Name}' are: {Environment.NewLine}{manifestResourceNames.Flatten(Environment.NewLine)}");
+                throw new EmbededResuorceNotFoundException($"Embedded resource with name: '{fileName}' does not exists. Available for your assembly: '{assembly.GetName().Name}' are: {Environment.NewLine}{manifestResourceNames.Flatten(Environment.NewLine)}");
             }
 
             // steam can not be null check before validates that embedded resource exists.
@@ -156,12 +156,16 @@ namespace Extensions.Pack
                 return jsonValueOrEmbeddedFile;
             }
 
-            var trimmedJsonValue = jsonValueOrEmbeddedFile.Trim().TrimEnd(Environment.NewLine.ToCharArray());
+            var trimmedJsonValue = jsonValueOrEmbeddedFile.Trim() // Trim whitespaces
+                                                          .TrimEnd(Environment.NewLine.ToCharArray()) // Trim line breaks at the end if exists
+                                                          .Trim('"'); // Trim " if exists cause not needed
 
             if (trimmedJsonValue.EndWith(".json"))
             {
                 var jsonValueFromEmbeddedFile = callingAssembly.GetFileContentFrom(trimmedJsonValue).Trim().TrimEnd(Environment.NewLine.ToCharArray());
-                if ((jsonValueFromEmbeddedFile.StartWith("{") && jsonValueFromEmbeddedFile.EndWith("}")) || (jsonValueFromEmbeddedFile.StartWith("[") && jsonValueFromEmbeddedFile.EndWith("]")))
+
+                if ((jsonValueFromEmbeddedFile.StartWith("{") && jsonValueFromEmbeddedFile.EndWith("}")) ||
+                    (jsonValueFromEmbeddedFile.StartWith("[") && jsonValueFromEmbeddedFile.EndWith("]")))
                 {
                     return jsonValueFromEmbeddedFile;
                 }

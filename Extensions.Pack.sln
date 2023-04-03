@@ -17,6 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CICD", "CICD", "{9B8D4C17-4
 		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitVersion", "GitVersion", "{4C1BC51C-F259-4BFC-B188-3B75773BC8FA}"
+	ProjectSection(SolutionItems) = preProject
+		GitVersion.yml = GitVersion.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

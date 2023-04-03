@@ -54,7 +54,7 @@ namespace Extensions.Pack
         public static T FromJsonStringAs<T>(this string source)
         {
             var result = source.FromJsonStringOrDefault<T>();
-            if (result is null)
+            if (result.IsNull())
             {
                 throw new JsonDeserilizeException<T>(source);
             }
@@ -65,7 +65,7 @@ namespace Extensions.Pack
         public static T FromJsonStringAs<T>(this string source, JsonConverter customConverter)
         {
             var result = source.FromJsonStringOrDefault<T>(customConverter);
-            if (result is null)
+            if (result.IsNull())
             {
                 throw new JsonDeserilizeException<T>(source);
             }
