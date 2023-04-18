@@ -30,7 +30,7 @@ namespace Extensions.Pack
         internal static async Task<string> GetResponseInfoAsync(this HttpResponseMessage response, string expected)
         {
             var errorResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            errorResponse = JToken.Parse(errorResponse).ToString(Formatting.Indented);
+            errorResponse = errorResponse.IsNullOrWhiteSpace() ? errorResponse : JToken.Parse(errorResponse).ToString(Formatting.Indented);
             var errorResult = new
             {
                 Request = $"{response.RequestMessage?.Method} {response.RequestMessage?.RequestUri}",

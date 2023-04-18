@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -99,6 +100,11 @@ namespace Extensions.Pack
             return new List<T> { item };
         }
 
+        public static IImmutableList<T> AsImmutableList<T>(this T item)
+        {
+            return ImmutableList.Create(item);
+        }
+
         /// <summary>Determines whether source is any of the expected values.</summary>
         /// <typeparam name="T">The generic type.</typeparam>
         /// <param name="source">The source.</param>
@@ -112,7 +118,7 @@ namespace Extensions.Pack
                 return true;
             }
 
-            if (expectedValues == null)
+            if (expectedValues.IsNull())
             {
                 return false;
             }
@@ -310,7 +316,6 @@ namespace Extensions.Pack
         public static IEnumerable<T> Concat<T>(this T source, IEnumerable<T> items)
         {
             Throw.IfNull<object>(source);
-            Throw.IfNull(items);
 
             yield return source;
 
