@@ -20,6 +20,11 @@ namespace Extensions.Pack
             return JsonSerializer.Serialize(source, JsonSerializerOptions);
         }
 
+        public static string ToJsonIntended<T>(this T source)
+        {
+            return JsonSerializer.Serialize(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter() }, WriteIndented = true });
+        }
+
         public static string ToJson<T>(this T source, JsonConverter customConverter)
         {
             return JsonSerializer.Serialize(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
@@ -53,7 +58,7 @@ namespace Extensions.Pack
 
         public static T FromJsonStringAs<T>(this string source)
         {
-            var result = source.FromJsonStringOrDefault<T>();
+            var result = JsonSerializer.Deserialize<T>(source, JsonSerializerOptions);
             if (result.IsNull())
             {
                 throw new JsonDeserilizeException<T>(source);
@@ -64,7 +69,7 @@ namespace Extensions.Pack
 
         public static T FromJsonStringAs<T>(this string source, JsonConverter customConverter)
         {
-            var result = source.FromJsonStringOrDefault<T>(customConverter);
+            var result = JsonSerializer.Deserialize<T>(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
             if (result.IsNull())
             {
                 throw new JsonDeserilizeException<T>(source);
