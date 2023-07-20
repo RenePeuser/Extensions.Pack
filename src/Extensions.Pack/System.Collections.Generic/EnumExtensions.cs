@@ -95,7 +95,7 @@ namespace Extensions.Pack
             where T : struct, IComparable, IFormattable, IConvertible
         {
             var type = typeof(T);
-            Throw.If(type, t => t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
+            Throw.If(type, t => t.IsNotNull() && t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
 
             return Enum.GetValues(typeof(T)).ToListOfType<T>();
         }
@@ -107,7 +107,7 @@ namespace Extensions.Pack
         public static List<T> GetEnumValuesOf<T>(this Type type)
         {
             Throw.IfNull(type);
-            Throw.If(type, t => t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
+            Throw.If(type, t => t.IsNotNull() && t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
 
             return Enum.GetValues(type).ToListOfType<T>();
         }
