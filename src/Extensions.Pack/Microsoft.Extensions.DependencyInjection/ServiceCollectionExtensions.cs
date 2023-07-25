@@ -90,7 +90,7 @@ namespace Extensions.Pack
                 return settings;
             }
 
-            var typeNameTrimmedSettings = typeof(T).NormalizeTypeNameForSettings();
+            var typeNameTrimmedSettings = typeof(T).Name;
             return configuration.GetSettings<T>(typeNameTrimmedSettings);
 
         }
@@ -112,14 +112,8 @@ namespace Extensions.Pack
             // original settings by type name
             var type = typeof(T);
             var settingsByTypeExists = configuration.TryGetSettings(type.Name, out settings);
-            return settingsByTypeExists is false ? configuration.TryGetSettings(type.NormalizeTypeNameForSettings(), out settings) : settingsByTypeExists;
+            return settingsByTypeExists is false ? configuration.TryGetSettings(type.Name, out settings) : settingsByTypeExists;
         }
-
-        private static string NormalizeTypeNameForSettings(this Type type)
-        {
-            return type.Name.Replace("Settings", string.Empty);
-        }
-
         public static bool TryGetSettings<T>(this IConfiguration configuration, string settingsKeyPath, out T settings) where T : new()
         {
             var section = configuration.GetSection(settingsKeyPath).Get<T>();
