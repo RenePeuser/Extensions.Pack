@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -872,7 +873,7 @@ namespace Extensions.Pack
         /// <summary>Checks if enumeration is null or empty.</summary>
         /// <param name="source">The source.</param>
         /// <returns><c>True</c>if the enumeration is null or empty; otherwise <c>false</c>.</returns>
-        public static bool IsNullOrEmpty(this IEnumerable source)
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this IEnumerable? source)
         {
             if (source.IsNull())
             {
@@ -880,6 +881,36 @@ namespace Extensions.Pack
             }
 
             return source.OfType<object>().IsEmpty();
+        }
+
+        public static bool IsNotNullOrEmpty<T>([NotNullWhen(true)] this IEnumerable<T>? source)
+        {
+            if (source.IsNull())
+            {
+                return false;
+            }
+
+            return !source.IsEmpty();
+        }
+
+        public static bool IsNullOrEmpty<T>([NotNullWhen(false)] this IEnumerable<T>? source)
+        {
+            if (source.IsNull())
+            {
+                return true;
+            }
+
+            return source.IsEmpty();
+        }
+
+        public static bool IsNotNullOrEmpty([NotNullWhen(true)] this IEnumerable? source)
+        {
+            if (source.IsNull())
+            {
+                return false;
+            }
+
+            return source.IsNullOrEmpty().IsFalse();
         }
 
         /// <summary>Index of.</summary>
