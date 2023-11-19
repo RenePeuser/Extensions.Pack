@@ -1,12 +1,11 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Extensions.Pack
 {
-    public class JsonDeserilizeException<T> : Exception
+    public class JsonDeserializeException<T> : Exception
     {
-        public JsonDeserilizeException(string jsonString) : base($"The {typeof(T).Name} could not deserialized from json string: {jsonString}. Please check json structure")
+        public JsonDeserializeException(string jsonString) : base($"The {typeof(T).Name} could not deserialized from json string: {jsonString}. Please check json structure")
         {
         }
     }
@@ -14,6 +13,7 @@ namespace Extensions.Pack
     public static class JsonSerializeExtensions
     {
         private static readonly JsonSerializerOptions JsonSerializerOptions = new() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter() } };
+        private static readonly JsonSerializerOptions JsonSerializerWriteIntended = new() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter() }, WriteIndented = true };
 
         public static string ToJson<T>(this T source)
         {
@@ -22,12 +22,14 @@ namespace Extensions.Pack
 
         public static string ToJsonIntended<T>(this T source)
         {
-            return JsonSerializer.Serialize(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter() }, WriteIndented = true });
+            return JsonSerializer.Serialize(source, JsonSerializerWriteIntended);
         }
 
         public static string ToJson<T>(this T source, JsonConverter customConverter)
         {
+#pragma warning disable CA1869
             return JsonSerializer.Serialize(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+#pragma warning restore CA1869
         }
 
         public static T? FromJsonStringOrDefault<T>(this string source)
@@ -47,7 +49,9 @@ namespace Extensions.Pack
         {
             try
             {
+#pragma warning disable CA1869
                 return JsonSerializer.Deserialize<T>(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+#pragma warning restore CA1869
             }
             catch (Exception)
             {
@@ -61,7 +65,7 @@ namespace Extensions.Pack
             var result = JsonSerializer.Deserialize<T>(source, JsonSerializerOptions);
             if (result.IsNull())
             {
-                throw new JsonDeserilizeException<T>(source);
+                throw new JsonDeserializeException<T>(source);
             }
 
             return result;
@@ -69,10 +73,14 @@ namespace Extensions.Pack
 
         public static T FromJsonStringAs<T>(this string source, JsonConverter customConverter)
         {
-            var result = JsonSerializer.Deserialize<T>(source, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } });
+#pragma warning disable CA1869
+            var jsonSerializerOptions = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true, Converters = { new JsonStringEnumConverter(), customConverter } };
+#pragma warning restore CA1869
+
+            var result = JsonSerializer.Deserialize<T>(source, jsonSerializerOptions);
             if (result.IsNull())
             {
-                throw new JsonDeserilizeException<T>(source);
+                throw new JsonDeserializeException<T>(source);
             }
 
             return result;

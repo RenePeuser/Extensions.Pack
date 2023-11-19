@@ -11,20 +11,6 @@ namespace Extensions.Pack
     /// <summary>The key value pair extensions.</summary>
     public static class KeyValuePairExtensions
     {
-        /// <summary>Converts an enumeration of key value pairs to a dictionary.</summary>
-        /// <param name="keyValuePairs">The enumeration of key value pairs.</param>
-        /// <typeparam name="TKey">The type of the key.</typeparam>
-        /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <returns>A dictionary.</returns>
-        public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs) where TKey : notnull
-        {
-            Throw.IfNull(keyValuePairs);
-
-            var dictionary = keyValuePairs.ToDictionary(item => item.Key, item => item.Value);
-
-            return dictionary;
-        }
-
         /// <summary>Returns a <see cref="string" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
         /// <typeparam name="T">The generic type.</typeparam>
         /// <param name="compiledExpression">The compiled expression.</param>

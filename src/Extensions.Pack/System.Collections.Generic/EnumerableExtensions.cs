@@ -699,10 +699,7 @@ namespace Extensions.Pack
             {
                 var value = selector(item);
 
-                if (!dictionary.ContainsKey(value))
-                {
-                    dictionary.Add(value, item);
-                }
+                dictionary.TryAdd(value, item);
             }
 
             return dictionary.Values;

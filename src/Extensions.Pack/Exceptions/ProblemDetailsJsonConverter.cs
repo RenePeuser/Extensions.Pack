@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -7,7 +6,7 @@ namespace Extensions.Pack
 {
     internal sealed class ProblemDetailsJsonConverter : JsonConverter<ProblemDetails>
     {
-        private static readonly JsonEncodedText Type = JsonEncodedText.Encode("type");
+        private static readonly JsonEncodedText JsonEncodedType = JsonEncodedText.Encode("type");
         private static readonly JsonEncodedText Title = JsonEncodedText.Encode("title");
         private static readonly JsonEncodedText Status = JsonEncodedText.Encode("status");
         private static readonly JsonEncodedText Detail = JsonEncodedText.Encode("detail");
@@ -47,7 +46,7 @@ namespace Extensions.Pack
         [RequiresUnreferencedCode("JSON serialization and deserialization of ProblemDetails.Extensions might require types that cannot be statically analyzed.")]
         internal static void ReadValue(ref Utf8JsonReader reader, ProblemDetails value, JsonSerializerOptions options)
         {
-            if (TryReadStringProperty(ref reader, Type, out var propertyValue))
+            if (TryReadStringProperty(ref reader, JsonEncodedType, out var propertyValue))
             {
                 value.Type = propertyValue;
             }
@@ -101,7 +100,7 @@ namespace Extensions.Pack
         {
             if (value.Type != null)
             {
-                writer.WriteString(Type, value.Type);
+                writer.WriteString(JsonEncodedType, value.Type);
             }
 
             if (value.Title != null)

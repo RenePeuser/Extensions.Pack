@@ -149,11 +149,7 @@ namespace Extensions.Pack
 
             foreach (var item in source)
             {
-                if (target.Contains(item))
-                {
-                    target.Remove(item);
-                }
-
+                target.Remove(item);
                 target.Add(item);
             }
         }

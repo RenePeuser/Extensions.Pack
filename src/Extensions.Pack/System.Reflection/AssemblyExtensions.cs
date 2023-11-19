@@ -1,11 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Argument.Check;
 
 namespace Extensions.Pack
@@ -62,6 +57,8 @@ namespace Extensions.Pack
 
     public static class AssemblyExtensions
     {
+        private static readonly JsonSerializerOptions JsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
+
         public static T? ReadAs<T>(this object assembly, string fileName) where T : class
         {
             return assembly.GetType().Assembly.ReadAs<T>(fileName);
@@ -72,7 +69,7 @@ namespace Extensions.Pack
             var result = assembly.GetFileAsByteArrayFrom(fileName);
             using var streamReader = new StreamReader(new MemoryStream(result.FileContent));
             var stringContent = streamReader.ReadToEnd();
-            return JsonSerializer.Deserialize<T>(stringContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return JsonSerializer.Deserialize<T>(stringContent, JsonSerializerOptions);
         }
 
         public static string GetJsonFileContentFrom(this Assembly assembly, string fileName)
@@ -87,7 +84,7 @@ namespace Extensions.Pack
         private static InMemoryFileAsByteArray GetFileAsByteArrayFrom(this Assembly assembly, string fileName)
         {
             var manifestResourceNames = assembly.GetManifestResourceNames();
-            var name = manifestResourceNames.FirstOrDefault(name => name.ToLower(CultureInfo.InvariantCulture).Contains($"{fileName.ToLower(CultureInfo.InvariantCulture)}"));
+            var name = manifestResourceNames.FirstOrDefault(name => name.ToLowerInvariant().Contains($"{fileName.ToLowerInvariant()}", StringComparison.InvariantCulture));
             if (name.IsNull())
             {
                 throw new EmbededResuorceNotFoundException($"Embedded resource with name: '{fileName}' does not exists. Available for your assembly: '{assembly.GetName().Name}' are: {Environment.NewLine}{manifestResourceNames.Flatten(Environment.NewLine)}");
