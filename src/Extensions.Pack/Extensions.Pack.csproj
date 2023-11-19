@@ -9,19 +9,8 @@
         <PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
         <RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
         <PackageReleaseNotes>
-            A set of extensions for following namespaces:
-
-            System
-            System.Collections.Generic
-            System.Globalization
-            System.IO
-            System.Linq
-            System.Net.Http
-            System.Reflection
-            System.Xml
-            Microsoft.Extensions.DependencyInjection
-
-            Package upgraded to .Net 7
+           - Package upgrade to .Net 8
+           - Remove ambigous extension methods
         </PackageReleaseNotes>
         <PackageTags>C#;.Net;Net5;extension;extensions;extend;static;this;static;System;System.Collections.Generic;System.Globalization;System.IO;System.Linq;System.Reflection;System.Xml;Pack;</PackageTags>
         <PackageId>Extensions.Pack</PackageId>

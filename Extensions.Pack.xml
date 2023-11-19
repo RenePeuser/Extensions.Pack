@@ -707,13 +707,6 @@
         <member name="T:Extensions.Pack.KeyValuePairExtensions">
             <summary>The key value pair extensions.</summary>
         </member>
-        <member name="M:Extensions.Pack.KeyValuePairExtensions.ToDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
-            <summary>Converts an enumeration of key value pairs to a dictionary.</summary>
-            <param name="keyValuePairs">The enumeration of key value pairs.</param>
-            <typeparam name="TKey">The type of the key.</typeparam>
-            <typeparam name="TValue">The type of the value.</typeparam>
-            <returns>A dictionary.</returns>
-        </member>
         <member name="M:Extensions.Pack.KeyValuePairExtensions.ToString``1(System.Collections.Generic.KeyValuePair{System.String,System.Func{``0,System.Object}},``0)">
             <summary>Returns a <see cref="T:System.String" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
             <typeparam name="T">The generic type.</typeparam>
