@@ -1,8 +1,6 @@
-﻿using System.Net.Http;
-using System.Net.Mime;
+﻿using System.Net.Mime;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Extensions.Pack
 {

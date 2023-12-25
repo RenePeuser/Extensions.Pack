@@ -1,5 +1,3 @@
-using System;
-
 namespace Extensions.Pack
 {
     public static class ActionExtensions

@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace Extensions.Pack
+﻿namespace Extensions.Pack
 {
     public static class InMemoryFileExtensions
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Extensions.Pack
+﻿namespace Extensions.Pack
 {
     public static class TimeSpanExtensions
     {

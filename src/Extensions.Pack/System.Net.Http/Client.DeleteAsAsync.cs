@@ -1,7 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace Extensions.Pack
+﻿namespace Extensions.Pack
 {
     public static partial class HttpExtensions
     {

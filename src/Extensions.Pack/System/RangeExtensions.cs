@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Extensions.Pack
+﻿namespace Extensions.Pack
 {
     internal static class RangeExtensions
     {

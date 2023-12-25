@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Extensions.Pack
+﻿namespace Extensions.Pack
 {
     /// <summary>Represents extensions for types of <see cref="double" />.</summary>
     public static class DoubleExtensions

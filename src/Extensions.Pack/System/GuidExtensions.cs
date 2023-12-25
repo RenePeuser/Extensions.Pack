@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Extensions.Pack
+﻿namespace Extensions.Pack
 {
     /// <summary>Class for extensions of <see cref="Guid" />.</summary>
     public static class GuidExtensions

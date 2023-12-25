@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using ConsoleTables;
+﻿using ConsoleTables;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
