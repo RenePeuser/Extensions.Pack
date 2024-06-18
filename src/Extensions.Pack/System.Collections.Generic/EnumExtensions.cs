@@ -6,6 +6,11 @@ namespace Extensions.Pack
     /// <summary>Represents extensions for types of <see cref="Enum" />.</summary>
     public static class EnumExtensions
     {
+        public static IEnumerable<string> GetAllNames<T>(this T _) where T : struct, Enum
+        {
+            return Enum.GetNames<T>();
+        }
+
         /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <param name="ignoreTypes">The types which have to be ignored from the original type list.</param>

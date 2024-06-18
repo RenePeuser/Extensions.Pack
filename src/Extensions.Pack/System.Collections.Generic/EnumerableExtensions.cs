@@ -968,6 +968,16 @@ namespace Extensions.Pack
             return stringCollection;
         }
 
+        public static IEnumerable<T> Page<T>(this IEnumerable<T> source, int page, int pageSize)
+        {
+            return source.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public static string ToFlattenString<T>(this IEnumerable<T> source, string separator = "") where T : notnull
+        {
+            return source.Select(item => item.ToString() ?? string.Empty).Flatten(separator);
+        }
+
         /// <summary>Executes an except operation the second list.</summary>
         /// <typeparam name="T1">The type of the 1 enumeration.</typeparam>
         /// <typeparam name="T2">The type of the 2 enumeration.</typeparam>
