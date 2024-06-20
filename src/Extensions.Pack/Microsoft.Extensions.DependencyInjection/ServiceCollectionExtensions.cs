@@ -16,7 +16,9 @@ namespace Extensions.Pack
         public static bool IsAlreadyRegistered<TImplementation>(this IServiceCollection services)
             where TImplementation : class
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TImplementation) || descriptor.ImplementationType == typeof(TImplementation));
+            var existingRegistrations = services.Where(descriptor => descriptor.IsKeyedService.IsFalse() &&
+                                                                     (descriptor.ServiceType == typeof(TImplementation) ||
+                                                                     descriptor.ImplementationType == typeof(TImplementation)));
             return existingRegistrations.Any();
         }
 
