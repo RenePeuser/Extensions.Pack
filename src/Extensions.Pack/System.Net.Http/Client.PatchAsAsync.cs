@@ -13,7 +13,7 @@ namespace Extensions.Pack
 
         public static async Task<T> PatchAsJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
             var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
             if (patchResponse.IsSuccessStatusCode)
@@ -33,10 +33,10 @@ namespace Extensions.Pack
 
         public static async Task<T> PatchAsErrorResultWithJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
             var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (patchResponse.IsSuccessStatusCode is false)
+            if (patchResponse.IsSuccessStatusCode.IsFalse())
             {
                 return await patchResponse.ParseResultAsync<T>().ConfigureAwait(false);
             }

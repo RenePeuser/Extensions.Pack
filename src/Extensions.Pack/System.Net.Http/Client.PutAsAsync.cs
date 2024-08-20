@@ -20,7 +20,7 @@ namespace Extensions.Pack
         public static async Task<T> PutAsErrorResultAsync<T>(this HttpClient httpClient, string url, object body)
         {
             var putResponse = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
-            if (putResponse.IsSuccessStatusCode is false)
+            if (putResponse.IsSuccessStatusCode.IsFalse())
             {
                 return await putResponse.ParseResultAsync<T>().ConfigureAwait(false);
             }
@@ -36,7 +36,7 @@ namespace Extensions.Pack
 
         public static async Task<T> PutAsJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
             var putResponse = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
             if (putResponse.IsSuccessStatusCode)
@@ -54,10 +54,10 @@ namespace Extensions.Pack
 
         public static async Task<T> PutAsErrorResultWithJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
             var putResponse = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (putResponse.IsSuccessStatusCode is false)
+            if (putResponse.IsSuccessStatusCode.IsFalse())
             {
                 return await putResponse.ParseResultAsync<T>().ConfigureAwait(false);
             }
@@ -74,7 +74,7 @@ namespace Extensions.Pack
 
         public static Task<HttpResponseMessage> PutAsJsonStringAsync(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<object>(callingAssembly);
 
             return httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json));
         }

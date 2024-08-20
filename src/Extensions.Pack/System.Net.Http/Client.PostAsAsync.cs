@@ -37,7 +37,7 @@ namespace Extensions.Pack
         public static async Task<T> PostAsErrorResultAsync<T>(this HttpClient httpClient, string url, object body)
         {
             var result = await httpClient.PostAsJsonAsync(url, body).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode is false)
+            if (result.IsSuccessStatusCode.IsFalse())
             {
                 return await result.ParseResultAsync<T>().ConfigureAwait(false);
             }
@@ -49,7 +49,7 @@ namespace Extensions.Pack
         public static async Task<T> PostAsErrorResultAsync<T>(this HttpClient httpClient, string url)
         {
             var result = await httpClient.PostAsync(url, null).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode is false)
+            if (result.IsSuccessStatusCode.IsFalse())
             {
                 return await result.ParseResultAsync<T>().ConfigureAwait(false);
             }
@@ -65,7 +65,7 @@ namespace Extensions.Pack
 
         public static async Task<T> PostAsJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
             var postResponse = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
             if (postResponse.IsSuccessStatusCode)
@@ -84,10 +84,10 @@ namespace Extensions.Pack
 
         public static async Task<T> PostAsErrorResultWithJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
             var postResponse = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (postResponse.IsSuccessStatusCode is false)
+            if (postResponse.IsSuccessStatusCode.IsFalse())
             {
                 return await postResponse.ParseResultAsync<T>().ConfigureAwait(false);
             }
@@ -103,7 +103,7 @@ namespace Extensions.Pack
 
         public static Task<HttpResponseMessage> PostAsJsonStringAsync(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonString<object>(callingAssembly);
 
             return httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json));
         }

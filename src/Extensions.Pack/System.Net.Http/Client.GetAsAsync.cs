@@ -32,7 +32,7 @@ namespace Extensions.Pack
         public static async Task<T> GetAsErrorResultAsync<T>(this HttpClient httpClient, string url)
         {
             var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode is false)
+            if (result.IsSuccessStatusCode.IsFalse())
             {
                 return await result.ParseResultAsync<T>().ConfigureAwait(false);
             }

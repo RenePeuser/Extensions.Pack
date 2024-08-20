@@ -31,7 +31,7 @@
         public static async Task<T> DeleteAsErrorResultAsync<T>(this HttpClient httpClient, string url)
         {
             var result = await httpClient.DeleteAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode is false)
+            if (result.IsSuccessStatusCode.IsFalse())
             {
                 return await result.ParseResultAsync<T>().ConfigureAwait(false);
             }

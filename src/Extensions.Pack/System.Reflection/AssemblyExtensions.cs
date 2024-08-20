@@ -144,7 +144,7 @@ namespace Extensions.Pack
             return memoryStream;
         }
 
-        public static string GetJsonString(this string jsonValueOrEmbeddedFile, Assembly callingAssembly)
+        public static string GetJsonString<T>(this string jsonValueOrEmbeddedFile, Assembly callingAssembly)
         {
             // ToDo: Current exception string.empty have to fixed soon
             // ToDo: Regex for start end check for  {} and []
@@ -170,9 +170,16 @@ namespace Extensions.Pack
                 throw new InvalidJsonException($"Your given embedded file: '{jsonValueOrEmbeddedFile}' does not contains a valid json string. Json strings have to begin with '{{' and end with a '}}' or if you use an array notation then []");
             }
 
-            if ((trimmedJsonValue.StartWith("{") && trimmedJsonValue.EndWith("}")) || (trimmedJsonValue.StartWith("[") && trimmedJsonValue.EndWith("]")))
+            if ((trimmedJsonValue.StartWith("{") && trimmedJsonValue.EndWith("}")) ||
+                (trimmedJsonValue.StartWith("[") && trimmedJsonValue.EndWith("]")))
             {
                 return trimmedJsonValue;
+            }
+
+            var type = typeof(T);
+            if (type.IsPrimitive || type == typeof(string))
+            {
+                return jsonValueOrEmbeddedFile;
             }
 
             throw new InvalidJsonException($"Your given json string does not contains a valid json string. Json strings have to begin with '{{' and end with a '}}' or if you use an array notation then []{Environment.NewLine}Your invalid string is:{Environment.NewLine}{trimmedJsonValue}");

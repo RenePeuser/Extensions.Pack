@@ -111,7 +111,7 @@ namespace Extensions.Pack
             // original settings by type name
             var type = typeof(T);
             var settingsByTypeExists = configuration.TryGetSettings(type.Name, out settings);
-            if (settingsByTypeExists is false)
+            if (settingsByTypeExists.IsFalse())
             {
                 return configuration.TryGetSettings(type.Name, out settings);
             }

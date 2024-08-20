@@ -40,7 +40,7 @@ namespace Extensions.Pack
         /// <summary>Invokes the specific action, if source is <c>false</c>.</summary>
         /// <param name="source">The source, which is checked for true.</param>
         /// <param name="action">The action.</param>
-        /// <returns><c>true</c> if the specified action is false; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified action.IsFalse(); otherwise, <c>false</c>.</returns>
         public static bool IfFalseThen(this bool source, Action action)
         {
             Throw.IfNull(action);
