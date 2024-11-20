@@ -53,7 +53,14 @@ namespace Extensions.Pack
         public static void AddSingletonIfNotExists<TImplementation>(this IServiceCollection services)
             where TImplementation : class
         {
-            services.AddSingletonIfNotExists<TImplementation, TImplementation>();
+            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TImplementation) ||
+                                                                     descriptor.ImplementationType == typeof(TImplementation));
+            if (existingRegistrations.Any())
+            {
+                return;
+            }
+
+            services.AddSingleton<TImplementation>();
         }
 
         public static void AddSingletonIfNotExists<TImplementation>(this IServiceCollection services, TImplementation instance)
@@ -66,19 +73,6 @@ namespace Extensions.Pack
             }
 
             services.AddSingleton(instance);
-        }
-
-        public static void AddSingletonIfNotExists<TInterface, TImplementation>(this IServiceCollection services)
-            where TInterface : class
-            where TImplementation : class, TInterface
-        {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TInterface) && descriptor.ImplementationType == typeof(TImplementation));
-            if (existingRegistrations.Any())
-            {
-                return;
-            }
-
-            services.AddSingleton(typeof(TInterface), typeof(TImplementation));
         }
 
         public static T GetSettings<T>(this IConfiguration configuration) where T : class, new()

@@ -78,7 +78,7 @@ namespace Extensions.Pack
             {
                 var key = reader.GetString()!;
                 reader.Read();
-                value.Extensions[key] = JsonSerializer.Deserialize(ref reader, typeof(object), options);
+                value.Extensions[key] = JsonSerializer.Deserialize<object>(ref reader, options);
             }
         }
 
