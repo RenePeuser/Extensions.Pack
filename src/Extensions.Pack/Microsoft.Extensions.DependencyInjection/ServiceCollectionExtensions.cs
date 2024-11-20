@@ -53,14 +53,7 @@ namespace Extensions.Pack
         public static void AddSingletonIfNotExists<TImplementation>(this IServiceCollection services)
             where TImplementation : class
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TImplementation) ||
-                                                                     descriptor.ImplementationType == typeof(TImplementation));
-            if (existingRegistrations.Any())
-            {
-                return;
-            }
-
-            services.AddSingleton<TImplementation>();
+            services.AddSingletonIfNotExists<TImplementation, TImplementation>();
         }
 
         public static void AddSingletonIfNotExists<TImplementation>(this IServiceCollection services, TImplementation instance)
@@ -73,6 +66,21 @@ namespace Extensions.Pack
             }
 
             services.AddSingleton(instance);
+        }
+
+        public static void AddSingletonIfNotExists<TInterface, TImplementation>(this IServiceCollection services)
+            where TInterface : class
+            where TImplementation : class, TInterface
+        {
+            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TInterface) && descriptor.ImplementationType == typeof(TImplementation));
+            if (existingRegistrations.Any())
+            {
+                return;
+            }
+
+#pragma warning disable CA2263
+            services.AddSingleton(typeof(TInterface), typeof(TImplementation));
+#pragma warning restore CA2263
         }
 
         public static T GetSettings<T>(this IConfiguration configuration) where T : class, new()
@@ -105,11 +113,6 @@ namespace Extensions.Pack
             // original settings by type name
             var type = typeof(T);
             var settingsByTypeExists = configuration.TryGetSettings(type.Name, out settings);
-            if (settingsByTypeExists.IsFalse())
-            {
-                return configuration.TryGetSettings(type.Name, out settings);
-            }
-
             return settingsByTypeExists;
         }
         public static bool TryGetSettings<T>(this IConfiguration configuration, string settingsKeyPath, out T settings) where T : new()
