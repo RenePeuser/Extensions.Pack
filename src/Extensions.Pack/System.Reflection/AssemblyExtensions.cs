@@ -146,36 +146,55 @@ namespace Extensions.Pack
 
         public static string GetJsonString<T>(this string jsonValueOrEmbeddedFile, Assembly callingAssembly)
         {
-            // ToDo: Current exception string.empty have to fixed soon
-            // ToDo: Regex for start end check for  {} and []
+            // 1. Get target type
+            var targetType = typeof(T);
+            
+            // 2. Check if target type is an enumerable
+            var isEnumerable = targetType.IsEnumerable();
+
+            // 3. If the given json value is null or empty then return it
+            //    Default serialization will be handled by the caller
             if (jsonValueOrEmbeddedFile.IsNullOrWhiteSpace())
             {
                 return jsonValueOrEmbeddedFile;
             }
 
+            // 4. Trim the strings
             var trimmedJsonValue = jsonValueOrEmbeddedFile.Trim() // Trim whitespaces
                                                           .TrimEnd(Environment.NewLine.ToCharArray()) // Trim line breaks at the end if exists
                                                           .Trim('"'); // Trim " if exists cause not needed
 
+
+            // 5. If it is a json file then read the content of the file
             if (trimmedJsonValue.EndWith(".json"))
             {
-                var jsonValueFromEmbeddedFile = callingAssembly.GetFileContentFrom(trimmedJsonValue).Trim().TrimEnd(Environment.NewLine.ToCharArray());
-
-                if ((jsonValueFromEmbeddedFile.StartWith("{") && jsonValueFromEmbeddedFile.EndWith("}")) ||
-                    (jsonValueFromEmbeddedFile.StartWith("[") && jsonValueFromEmbeddedFile.EndWith("]")))
-                {
-                    return jsonValueFromEmbeddedFile;
-                }
-
-                throw new InvalidJsonException($"Your given embedded file: '{jsonValueOrEmbeddedFile}' does not contains a valid json string. Json strings have to begin with '{{' and end with a '}}' or if you use an array notation then []");
+                trimmedJsonValue = callingAssembly.GetFileContentFrom(trimmedJsonValue).Trim().TrimEnd(Environment.NewLine.ToCharArray());
             }
 
+            // 6. If the json string is an array but the target type is not an enumerable then throw an exception
+            if (trimmedJsonValue.StartWith("[") && 
+                trimmedJsonValue.EndWith("]") &&
+                isEnumerable.IsFalse())
+            {
+                throw new InvalidJsonException($"Your passed json string: {trimmedJsonValue} is an array notation [], but your target type: {targetType} is not an array so you can't deserialize it. Please fix your json string");
+            }
+            
+            // 7. If the json string is an object but the target type is an enumerable then throw an exception
+            if (trimmedJsonValue.StartWith("{") && 
+                trimmedJsonValue.EndWith("}") &&
+                isEnumerable)
+            {
+                throw new InvalidJsonException($"Your passed json string: {trimmedJsonValue} is an object notation {{}}, but your target type: {targetType} is an array so you can't deserialize it. Please fix your json string");
+            }
+            
+            // 8. If json notation is fine so return it.
             if ((trimmedJsonValue.StartWith("{") && trimmedJsonValue.EndWith("}")) ||
                 (trimmedJsonValue.StartWith("[") && trimmedJsonValue.EndWith("]")))
             {
                 return trimmedJsonValue;
             }
 
+            // 9. If the target type is a primitive type or a string then return the json value
             var type = typeof(T);
             if (type.IsPrimitive || type == typeof(string))
             {
@@ -184,7 +203,6 @@ namespace Extensions.Pack
 
             throw new InvalidJsonException($"Your given json string does not contains a valid json string. Json strings have to begin with '{{' and end with a '}}' or if you use an array notation then []{Environment.NewLine}Your invalid string is:{Environment.NewLine}{trimmedJsonValue}");
         }
-
 
         private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly, string fileName)
         {

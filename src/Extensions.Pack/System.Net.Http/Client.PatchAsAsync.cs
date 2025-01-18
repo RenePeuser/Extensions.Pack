@@ -50,5 +50,17 @@ namespace Extensions.Pack
             var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonContent, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
             return patchResponse;
         }
+
+        public static Task<HttpResponseMessage> PatchAsJsonAsync(this HttpClient httpClient, string url, string payloadAsJson)
+        {
+            return httpClient.PatchAsJsonAsync(url, payloadAsJson, Assembly.GetCallingAssembly());
+        }
+
+        public static async Task<HttpResponseMessage> PatchAsJsonAsync(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
+        {
+            var jsonPayload = payloadAsJson.GetJsonString<object>(callingAssembly);
+            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            return patchResponse;
+        }
     }
 }
