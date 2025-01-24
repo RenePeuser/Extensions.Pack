@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Reflection;
 using System.Text;
 using Argument.Check;
 
@@ -452,5 +453,22 @@ namespace Extensions.Pack
 
             return true;
         }
+
+        internal static string GetJsonStringFrom(this string expectedObjectAsJson,
+                                                 Assembly callingAssembly)
+
+        {
+            var trimmedJsonValue = expectedObjectAsJson.Trim() // Trim whitespaces
+                                                       .TrimEnd(Environment.NewLine.ToCharArray()) // Trim line breaks at the end if exists
+                                                       .Trim('"'); // Trim " if exists cause not needed
+
+            if (trimmedJsonValue.EndWith(".json"))
+            {
+                trimmedJsonValue = callingAssembly.GetFileContentFrom(trimmedJsonValue).Trim().TrimEnd(Environment.NewLine.ToCharArray());
+            }
+
+            return trimmedJsonValue;
+        }
+
     }
 }

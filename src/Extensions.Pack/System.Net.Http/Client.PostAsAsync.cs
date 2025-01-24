@@ -65,7 +65,7 @@ namespace Extensions.Pack
 
         public static async Task<T> PostAsJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
             using var httpResponseMessage = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -84,7 +84,7 @@ namespace Extensions.Pack
 
         public static async Task<T> PostAsErrorResultWithJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
             using var httpResponseMessage = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
@@ -103,7 +103,7 @@ namespace Extensions.Pack
 
         public static Task<HttpResponseMessage> PostAsJsonStringAsync(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
-            var jsonPayload = payloadAsJson.GetJsonString<object>(callingAssembly);
+            var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
             return httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json));
         }
