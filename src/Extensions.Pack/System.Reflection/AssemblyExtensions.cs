@@ -148,7 +148,7 @@ namespace Extensions.Pack
         {
             // 1. Get target type
             var targetType = typeof(T);
-            
+
             // 2. Check if target type is an enumerable
             var isEnumerable = targetType.IsEnumerable();
 
@@ -172,21 +172,21 @@ namespace Extensions.Pack
             }
 
             // 6. If the json string is an array but the target type is not an enumerable then throw an exception
-            if (trimmedJsonValue.StartWith("[") && 
+            if (trimmedJsonValue.StartWith("[") &&
                 trimmedJsonValue.EndWith("]") &&
                 isEnumerable.IsFalse())
             {
                 throw new InvalidJsonException($"Your passed json string: {trimmedJsonValue} is an array notation [], but your target type: {targetType} is not an array so you can't deserialize it. Please fix your json string");
             }
-            
+
             // 7. If the json string is an object but the target type is an enumerable then throw an exception
-            if (trimmedJsonValue.StartWith("{") && 
+            if (trimmedJsonValue.StartWith("{") &&
                 trimmedJsonValue.EndWith("}") &&
                 isEnumerable)
             {
                 throw new InvalidJsonException($"Your passed json string: {trimmedJsonValue} is an object notation {{}}, but your target type: {targetType} is an array so you can't deserialize it. Please fix your json string");
             }
-            
+
             // 8. If json notation is fine so return it.
             if ((trimmedJsonValue.StartWith("{") && trimmedJsonValue.EndWith("}")) ||
                 (trimmedJsonValue.StartWith("[") && trimmedJsonValue.EndWith("]")))

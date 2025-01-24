@@ -6,46 +6,46 @@ namespace Extensions.Pack
     {
         public static async Task GetAsAsync(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
                 return;
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync(nameof(result.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> GetAsAsync<T>(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await result.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync(nameof(result.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> GetAsErrorResultAsync<T>(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await result.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            throw new UnexpectedResultException(await result.GetResponseInfoAsync("Not successful").ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false));
         }
 
         public static async Task<byte[]> GetFileStreamAsByteArray(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var fileStreamResult = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var fileStreamResult = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
                 await using (fileStreamResult.ConfigureAwait(false))
                 {
                     var memoryStream = new MemoryStream();
@@ -58,15 +58,15 @@ namespace Extensions.Pack
                 }
             }
 
-            throw new UnexpectedResultException(await result.GetResponseInfoAsync($"GET '{url}' was not success full.").ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync($"GET '{url}' was not success full.").ConfigureAwait(false));
         }
 
         public static async Task<InMemoryFileAsByteArray> GetFileAsync(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var fileStreamResult = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var fileStreamResult = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
                 await using (fileStreamResult.ConfigureAwait(false))
                 {
                     var memoryStream = new MemoryStream();
@@ -79,22 +79,22 @@ namespace Extensions.Pack
                 }
             }
 
-            throw new UnexpectedResultException(await result.GetResponseInfoAsync($"GET '{url}' was not success full.").ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync($"GET '{url}' was not success full.").ConfigureAwait(false));
         }
 
         public static async IAsyncEnumerable<InMemoryFileAsByteArray> GetFilesFromZipResponseAsync(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.GetAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var fileStreamResult = await result.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var fileStreamResult = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
                 await using (fileStreamResult.ConfigureAwait(false))
                 {
                     using var zipArchive = new ZipArchive(fileStreamResult);
                     foreach (var entry in zipArchive.Entries)
                     {
-                        var stream = entry.Open();
-                        var memoryStream = new MemoryStream();
+                        using var stream = entry.Open();
+                        using var memoryStream = new MemoryStream();
                         await using (memoryStream.ConfigureAwait(false))
                         {
                             await stream.CopyToAsync(memoryStream).ConfigureAwait(false);
@@ -105,7 +105,7 @@ namespace Extensions.Pack
                 }
             }
 
-            throw new UnexpectedResultException(await result.GetResponseInfoAsync($"GET '{url}' was not success full.").ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync($"GET '{url}' was not success full.").ConfigureAwait(false));
         }
     }
 }

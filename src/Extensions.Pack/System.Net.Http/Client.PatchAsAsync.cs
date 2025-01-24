@@ -15,13 +15,13 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
-            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (patchResponse.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await patchResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await patchResponse.GetResponseInfoAsync(nameof(patchResponse.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }
@@ -35,13 +35,13 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
-            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (patchResponse.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await patchResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            throw new UnexpectedResultException(await patchResponse.GetResponseInfoAsync("Not successful").ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false));
         }
 
         public static async Task<HttpResponseMessage> PatchAsJsonAsync<T>(this HttpClient httpClient, string url, T content)

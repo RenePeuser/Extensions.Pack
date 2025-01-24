@@ -8,24 +8,24 @@ namespace Extensions.Pack
     {
         public static async Task<T> PutAsAsync<T>(this HttpClient httpClient, string url, object body)
         {
-            var putResponse = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
-            if (putResponse.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await putResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            throw new UnexpectedResultException(await putResponse.GetResponseInfoAsync(nameof(putResponse.IsSuccessStatusCode)).ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false));
         }
 
         public static async Task<T> PutAsErrorResultAsync<T>(this HttpClient httpClient, string url, object body)
         {
-            var putResponse = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
-            if (putResponse.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.PutAsJsonAsync(url, body).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await putResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await putResponse.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
@@ -38,13 +38,13 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
-            var putResponse = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (putResponse.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await putResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            throw new UnexpectedResultException(await putResponse.GetResponseInfoAsync(nameof(putResponse.IsSuccessStatusCode)).ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false));
         }
 
         public static Task<T> PutAsErrorResultWithJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson)
@@ -56,13 +56,13 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
-            var putResponse = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (putResponse.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await putResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await putResponse.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }

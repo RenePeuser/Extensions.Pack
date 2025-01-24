@@ -4,39 +4,39 @@
     {
         public static async Task DeleteAsAsync(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.DeleteAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
                 return;
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync(nameof(result.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> DeleteAsAsync<T>(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.DeleteAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await result.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync(nameof(result.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> DeleteAsErrorResultAsync<T>(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.DeleteAsync(url).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await result.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            throw new UnexpectedResultException(await result.GetResponseInfoAsync("Not successful").ConfigureAwait(false));
+            throw new UnexpectedResultException(await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false));
         }
     }
 }

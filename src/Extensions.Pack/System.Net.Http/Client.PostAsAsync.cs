@@ -8,53 +8,53 @@ namespace Extensions.Pack
     {
         public static async Task<T> PostAsAsync<T>(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.PostAsync(url, null).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.PostAsync(url, null).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var typeResult = await result.Content.ReadAsAsync<T>().ConfigureAwait(false);
+                var typeResult = await httpResponseMessage.Content.ReadAsAsync<T>().ConfigureAwait(false);
                 return typeResult;
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync(nameof(result.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> PostAsAsync<T>(this HttpClient httpClient, string url, object body)
         {
-            var result = await httpClient.PostAsJsonAsync(url, body).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.PostAsJsonAsync(url, body).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                var typeResult = await result.Content.ReadAsAsync<T>().ConfigureAwait(false);
+                var typeResult = await httpResponseMessage.Content.ReadAsAsync<T>().ConfigureAwait(false);
                 return typeResult;
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync(nameof(result.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
 
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> PostAsErrorResultAsync<T>(this HttpClient httpClient, string url, object body)
         {
-            var result = await httpClient.PostAsJsonAsync(url, body).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.PostAsJsonAsync(url, body).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await result.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
         public static async Task<T> PostAsErrorResultAsync<T>(this HttpClient httpClient, string url)
         {
-            var result = await httpClient.PostAsync(url, null).ConfigureAwait(false);
-            if (result.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.PostAsync(url, null).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await result.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await result.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
@@ -67,13 +67,13 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
-            var postResponse = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (postResponse.IsSuccessStatusCode)
+            using var httpResponseMessage = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode)
             {
-                return await postResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await postResponse.GetResponseInfoAsync(nameof(postResponse.IsSuccessStatusCode)).ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync(nameof(httpResponseMessage.IsSuccessStatusCode)).ConfigureAwait(false);
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
@@ -86,13 +86,13 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonString<T>(callingAssembly);
 
-            var postResponse = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
-            if (postResponse.IsSuccessStatusCode.IsFalse())
+            using var httpResponseMessage = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
-                return await postResponse.ParseResultAsync<T>().ConfigureAwait(false);
+                return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
             }
 
-            var responseInfoAsync = await postResponse.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
+            var responseInfoAsync = await httpResponseMessage.GetResponseInfoAsync("Not successful").ConfigureAwait(false);
             throw new UnexpectedResultException(responseInfoAsync);
         }
 
