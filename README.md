@@ -1,9 +1,5 @@
 # Extensions.Pack
 
-```
-PRERELEASE !!!
-```
-
 A set of extensions for following namespaces:
 ```
 - System
@@ -11,6 +7,8 @@ A set of extensions for following namespaces:
 - System.Globalization
 - System.IO
 - System.Linq
+- System.Linq.Async
+- System.Net.Http 
 - System.Reflection
 - System.Xml
 ```
