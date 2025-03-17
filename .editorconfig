@@ -114,6 +114,8 @@ dotnet_diagnostic.IDE0050.severity = silent
 dotnet_diagnostic.IDE0058.severity = silent
 dotnet_diagnostic.IDE0072.severity = silent
 dotnet_diagnostic.IDE0130.severity = none
+dotnet_diagnostic.IDE0305.severity = none
+dotnet_diagnostic.IDE0306.severity = none
 
 ###############################
 # C# Formatting Rules         #
