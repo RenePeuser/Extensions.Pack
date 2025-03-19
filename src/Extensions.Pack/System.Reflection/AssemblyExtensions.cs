@@ -19,11 +19,14 @@ namespace Extensions.Pack
         }
     }
 
-    public record InMemoryFileAsByteArray(byte[] FileContent, string Name);
+    public record InMemoryFileAsByteArray(byte[] FileContent,
+                                          string Name);
 
-    public record InMemoryFileAsString(string FileContent, string Name);
+    public record InMemoryFileAsString(string FileContent,
+                                       string Name);
 
-    public record EmbeddedFileStream(MemoryStream Stream, string Name) : IDisposable
+    public record EmbeddedFileStream(MemoryStream Stream,
+                                     string Name) : IDisposable
     {
         public void Dispose()
         {
@@ -32,8 +35,8 @@ namespace Extensions.Pack
         }
     }
 
-
-    public record InMemoryFileAsStream(MemoryStream FileStream, string FileName) : IAsyncDisposable
+    public record InMemoryFileAsStream(MemoryStream FileStream,
+                                       string FileName) : IAsyncDisposable
     {
         public async ValueTask DisposeAsync()
         {
@@ -49,9 +52,23 @@ namespace Extensions.Pack
             return GetFileContentFrom(Assembly.GetCallingAssembly(), fileName);
         }
 
-        public static string GetFileContentFrom(this Assembly assembly, string fileName)
+        public static string GetFileContentFrom(this Assembly assembly,
+                                                string fileName)
         {
             return assembly.GetJsonFileContentFrom(fileName);
+        }
+
+        public static string GetFileContentOrDefaultFrom(string fileName,
+                                                         string defaultValue = "")
+        {
+            return GetFileContentOrDefaultFrom(Assembly.GetCallingAssembly(), fileName, defaultValue);
+        }
+
+        public static string GetFileContentOrDefaultFrom(this Assembly assembly,
+                                                         string fileName,
+                                                         string defaultValue = "")
+        {
+            return assembly.GetJsonFileContentOrDefaultFrom(fileName, defaultValue);
         }
     }
 
@@ -59,32 +76,59 @@ namespace Extensions.Pack
     {
         private static readonly JsonSerializerOptions JsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
-        public static T? ReadAs<T>(this object assembly, string fileName) where T : class
+        public static T? ReadAs<T>(this object assembly,
+                                   string fileName) where T : class
         {
             return assembly.GetType().Assembly.ReadAs<T>(fileName);
         }
 
-        public static T? ReadAs<T>(this Assembly assembly, string fileName) where T : class
+        public static T? ReadAs<T>(this Assembly assembly,
+                                   string fileName) where T : class
         {
             var result = assembly.GetFileAsByteArrayFrom(fileName);
-            using var streamReader = new StreamReader(new MemoryStream(result.FileContent));
+
+            using var memoryStream = new MemoryStream(result.FileContent);
+            using var streamReader = new StreamReader(memoryStream);
             var stringContent = streamReader.ReadToEnd();
+
             return JsonSerializer.Deserialize<T>(stringContent, JsonSerializerOptions);
         }
 
-        public static string GetJsonFileContentFrom(this Assembly assembly, string fileName)
+        public static string GetJsonFileContentFrom(this Assembly assembly,
+                                                    string fileName)
         {
             var result = assembly.GetFileAsByteArrayFrom(fileName);
-            using var streamReader = new StreamReader(new MemoryStream(result.FileContent));
+            using var memoryStream = new MemoryStream(result.FileContent);
+            using var streamReader = new StreamReader(memoryStream);
+
+            return streamReader.ReadToEnd();
+        }
+
+        public static string GetJsonFileContentOrDefaultFrom(this Assembly assembly,
+                                                             string fileName,
+                                                             string defaultValue = "")
+        {
+            var result = assembly.GetFileAsByteArrayOrDefaultFrom(fileName);
+
+            if (result.IsNull())
+            {
+                return defaultValue;
+            }
+
+            using var memoryStream = new MemoryStream(result.FileContent);
+            using var streamReader = new StreamReader(memoryStream);
+
             return streamReader.ReadToEnd();
         }
 
         // very important try to avoid accessing file system during tests, so we fetch our data from
         // our assembly direct from the memory :-) 
-        private static InMemoryFileAsByteArray GetFileAsByteArrayFrom(this Assembly assembly, string fileName)
+        private static InMemoryFileAsByteArray GetFileAsByteArrayFrom(this Assembly assembly,
+                                                                      string fileName)
         {
             var manifestResourceNames = assembly.GetManifestResourceNames();
             var name = manifestResourceNames.FirstOrDefault(name => name.ToLowerInvariant().Contains($"{fileName.ToLowerInvariant()}", StringComparison.InvariantCulture));
+
             if (name.IsNull())
             {
                 throw new EmbededResuorceNotFoundException($"Embedded resource with name: '{fileName}' does not exists. Available for your assembly: '{assembly.GetName().Name}' are: {Environment.NewLine}{manifestResourceNames.Flatten(Environment.NewLine)}");
@@ -94,6 +138,26 @@ namespace Extensions.Pack
             using var stream = assembly.GetManifestResourceStream(name);
             using var ms = new MemoryStream();
             stream!.CopyTo(ms);
+
+            return new InMemoryFileAsByteArray(ms.ToArray(), name);
+        }
+
+        private static InMemoryFileAsByteArray? GetFileAsByteArrayOrDefaultFrom(this Assembly assembly,
+                                                                                string fileName)
+        {
+            var manifestResourceNames = assembly.GetManifestResourceNames();
+            var name = manifestResourceNames.FirstOrDefault(name => name.ToLowerInvariant().Contains($"{fileName.ToLowerInvariant()}", StringComparison.InvariantCulture));
+
+            if (name.IsNull())
+            {
+                return null;
+            }
+
+            // steam can not be null check before validates that embedded resource exists.
+            using var stream = assembly.GetManifestResourceStream(name);
+            using var ms = new MemoryStream();
+            stream!.CopyTo(ms);
+
             return new InMemoryFileAsByteArray(ms.ToArray(), name);
         }
 
@@ -102,33 +166,42 @@ namespace Extensions.Pack
             return assembly.GetCustomAttribute<DebuggableAttribute>()?.IsJITTrackingEnabled ?? false;
         }
 
-        public static async Task<InMemoryFileAsString> GetEmbeddedFileAsStringAsync(this Assembly assembly, string embededResourceName)
+        public static async Task<InMemoryFileAsString> GetEmbeddedFileAsStringAsync(this Assembly assembly,
+                                                                                    string embededResourceName)
         {
             var result = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
-            using var streamReader = new StreamReader(new MemoryStream(result));
+            using var memoryStream = new MemoryStream(result);
+            using var streamReader = new StreamReader(memoryStream);
             var stringContent = await streamReader.ReadToEndAsync().ConfigureAwait(false);
+
             return new InMemoryFileAsString(stringContent, embededResourceName);
         }
 
-        public static async Task<InMemoryFileAsByteArray> GetEmbeddedFileAsByteArrayAsync(this Assembly assembly, string embededResourceName)
+        public static async Task<InMemoryFileAsByteArray> GetEmbeddedFileAsByteArrayAsync(this Assembly assembly,
+                                                                                          string embededResourceName)
         {
             var bytes = await assembly.GetFileAsByteArrayFromAsync(embededResourceName).ConfigureAwait(false);
+
             return new InMemoryFileAsByteArray(bytes, embededResourceName);
         }
 
-        public static EmbeddedFileStream GetEmbeddedFileStream(this Assembly assembly, string fileName)
+        public static EmbeddedFileStream GetEmbeddedFileStream(this Assembly assembly,
+                                                               string fileName)
         {
             var stream = assembly.GetEmbeddedFileAsStream(fileName);
+
             return new EmbeddedFileStream(stream, fileName);
         }
 
-        public static MemoryStream GetEmbeddedFileAsStream(this Assembly assembly, string fileName)
+        public static MemoryStream GetEmbeddedFileAsStream(this Assembly assembly,
+                                                           string fileName)
         {
             Throw.IfNull(assembly);
             Throw.IfNullOrWhiteSpace(fileName);
 
             var manifestResourceNames = assembly.GetManifestResourceNames();
             var name = manifestResourceNames.FirstOrDefault(name => name.Contains(fileName));
+
             if (name.IsNull())
             {
                 throw new InvalidOperationException($"Unable to locate the file: '{fileName}'. The '{assembly.GetName()}', does not contains the requested embedded resource. Available are: '{manifestResourceNames.Flatten(";")}'");
@@ -144,7 +217,8 @@ namespace Extensions.Pack
             return memoryStream;
         }
 
-        public static string GetJsonString<T>(this string jsonValueOrEmbeddedFile, Assembly callingAssembly)
+        public static string GetJsonString<T>(this string jsonValueOrEmbeddedFile,
+                                              Assembly callingAssembly)
         {
             // 1. Get target type
             var targetType = typeof(T);
@@ -163,7 +237,6 @@ namespace Extensions.Pack
             var trimmedJsonValue = jsonValueOrEmbeddedFile.Trim() // Trim whitespaces
                                                           .TrimEnd(Environment.NewLine.ToCharArray()) // Trim line breaks at the end if exists
                                                           .Trim('"'); // Trim " if exists cause not needed
-
 
             // 5. If it is a json file then read the content of the file
             if (trimmedJsonValue.EndWith(".json"))
@@ -196,6 +269,7 @@ namespace Extensions.Pack
 
             // 9. If the target type is a primitive type or a string then return the json value
             var type = typeof(T);
+
             if (type.IsPrimitive || type == typeof(string))
             {
                 return jsonValueOrEmbeddedFile;
@@ -204,7 +278,8 @@ namespace Extensions.Pack
             throw new InvalidJsonException($"Your given json string does not contains a valid json string. Json strings have to begin with '{{' and end with a '}}' or if you use an array notation then []{Environment.NewLine}Your invalid string is:{Environment.NewLine}{trimmedJsonValue}");
         }
 
-        private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly, string fileName)
+        private static async Task<byte[]> GetFileAsByteArrayFromAsync(this Assembly assembly,
+                                                                      string fileName)
         {
             var stream = assembly.GetEmbeddedFileAsStream(fileName);
 
@@ -213,7 +288,8 @@ namespace Extensions.Pack
                 var ms = new MemoryStream();
                 await using (ms.ConfigureAwait(false))
                 {
-                    await stream!.CopyToAsync(ms).ConfigureAwait(false);
+                    await stream.CopyToAsync(ms).ConfigureAwait(false);
+
                     return ms.ToArray();
                 }
             }
