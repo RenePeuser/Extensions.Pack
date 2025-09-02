@@ -502,6 +502,13 @@ namespace Extensions.Pack
             return !source.Any();
         }
 
+        public static bool AreEmpty<T>(this IEnumerable<T> source)
+        {
+            Throw.IfNull(source);
+
+            return !source.Any();
+        }
+
         /// <summary>Excepts the specified target.</summary>
         /// <typeparam name="T">The generic type.</typeparam>
         /// <typeparam name="TProperty">The type of the property.</typeparam>

@@ -4,6 +4,14 @@ using System.Text;
 
 namespace Extensions.Pack
 {
+    internal static class MediaTypeNamesExtensions
+    {
+        internal static class Application
+        {
+            internal const string MergePatchJson = "application/merge-patch+json";
+        }
+    }
+    
     public static partial class HttpExtensions
     {
         public static Task<T> PatchAsJsonStringAsync<T>(this HttpClient httpClient, string url, string payloadAsJson)
@@ -15,7 +23,7 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
@@ -35,7 +43,7 @@ namespace Extensions.Pack
         {
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
                 return await httpResponseMessage.ParseResultAsync<T>().ConfigureAwait(false);
@@ -47,7 +55,7 @@ namespace Extensions.Pack
         public static async Task<HttpResponseMessage> PatchAsJsonAsync<T>(this HttpClient httpClient, string url, T content)
         {
             var jsonContent = content.ToJson();
-            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonContent, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonContent, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
             return patchResponse;
         }
 
@@ -59,7 +67,7 @@ namespace Extensions.Pack
         public static async Task<HttpResponseMessage> PatchAsJsonAsync(this HttpClient httpClient, string url, string payloadAsJson, Assembly callingAssembly)
         {
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
-            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
             return patchResponse;
         }
     }
