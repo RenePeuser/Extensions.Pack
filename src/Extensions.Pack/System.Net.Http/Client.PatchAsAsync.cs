@@ -68,7 +68,7 @@ namespace Extensions.Pack
                                                                           string url,
                                                                           T content)
         {
-            var jsonContent = content.ToJson();
+            var jsonContent = content.ToJson(JsonSerializerOptions);
             var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonContent, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
 
             return patchResponse;

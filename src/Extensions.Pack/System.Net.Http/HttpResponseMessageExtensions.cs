@@ -1,4 +1,5 @@
-﻿using ConsoleTables;
+﻿using System.Text.Json;
+using ConsoleTables;
 using Extensions.Pack.TypeConversion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,7 +17,7 @@ namespace Extensions.Pack
             var type = typeof(T);
             try
             {
-                typeResult = type.IsPrimitive || type == typeof(string) ? PrimitiveTypeConverter.ConvertTo<T>(jsonString) : jsonString.FromJsonStringAs<T>();
+                typeResult = type.IsPrimitive || type == typeof(string) ? PrimitiveTypeConverter.ConvertTo<T>(jsonString) : jsonString.FromJsonStringAs<T>(HttpExtensions.JsonSerializerOptions);
             }
             catch (Exception)
             {
