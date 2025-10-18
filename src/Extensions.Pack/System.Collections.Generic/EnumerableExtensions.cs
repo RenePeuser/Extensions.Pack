@@ -982,12 +982,12 @@ namespace Extensions.Pack
             return stringBuilder.ToString();
         }
 
-        public static IImmutableList<IImmutableList<T>> ChunkImmutable<T>(this IEnumerable<T> source,
+        public static ImmutableList<ImmutableList<T>> ChunkImmutable<T>(this IEnumerable<T> source,
                                                                           int chunksize)
         {
             return Chunk(source, chunksize).ToImmutableList();
 
-            static IEnumerable<IImmutableList<T>> Chunk(IEnumerable<T> source,
+            static IEnumerable<ImmutableList<T>> Chunk(IEnumerable<T> source,
                                                         int chunksize)
             {
                 while (source.Any())
