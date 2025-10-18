@@ -156,6 +156,11 @@ namespace Extensions.Pack
             return new List<T> { item };
         }
 
+        public static IImmutableList<T> AsIImmutableList<T>(this T item)
+        {
+            return ImmutableList.Create(item);
+        }
+
         public static ImmutableList<T> AsImmutableList<T>(this T item)
         {
             return ImmutableList.Create(item);
