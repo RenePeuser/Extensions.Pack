@@ -65,7 +65,8 @@
         /// <param name="source">The source for the comparison.</param>
         /// <param name="target">The target for the comparison.</param>
         /// <returns><c>true</c> if the objects are equal; otherwise <c>false</c>.</returns>
-        public static bool DoubleNotEqualsToExcludingNan(this double source, double target)
+        public static bool DoubleNotEqualsToExcludingNan(this double source,
+                                                         double target)
         {
             bool result;
 

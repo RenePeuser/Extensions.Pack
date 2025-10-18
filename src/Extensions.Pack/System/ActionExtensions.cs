@@ -10,7 +10,8 @@ namespace Extensions.Pack
             }
         }
 
-        public static void NullableInvoke<T>(this Action<T> action, T arg0)
+        public static void NullableInvoke<T>(this Action<T> action,
+                                             T arg0)
         {
             if (action.IsNotNull())
             {
@@ -18,7 +19,9 @@ namespace Extensions.Pack
             }
         }
 
-        public static void NullableInvoke<T1, T2>(this Action<T1, T2> action, T1 arg1, T2 arg2)
+        public static void NullableInvoke<T1, T2>(this Action<T1, T2> action,
+                                                  T1 arg1,
+                                                  T2 arg2)
         {
             if (action.IsNotNull())
             {

@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <doc>
     <assembly>
         <name>Extensions</name>
@@ -7,19 +8,22 @@
         <member name="T:Extensions.CollectionExtensions">
             <summary>Extension methods for ICollection.</summary>
         </member>
-        <member name="M:Extensions.CollectionExtensions.ClearAndAddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.ClearAndAddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Clears a collection and adds the given items to the collection.</summary>
             <typeparam name="T">The type of the collection items.</typeparam>
             <param name="collection">The collection to add the items to.</param>
             <param name="items">The items to add to the collection.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.ClearAndAddRange``1(System.Collections.Generic.ICollection{``0},``0[])">
+        <member
+            name="M:Extensions.CollectionExtensions.ClearAndAddRange``1(System.Collections.Generic.ICollection{``0},``0[])">
             <summary>Clears a collection and adds the given items to the collection.</summary>
             <typeparam name="T">The type of the collection items.</typeparam>
             <param name="collection">The collection to add the items to.</param>
             <param name="items">The items to add to the collection.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.AddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.AddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Adds a range of items to a collection.</summary>
             <param name="collection">The second collection where the items have to be added.</param>
             <param name="items">The item which have to be added.</param>
@@ -31,19 +35,22 @@
             <param name="items">The item which have to be added.</param>
             <typeparam name="T">Generic type of the collection.</typeparam>
         </member>
-        <member name="M:Extensions.CollectionExtensions.RemoveRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.RemoveRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Remove a range of items from a collection.</summary>
             <param name="collection">The collection where the items have to be removed.</param>
             <param name="items">The items which have to be removed from the collection.</param>
             <typeparam name="T">Generic type of the collection.</typeparam>
         </member>
-        <member name="M:Extensions.CollectionExtensions.RemoveRange``1(System.Collections.Generic.ICollection{``0},System.Func{``0,System.Boolean})">
+        <member
+            name="M:Extensions.CollectionExtensions.RemoveRange``1(System.Collections.Generic.ICollection{``0},System.Func{``0,System.Boolean})">
             <summary>Remove a range of items from a collection.</summary>
             <param name="collection">The collection where the items have to be removed.</param>
             <param name="selector">The selector used to specify what items should be removed.</param>
             <typeparam name="T">Generic type of the collection.</typeparam>
         </member>
-        <member name="M:Extensions.CollectionExtensions.RemoveAll``1(System.Collections.Generic.ICollection{``0},System.Func{``0,System.Boolean})">
+        <member
+            name="M:Extensions.CollectionExtensions.RemoveAll``1(System.Collections.Generic.ICollection{``0},System.Func{``0,System.Boolean})">
             <summary>Remove all items which fulfill the predicate.</summary>
             <param name="collection">The second collection.</param>
             <param name="predicate">Predicate to get the items for removing.</param>
@@ -55,33 +62,38 @@
             <param name="collection">The collection.</param>
             <param name="item">The item to add.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.ReplaceAt``1(System.Collections.ObjectModel.Collection{``0},System.Int32,``0)">
+        <member
+            name="M:Extensions.CollectionExtensions.ReplaceAt``1(System.Collections.ObjectModel.Collection{``0},System.Int32,``0)">
             <summary>Replace a item at a specific index.</summary>
             <param name="collection">The second collection.</param>
             <param name="index">The index on which position the item have to be replaced.</param>
             <param name="newItem">The new item.</param>
             <typeparam name="T">Generic type of the collection.</typeparam>
         </member>
-        <member name="M:Extensions.CollectionExtensions.Replace``1(System.Collections.ObjectModel.Collection{``0},``0,``0)">
+        <member
+            name="M:Extensions.CollectionExtensions.Replace``1(System.Collections.ObjectModel.Collection{``0},``0,``0)">
             <summary>Replace a item at its specific index.</summary>
             <typeparam name="T">Generic type of the collection.</typeparam>
             <param name="sourceCollection">The second collection.</param>
             <param name="oldItem">The original item.</param>
             <param name="newItem">The new item.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.UnionByReplacing``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.UnionByReplacing``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
             <summary>Unites the source collection with a second collection by replacing all items that appear in both lists.</summary>
             <typeparam name="T">Generic type of the collection.</typeparam>
             <param name="target">The target collection to be united.</param>
             <param name="source">The source collection to unite from.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.SyncCollectionFrom``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.SyncCollectionFrom``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Synchronizes the target collection with a source collection. The items that are not in the source collection will be removed from the target collection.</summary>
             <typeparam name="T">The generic type of the collections.</typeparam>
             <param name="target">The first collection which have to be synchronized.</param>
             <param name="source">The second collection.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.SyncCollectionFrom``2(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.CollectionExtensions.SyncCollectionFrom``2(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Synchronizes the target collection with a source collection. The items that are not in the source collection will be removed from the target collection.</summary>
             <typeparam name="T">The generic type of the collections.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -89,7 +101,8 @@
             <param name="source">The second collection.</param>
             <param name="selector">The selector for the criteria of the synchronization.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.SyncCollectionWithoutDeleteFrom``2(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.CollectionExtensions.SyncCollectionWithoutDeleteFrom``2(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Synchronizes the target collection with a source collection without deleting the items that are not in source.</summary>
             <typeparam name="T">The generic type of the collections.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -97,20 +110,23 @@
             <param name="source">The second collection.</param>
             <param name="selector">The selector for the criteria of the synchronization.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.SyncCollectionWithoutDeleteFrom``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.SyncCollectionWithoutDeleteFrom``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Synchronizes the target collection with a source collection without deleting the items that are not in source.</summary>
             <typeparam name="T">The generic type of the collections.</typeparam>
             <param name="target">The first collection which have to be synchronized.</param>
             <param name="source">The second collection.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.InvokeActionForExceptItems``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.InvokeActionForExceptItems``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
             <summary>Invoke action for all items which are except from second to the first.</summary>
             <typeparam name="T">The generic type of the collections.</typeparam>
             <param name="first">The first collection.</param>
             <param name="second">The second enumeration.</param>
             <param name="action">The action which have to be invoked on each except items.</param>
         </member>
-        <member name="M:Extensions.CollectionExtensions.InvokeActionForExceptItems``2(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Action{``0})">
+        <member
+            name="M:Extensions.CollectionExtensions.InvokeActionForExceptItems``2(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Action{``0})">
             <summary>Invoke action for all items which are except from second to the first.</summary>
             <typeparam name="T">The generic type of the collections.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -122,7 +138,8 @@
         <member name="T:Extensions.DictionaryExtensions">
             <summary>Represents the extension methods for <see cref="T:System.Collections.Generic.Dictionary`2" />.</summary>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetValue``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetValue``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <param name="dictionary">The source dictionary.</param>
             <param name="key">The key for which the expected value have to look for.</param>
@@ -130,7 +147,8 @@
             <typeparam name="TValue">The generic type of the value.</typeparam>
             <returns>The value of the expected key.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetValueOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetValueOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <param name="dictionary">The source dictionary.</param>
             <param name="key">The key for which the expected value have to look for.</param>
@@ -138,7 +156,8 @@
             <typeparam name="TValue">The generic type of the value.</typeparam>
             <returns>The value of the expected key.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetValueOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetValueOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <param name="dictionary">The source dictionary.</param>
             <param name="key">The key for which the expected value have to look for.</param>
@@ -155,7 +174,8 @@
             <param name="value">The value.</param>
             <returns>The generic key of the dictionary.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetValue``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetValue``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <param name="dictionary">The source dictionary.</param>
             <param name="key">The key for which the expected value have to look for.</param>
@@ -164,7 +184,8 @@
             <typeparam name="TValue">The generic type of the value.</typeparam>
             <returns>The value of the expected key.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetKeyOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``1,``0)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetKeyOrDefault``2(System.Collections.Generic.IDictionary{``0,``1},``1,``0)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <typeparam name="TKey">The generic type of the key.</typeparam>
             <typeparam name="TValue">The generic type of the value.</typeparam>
@@ -173,7 +194,8 @@
             <param name="defaultValue">The custom default value.</param>
             <returns>The value of the expected key.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.ContainsValue``2(System.Collections.Generic.IDictionary{``0,``1},``1)">
+        <member
+            name="M:Extensions.DictionaryExtensions.ContainsValue``2(System.Collections.Generic.IDictionary{``0,``1},``1)">
             <summary>Determines whether the specified value contains value.</summary>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
@@ -181,7 +203,8 @@
             <param name="value">The value.</param>
             <returns><c>true</c> if the specified value contains value; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetKeyOrDefaultInternal``2(System.Collections.Generic.IDictionary{``0,``1},``1,``0)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetKeyOrDefaultInternal``2(System.Collections.Generic.IDictionary{``0,``1},``1,``0)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <typeparam name="TKey">The generic type of the key.</typeparam>
             <typeparam name="TValue">The generic type of the value.</typeparam>
@@ -190,7 +213,8 @@
             <param name="defaultValue">The custom default value.</param>
             <returns>The value of the expected key.</returns>
         </member>
-        <member name="M:Extensions.DictionaryExtensions.GetValueOrDefaults``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+        <member
+            name="M:Extensions.DictionaryExtensions.GetValueOrDefaults``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
             <summary>Its the same method which use the dictionary class internally.</summary>
             <typeparam name="TKey">The generic type of the key.</typeparam>
             <typeparam name="TValue">The generic type of the value.</typeparam>
@@ -219,7 +243,8 @@
         <member name="T:Extensions.EnumerableExtensions">
             <summary>Extension class for <see cref="T:System.Collections.Generic.IEnumerable`1" /> extensions.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.FilterNullObjects``1(System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.FilterNullObjects``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Filters out the objects that are <c>null</c> from an enumeration.</summary>
             <typeparam name="T">Generic type for the enumeration.</typeparam>
             <param name="source">The enumeration to be filtered.</param>
@@ -243,70 +268,110 @@
             <param name="source">An <see cref="T:System.Collections.IEnumerable" /> to return an element from.</param>
             <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.FirstOfType``1(System.Collections.IEnumerable,System.Func{``0,System.Boolean})">
+        <member
+            name="M:Extensions.EnumerableExtensions.FirstOfType``1(System.Collections.IEnumerable,System.Func{``0,System.Boolean})">
             <summary>Returns the first element in a sequence that satisfies a specified condition.</summary>
             <returns>The first element in the sequence that passes the test in the specified predicate function.</returns>
             <param name="source">An <see cref="T:System.Collections.IEnumerable" /> to return an element from.</param>
             <param name="predicate">A function to test each element for a condition.</param>
             <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
-            <exception cref="T:System.ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is null.</exception>
-            <exception cref="T:System.InvalidOperationException">No element satisfies the condition in <paramref name="predicate" />.-or-The source sequence is empty.</exception>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="source" /> or
+                <paramref name="predicate" /> is null.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+                No element satisfies the condition in
+                <paramref name="predicate" />.-or-The source sequence is empty.
+            </exception>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.FirstOrDefaultOfType``1(System.Collections.IEnumerable,System.Func{``0,System.Boolean})">
+        <member
+            name="M:Extensions.EnumerableExtensions.FirstOrDefaultOfType``1(System.Collections.IEnumerable,System.Func{``0,System.Boolean})">
             <summary>The first or default of type.</summary>
             <returns>The first object of the enumeration or null.</returns>
             <param name="source">An <see cref="T:System.Collections.IEnumerable" /> to return an element from.</param>
             <param name="predicate">The predicate.</param>
             <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
-            <summary>Performs the specified action on each element of the <see cref="T:System.Collections.Generic.IEnumerable`1" />.</summary>
+        <member
+            name="M:Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+                Performs the specified action on each element of the
+                <see cref="T:System.Collections.Generic.IEnumerable`1" />.
+            </summary>
             <typeparam name="TSource">Generic Type for the expected type.</typeparam>
             <param name="source">The source.</param>
-            <param name="action">The <see cref="T:System.Action" /> delegate to perform on each element of the <see cref="T:System.Collections.Generic.IEnumerable`1" />.</param>
+            <param name="action">
+                The <see cref="T:System.Action" /> delegate to perform on each element of the
+                <see cref="T:System.Collections.Generic.IEnumerable`1" />.
+            </param>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ForEachIndex``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
-            <summary>Performs the specified action on each element and each index of the <see cref="T:System.Collections.Generic.IEnumerable`1" />.</summary>
+        <member
+            name="M:Extensions.EnumerableExtensions.ForEachIndex``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary>
+                Performs the specified action on each element and each index of the
+                <see cref="T:System.Collections.Generic.IEnumerable`1" />.
+            </summary>
             <typeparam name="TSource">Generic Type for the expected type.</typeparam>
             <param name="source">The source.</param>
-            <param name="action">The <see cref="T:System.Action" /> delegate to perform on each element of the <see cref="T:System.Collections.Generic.IEnumerable`1" /> and index.</param>
+            <param name="action">
+                The <see cref="T:System.Action" /> delegate to perform on each element of the
+                <see cref="T:System.Collections.Generic.IEnumerable`1" /> and index.
+            </param>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ForEachOfType``1(System.Collections.IEnumerable,System.Action{``0})">
-            <summary>Performs the specified action on each element of the <see cref="T:System.Collections.IEnumerable" />.</summary>
+        <member
+            name="M:Extensions.EnumerableExtensions.ForEachOfType``1(System.Collections.IEnumerable,System.Action{``0})">
+            <summary>
+                Performs the specified action on each element of the
+                <see cref="T:System.Collections.IEnumerable" />.
+            </summary>
             <typeparam name="TSource">Generic Type for the expected type.</typeparam>
             <param name="source">The source.</param>
-            <param name="action">The <see cref="T:System.Action" /> delegate to perform on each element of the <see cref="T:System.Collections.IEnumerable" />.</param>
+            <param name="action">
+                The <see cref="T:System.Action" /> delegate to perform on each element of the
+                <see cref="T:System.Collections.IEnumerable" />.
+            </param>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.NotSequenceEqualsTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.NotSequenceEqualsTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Not sequence equals on 2 enumerations which works also if the enumerations are null.</summary>
             <param name="first">The first enumeration for the sequence equal operation.</param>
             <param name="second">The second enumeration for the sequence equal operation.</param>
             <typeparam name="T">The generic type of the enumerations.</typeparam>
             <returns><c>True</c> if both enumerations are equal; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.SequenceEqualsTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.SequenceEqualsTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Sequence equals on 2 enumerations which works also if the enumerations are null.</summary>
             <param name="first">The first enumeration for the sequence equal operation.</param>
             <param name="second">The second enumeration for the sequence equal operation.</param>
             <typeparam name="T">The generic type of the enumerations.</typeparam>
             <returns><c>True</c> if both enumerations are equal; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.SequenceEqualsOfType``1(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+        <member
+            name="M:Extensions.EnumerableExtensions.SequenceEqualsOfType``1(System.Collections.IEnumerable,System.Collections.IEnumerable)">
             <summary>Determines whether two sequences are equal by comparing the elements by using the default equality comparer for their type.</summary>
             <param name="first">The first enumeration.</param>
             <param name="second">The second enumeration.</param>
             <typeparam name="TSource">Expected generic type.</typeparam>
             <returns>Indicates whether to enumeration are sequence equal.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ToReadOnlyCollection``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>Converts a enumeration to a <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" /> that is immutable, because no one holds the list that is behind the <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.</summary>
+        <member
+            name="M:Extensions.EnumerableExtensions.ToReadOnlyCollection``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Converts a enumeration to a <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />
+                that is immutable, because no one holds the list that is behind the
+                <see cref="T:System.Collections.ObjectModel.ReadOnlyCollection`1" />.
+            </summary>
             <remarks>Uses <c>source.GetEnumValuesOf().AsReadOnly();</c>.</remarks>
             <param name="source">The source enumeration.</param>
             <typeparam name="T">Generic type of enumeration.</typeparam>
             <returns>A read only collection.</returns>
         </member>
         <member name="M:Extensions.EnumerableExtensions.ToListOfType``1(System.Collections.IEnumerable)">
-            <summary>Performs the specified action on each element of the <see cref="T:System.Collections.IEnumerable" />.</summary>
+            <summary>
+                Performs the specified action on each element of the
+                <see cref="T:System.Collections.IEnumerable" />.
+            </summary>
             <typeparam name="TSource">Generic Type for the expected type.</typeparam>
             <param name="source">The source.</param>
             <returns>A list the generic copy from the enumeration <see cref="T:System.Collections.IEnumerable" />.</returns>
@@ -317,25 +382,31 @@
             <param name="source">The source.</param>
             <returns>A list the generic copy from the enumeration. <see cref="T:System.Collections.IEnumerable" />.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ToObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.ToObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an enumeration to an observable collection.</summary>
             <param name="enumeration">The source enumeration.</param>
             <typeparam name="T">Generic type for the enumeration.</typeparam>
             <returns>The observable collection.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ToReadOnlyObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.ToReadOnlyObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Converts an enumeration to an observable collection.</summary>
             <param name="enumeration">The source enumeration.</param>
             <typeparam name="T">Generic type for the enumeration.</typeparam>
             <returns>The observable collection.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.WhereOfType``1(System.Collections.IEnumerable,System.Func{``0,System.Boolean})">
+        <member
+            name="M:Extensions.EnumerableExtensions.WhereOfType``1(System.Collections.IEnumerable,System.Func{``0,System.Boolean})">
             <summary>Filters a sequence of values based on a predicate.</summary>
             <returns>An <see cref="T:System.Collections.IEnumerable" /> that contains elements from the input sequence that satisfy the condition.</returns>
             <param name="source">An <see cref="T:System.Collections.IEnumerable" /> to filter.</param>
             <param name="predicate">A function to test each element for a condition.</param>
             <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
-            <exception cref="T:System.ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is null.</exception>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="source" /> or
+                <paramref name="predicate" /> is null.
+            </exception>
         </member>
         <member name="M:Extensions.EnumerableExtensions.IsAnyItemNull``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Determines whether is any item null.</summary>
@@ -343,12 +414,14 @@
             <param name="source">The source.</param>
             <returns><c>True</c>if any item is null; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.IsAnyItemNullOrWhitespace(System.Collections.Generic.IEnumerable{System.String})">
+        <member
+            name="M:Extensions.EnumerableExtensions.IsAnyItemNullOrWhitespace(System.Collections.Generic.IEnumerable{System.String})">
             <summary>Determines whether is any item null.</summary>
             <param name="source">The source.</param>
             <returns><c>True</c>if any item is null; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.IsAnyItem``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.IsAnyItem``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
             <summary>Determines whether is any item null.</summary>
             <typeparam name="T">The generic type of the source enumeration.</typeparam>
             <param name="source">The source.</param>
@@ -360,7 +433,8 @@
             <param name="source">The source.</param>
             <returns><c>True</c>if any item is null; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.IsNotAnyItemNull``1(System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.IsNotAnyItemNull``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>Determines whether all items in a enumeration are not null.</summary>
             <typeparam name="T">The generic type of the source enumeration.</typeparam>
             <param name="source">The source.</param>
@@ -379,38 +453,45 @@
             <param name="itemsToRemove">The types to ignore in the list.</param>
             <returns>The list without items of the ignored types.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Remove``1(System.Collections.Generic.IList{``0},``0,System.Collections.Generic.IEqualityComparer{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Remove``1(System.Collections.Generic.IList{``0},``0,System.Collections.Generic.IEqualityComparer{``0})">
             <summary>Removes the first item from a list that satisfies the equality comparer.</summary>
             <returns><c>True</c> if the item was successfully removed. Otherwise <c>False</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ContainsAll``1(System.Collections.Generic.IEnumerable{``0},``0[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.ContainsAll``1(System.Collections.Generic.IEnumerable{``0},``0[])">
             <summary>Checks if all items of an array of types are contained in the source enumeration.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source.</param>
             <param name="expectedItems">The expected items.</param>
             <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ContainsAll``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.ContainsAll``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Checks if all items of an array of types are contained in the source enumeration.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source.</param>
             <param name="expectedItems">The expected items.</param>
             <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ContainsAll``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.ContainsAll``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Checks if all items of an array of types are contained in the source enumeration.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ContainsAllInternal``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.ContainsAllInternal``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Checks if all items of an array of types are contained in the source enumeration.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ContainsNotAll``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.ContainsNotAll``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Checks if at least one item of an array of types is not contained in the source enumeration.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source.</param>
             <param name="expectedItems">The expected items.</param>
             <returns><c>True</c>if at least one item is not in source; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ContainsAny``1(System.Collections.Generic.IEnumerable{``0},``0[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.ContainsAny``1(System.Collections.Generic.IEnumerable{``0},``0[])">
             <summary>Checks if any items of an array of types are contained in the source enumeration.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source.</param>
@@ -423,7 +504,8 @@
             <param name="source">The source.</param>
             <returns><c>True</c>if the enumeration is empty; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Except``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Except``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Excepts the specified target.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -432,10 +514,12 @@
             <param name="selector">The selector.</param>
             <returns>A list with the expected items which will be found by the selector.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Intersect``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Intersect``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Intersects the specified target.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Except``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Except``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Excepts the specified second.</summary>
             <typeparam name="T1">The type of the 1 enumeration.</typeparam>
             <typeparam name="T2">The type of the 2 enumeration.</typeparam>
@@ -446,10 +530,12 @@
             <param name="selector2">The selector for the second enumeration.</param>
             <returns>An enumeration of items which are a result of an except from the first to the second enumeration.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Intersect``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Intersect``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Intersect the specified second.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.SequenceEqualsTo``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.EnumerableExtensions.SequenceEqualsTo``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Did a sequence equals compare by the values of the enumerations.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -458,7 +544,8 @@
             <param name="selector">The selector.</param>
             <returns>A list with the expected items which will be found by the selector.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.SequenceEqualsTo``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.SequenceEqualsTo``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Did a sequence equals compare by the values of the enumerations.</summary>
             <typeparam name="T1">The type of the 1 enumeration.</typeparam>
             <typeparam name="T2">The type of the 2 enumeration.</typeparam>
@@ -469,7 +556,8 @@
             <param name="selector2">The selector for the second enumeration.</param>
             <returns>An enumeration of items which are a result of an except from the first to the second enumeration.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.MergeItemsWithoutRemove``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.EnumerableExtensions.MergeItemsWithoutRemove``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Synchronizes the collection from.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -478,7 +566,8 @@
             <param name="selector">The selector.</param>
             <returns>The merged collection, where the missing items are not deleted.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ToString``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.ToString``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
             <summary>Creates a string from an enumeration of expressions.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source enumeration.</param>
@@ -486,21 +575,24 @@
             <param name="infoSelector">The information selector.</param>
             <returns>A string which was prepared by the info selector.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.None``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
+        <member
+            name="M:Extensions.EnumerableExtensions.None``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
             <summary>Checks if no item exists in an enumeration from a specific predicate.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source enumeration.</param>
             <param name="predicate">The predicate which is needed to check against each item.</param>
             <returns><c>True</c>if all items not expecting the predicate; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.HasAny``1(System.Collections.Generic.IEnumerable{``0},System.Object[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.HasAny``1(System.Collections.Generic.IEnumerable{``0},System.Object[])">
             <summary>Checks an array if it contains any of the expected values We made the same also for enumerable, the only reason is we don't have to call toList, because an array can never change.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">Array of source values.</param>
             <param name="expectedValues">The expected values to check.</param>
             <returns><c>True</c> if the source include at least one value; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Distinct``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Distinct``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
             <summary>Filters all double items out by the specific selector.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <typeparam name="TProperty">The type of the property.</typeparam>
@@ -515,14 +607,16 @@
             <param name="itemToConcat">The element to join.</param>
             <returns>New sequence with appended element.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.HasSameItems``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.HasSameItems``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Checks if two sequences have the same items independent of their order.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="list1">The first list.</param>
             <param name="list2">The second list.</param>
             <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.HasSameItems``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.HasSameItems``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Excepts the specified second.</summary>
             <typeparam name="T1">The type of the 1 enumeration.</typeparam>
             <typeparam name="T2">The type of the 2 enumeration.</typeparam>
@@ -533,7 +627,8 @@
             <param name="selector2">The selector for the second enumeration.</param>
             <returns>An enumeration of items which are a result of an except from the first to the second enumeration.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.InternalHasSameItems``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.InternalHasSameItems``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Excepts the specified second.</summary>
             <typeparam name="T1">The type of the 1 enumeration.</typeparam>
             <typeparam name="T2">The type of the 2 enumeration.</typeparam>
@@ -544,7 +639,8 @@
             <param name="selector2">The selector for the second enumeration.</param>
             <returns>An enumeration of items which are a result of an except from the first to the second enumeration.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.HasNotSameItems``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member
+            name="M:Extensions.EnumerableExtensions.HasNotSameItems``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>Checks if two sequences do not have the same items independent of their order.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="list1">The first list.</param>
@@ -556,19 +652,22 @@
             <param name="strings">The strings.</param>
             <returns>The strings flattened to a single string.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Flatten(System.Collections.Generic.IEnumerable{System.String},System.String)">
+        <member
+            name="M:Extensions.EnumerableExtensions.Flatten(System.Collections.Generic.IEnumerable{System.String},System.String)">
             <summary>Flattens the specified strings.</summary>
             <param name="strings">The strings.</param>
             <param name="separator">A separator, which will be used in between the single values.</param>
             <returns>The strings flattened to a single string.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.Flatten``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
+        <member
+            name="M:Extensions.EnumerableExtensions.Flatten``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
             <summary>Flattens the specified source enumeration.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source.</param>
             <returns>The flattened array.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.HasOneThatEquals``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Object}[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.HasOneThatEquals``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Object}[])">
             <summary>Determines if one item is equal to another item in different enumerations.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="master">The master.</param>
@@ -584,16 +683,22 @@
         <member name="M:Extensions.EnumerableExtensions.IndexOf``1(System.Collections.Generic.IEnumerable{``0},``0)">
             <summary>Index of.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ToString``2(System.Collections.Generic.IEnumerable{System.Linq.IGrouping{``0,``1}},System.Linq.Expressions.Expression{System.Func{``1,System.Object}},System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.ToString``2(System.Collections.Generic.IEnumerable{System.Linq.IGrouping{``0,``1}},System.Linq.Expressions.Expression{System.Func{``1,System.Object}},System.Linq.Expressions.Expression{System.Func{``1,System.Object}}[])">
             <summary>Creates a readable string from a linq grouping.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.ToStringCollection``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>Converts an <see cref="T:System.Collections.Generic.IEnumerable`1" /> to a <see cref="T:System.Collections.Specialized.StringCollection" />.</summary>
+        <member
+            name="M:Extensions.EnumerableExtensions.ToStringCollection``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+                Converts an <see cref="T:System.Collections.Generic.IEnumerable`1" /> to a
+                <see cref="T:System.Collections.Specialized.StringCollection" />.
+            </summary>
             <typeparam name="T">The generic type, which has to be created.</typeparam>
             <param name="source">The source enumeration.</param>
             <returns>The converted <see cref="T:System.Collections.Specialized.StringCollection" />.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.InternalExcept``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.InternalExcept``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Executes an except operation the second list.</summary>
             <typeparam name="T1">The type of the 1 enumeration.</typeparam>
             <typeparam name="T2">The type of the 2 enumeration.</typeparam>
@@ -604,10 +709,12 @@
             <param name="selector2">The selector for the second enumeration.</param>
             <returns>An enumeration of items which are a result of an except from the first to the second enumeration.</returns>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.InternalIntersect``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
+        <member
+            name="M:Extensions.EnumerableExtensions.InternalIntersect``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``2},System.Func{``1,``2})">
             <summary>Executes an intersect operation the second list.</summary>
         </member>
-        <member name="M:Extensions.EnumerableExtensions.GetSelectorResults``1(System.Collections.Generic.IEnumerator{``0},System.Func{``0,System.Object}[])">
+        <member
+            name="M:Extensions.EnumerableExtensions.GetSelectorResults``1(System.Collections.Generic.IEnumerator{``0},System.Func{``0,System.Object}[])">
             <summary>Gets the selector results.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="enumerator">The enumerator.</param>
@@ -618,7 +725,10 @@
             <summary>Represents extensions for types of <see cref="T:System.Enum" />.</summary>
         </member>
         <member name="M:Extensions.EnumExtensions.GetEnumValuesExceptOf``1(``0[])">
-            <summary>Converts the values of an <see cref="T:System.Enum" /> type into a <see cref="T:System.Collections.Generic.List`1" />. It helps to get all fields from an enumeration in a list.</summary>
+            <summary>
+                Converts the values of an <see cref="T:System.Enum" /> type into a
+                <see cref="T:System.Collections.Generic.List`1" />. It helps to get all fields from an enumeration in a list.
+            </summary>
             <typeparam name="T">The generic type of the expected enumeration.</typeparam>
             <param name="ignoreTypes">The types which have to be ignored from the original type list.</param>
             <returns>The list with all fields of the generic enumeration type except the types which have to be ignored.</returns>
@@ -649,12 +759,18 @@
             <returns>The converted int.</returns>
         </member>
         <member name="M:Extensions.EnumExtensions.GetEnumValuesOf``1">
-            <summary>Converts the values of an <see cref="T:System.Enum" /> type into a <see cref="T:System.Collections.Generic.List`1" />. It helps to get all fields from an enumeration in a list.</summary>
+            <summary>
+                Converts the values of an <see cref="T:System.Enum" /> type into a
+                <see cref="T:System.Collections.Generic.List`1" />. It helps to get all fields from an enumeration in a list.
+            </summary>
             <typeparam name="T">The generic type of the expected enumeration.</typeparam>
             <returns>The list with all fields of the generic enumeration type.</returns>
         </member>
         <member name="M:Extensions.EnumExtensions.GetEnumValuesOf``1(System.Type)">
-            <summary>Converts the values of an <see cref="T:System.Enum" /> type into a <see cref="T:System.Collections.Generic.List`1" />. It helps to get all fields from an enumeration in a list.</summary>
+            <summary>
+                Converts the values of an <see cref="T:System.Enum" /> type into a
+                <see cref="T:System.Collections.Generic.List`1" />. It helps to get all fields from an enumeration in a list.
+            </summary>
             <typeparam name="T">The generic type of the expected enumeration.</typeparam>
             <param name="type">The enum type.</param>
             <returns>The list with all fields of the generic enumeration type.</returns>
@@ -668,61 +784,87 @@
         <member name="T:Extensions.KeyValuePairExtensions">
             <summary>The key value pair extensions.</summary>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
             <summary>Converts an enumeration of key value pairs to a dictionary.</summary>
             <param name="keyValuePairs">The enumeration of key value pairs.</param>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToString``1(System.Collections.Generic.KeyValuePair{System.String,System.Func{``0,System.Object}},``0)">
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToString``1(System.Collections.Generic.KeyValuePair{System.String,System.Func{``0,System.Object}},``0)">
             <summary>Returns a <see cref="T:System.String" /> that represents the name of the right operand of the original expression and the result value from the invoked compiled function.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="compiledExpression">The compiled expression.</param>
             <param name="argument">The argument to invoke the function.</param>
             <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToOrderedDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToOrderedDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
             <summary>Converts an enumeration of key value pair to a dictionary.</summary>
             <param name="keyValuePairs">The enumeration of key value pairs.</param>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToListDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
-            <summary>Converts an enumeration of key value pair to a <see cref="T:System.Collections.Specialized.ListDictionary" />.</summary>
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToListDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+                Converts an enumeration of key value pair to a
+                <see cref="T:System.Collections.Specialized.ListDictionary" />.
+            </summary>
             <param name="keyValuePairs">The enumeration of key value pairs.</param>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToHybridDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
-            <summary>Converts an enumeration of key value pair to a <see cref="T:System.Collections.Specialized.HybridDictionary" />.</summary>
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToHybridDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+                Converts an enumeration of key value pair to a
+                <see cref="T:System.Collections.Specialized.HybridDictionary" />.
+            </summary>
             <param name="keyValuePairs">The enumeration of key value pairs.</param>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToStringDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
-            <summary>Converts an enumeration of key value pair to a <see cref="T:System.Collections.Specialized.StringDictionary" />.</summary>
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToStringDictionary``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+                Converts an enumeration of key value pair to a
+                <see cref="T:System.Collections.Specialized.StringDictionary" />.
+            </summary>
             <param name="keyValuePairs">The enumeration of key value pairs.</param>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.ToNameValueCollection``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
-            <summary>Converts an enumeration of key value pair to a <see cref="T:System.Collections.Specialized.NameValueCollection" />.</summary>
+        <member
+            name="M:Extensions.KeyValuePairExtensions.ToNameValueCollection``2(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``0,``1}})">
+            <summary>
+                Converts an enumeration of key value pair to a
+                <see cref="T:System.Collections.Specialized.NameValueCollection" />.
+            </summary>
             <param name="keyValuePairs">The enumeration of key value pairs.</param>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
             <returns>A dictionary.</returns>
         </member>
-        <member name="M:Extensions.KeyValuePairExtensions.Create``3(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``1,``2}})">
+        <member
+            name="M:Extensions.KeyValuePairExtensions.Create``3(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{``1,``2}})">
             <summary>Creates the specific dictionary type which is needed.</summary>
-            <typeparam name="TDictionary">The generic type of the specific <see cref="T:System.Collections.IDictionary" />.</typeparam>
+            <typeparam name="TDictionary">
+                The generic type of the specific
+                <see cref="T:System.Collections.IDictionary" />.
+            </typeparam>
             <typeparam name="TKey">The generic type of the key.</typeparam>
             <typeparam name="TValue">The generic type of the value.</typeparam>
-            <param name="keyValuePairs">The source <see cref="T:System.Collections.Generic.KeyValuePair`2" /> which has to be created to a specific <see cref="T:System.Collections.Generic.Dictionary`2" />.</param>
+            <param name="keyValuePairs">
+                The source <see cref="T:System.Collections.Generic.KeyValuePair`2" /> which has to be created to a specific
+                <see cref="T:System.Collections.Generic.Dictionary`2" />.
+            </param>
             <returns>The created type .</returns>
         </member>
         <member name="T:Extensions.ArrayExtensions">
@@ -747,7 +889,8 @@
         <member name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.Expression)">
             <summary>This method extract the property name of an expression.</summary>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.MethodCallExpression)">
+        <member
+            name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.MethodCallExpression)">
             <summary>This method extract the property name of an expression.</summary>
         </member>
         <member name="M:Extensions.ExpressionExtensions.GetNameOfExpression(System.Linq.Expressions.Expression)">
@@ -756,16 +899,20 @@
         <member name="M:Extensions.ExpressionExtensions.GetTypeOfExpression(System.Linq.Expressions.Expression)">
             <summary>This method extract the type of the argument or return type of an method call expression.</summary>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.ConstantExpression)">
+        <member
+            name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.ConstantExpression)">
             <summary>This method extract the property name of an expression.</summary>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.UnaryExpression)">
+        <member
+            name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.UnaryExpression)">
             <summary>This method extract the property name of an expression.</summary>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.MemberExpression)">
+        <member
+            name="M:Extensions.ExpressionExtensions.GetValueOfExpression``1(System.Linq.Expressions.MemberExpression)">
             <summary>This method extract the property name of an expression.</summary>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.ExtractPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+        <member
+            name="M:Extensions.ExpressionExtensions.ExtractPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
             <summary>This method extract the property name of an expression.</summary>
             <typeparam name="T">Generic type of the property.</typeparam>
             <param name="propertyExpression">The property expression.</param>
@@ -777,7 +924,8 @@
             <param name="argumentExpression">The argument expression.</param>
             <returns>T.</returns>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.GetMemberValue``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+        <member
+            name="M:Extensions.ExpressionExtensions.GetMemberValue``1(System.Linq.Expressions.Expression{System.Func{``0}})">
             <summary>Extracts the value of a specific member expression.</summary>
             <typeparam name="T">The generic type of the expected value.</typeparam>
             <param name="argumentExpression">The argument expression.</param>
@@ -794,13 +942,15 @@
             <param name="expression">The expression from which we want to extract the expected name.</param>
             <returns>The name of the expected property method and so on.</returns>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.ToCompiledExpressionWithInfo``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+        <member
+            name="M:Extensions.ExpressionExtensions.ToCompiledExpressionWithInfo``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
             <summary>Converts an expression array to a dictionary which contains as key the right hand operand name and as value the compiled expression.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="expressions">The expressions array.</param>
             <returns>A dictionary which contains as key the right hand operand name and as value the compiled expression.</returns>
         </member>
-        <member name="M:Extensions.ExpressionExtensions.ToNewArrayExpressionOfType``1(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
+        <member
+            name="M:Extensions.ExpressionExtensions.ToNewArrayExpressionOfType``1(System.Collections.Generic.IEnumerable{System.Linq.Expressions.Expression})">
             <summary>To the new array expression.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="expressions">The expressions.</param>
@@ -809,40 +959,52 @@
         <member name="T:Extensions.CustomAttributeProviderExtensions">
             <summary>Extension methods for <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
         </member>
-        <member name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttributes``1(System.Reflection.ICustomAttributeProvider)">
+        <member
+            name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttributes``1(System.Reflection.ICustomAttributeProvider)">
             <summary>Get all attributes from a specific <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
             <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
             <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
             <returns>An enumeration of the expected attributes.</returns>
         </member>
-        <member name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttributes``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
-            <summary>Get all attributes from a specific <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
-            <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
-            <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks. </param>
-            <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
-            <returns>An enumeration of the expected attributes.</returns>
-        </member>
-        <member name="M:Extensions.CustomAttributeProviderExtensions.HasCustomAttribute``1(System.Reflection.ICustomAttributeProvider)">
-            <summary>Get all attributes from a specific <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
-            <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
-            <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
-            <returns>An enumeration of the expected attributes.</returns>
-        </member>
-        <member name="M:Extensions.CustomAttributeProviderExtensions.HasCustomAttribute``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
+        <member
+            name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttributes``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
             <summary>Get all attributes from a specific <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
             <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
             <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks. </param>
             <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
             <returns>An enumeration of the expected attributes.</returns>
         </member>
-        <member name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttribute``1(System.Reflection.ICustomAttributeProvider)">
-            <summary>Gets the first attribute of a specific attribute type from the <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
+        <member
+            name="M:Extensions.CustomAttributeProviderExtensions.HasCustomAttribute``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>Get all attributes from a specific <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
             <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
             <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
             <returns>An enumeration of the expected attributes.</returns>
         </member>
-        <member name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttribute``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
-            <summary>Gets the first attribute of a specific attribute type from the <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
+        <member
+            name="M:Extensions.CustomAttributeProviderExtensions.HasCustomAttribute``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
+            <summary>Get all attributes from a specific <see cref="T:System.Reflection.ICustomAttributeProvider" />.</summary>
+            <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
+            <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks. </param>
+            <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
+            <returns>An enumeration of the expected attributes.</returns>
+        </member>
+        <member
+            name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttribute``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+                Gets the first attribute of a specific attribute type from the
+                <see cref="T:System.Reflection.ICustomAttributeProvider" />.
+            </summary>
+            <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
+            <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
+            <returns>An enumeration of the expected attributes.</returns>
+        </member>
+        <member
+            name="M:Extensions.CustomAttributeProviderExtensions.GetCustomAttribute``1(System.Reflection.ICustomAttributeProvider,System.Boolean)">
+            <summary>
+                Gets the first attribute of a specific attribute type from the
+                <see cref="T:System.Reflection.ICustomAttributeProvider" />.
+            </summary>
             <param name="customAttributeProvider">The <see cref="T:System.Reflection.ICustomAttributeProvider" /> which is decorated with the expected attributes.</param>
             <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks.</param>
             <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
@@ -851,7 +1013,8 @@
         <member name="T:Extensions.EventInfoExtensions">
             <summary>Represents the extension methods for the <see cref="T:System.Reflection.EventInfo" />.</summary>
         </member>
-        <member name="M:Extensions.EventInfoExtensions.CreateDelegate``2(System.Reflection.EventInfo,System.Action{``0,``1})">
+        <member
+            name="M:Extensions.EventInfoExtensions.CreateDelegate``2(System.Reflection.EventInfo,System.Action{``0,``1})">
             <summary>The create delegate.</summary>
             <typeparam name="TSender">The generic type of the sender.</typeparam>
             <typeparam name="TEventArgs">The generic event args.</typeparam>
@@ -863,21 +1026,29 @@
             <summary>Represents the unit tests for the <see cref="T:System.Reflection.MethodInfo" /> class.</summary>
         </member>
         <member name="M:Extensions.MethodInfoExtensions.IsAsyncMethod(System.Reflection.MethodInfo)">
-            <summary>Determines whether the method is an async method which returns a <see cref="T:System.Threading.Tasks.Task" />.</summary>
+            <summary>
+                Determines whether the method is an async method which returns a
+                <see cref="T:System.Threading.Tasks.Task" />.
+            </summary>
             <param name="methodInfo">The method information.</param>
             <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Extensions.MethodInfoExtensions.IsNotAsyncMethod(System.Reflection.MethodInfo)">
-            <summary>Determines whether the method is not an async method which returns a <see cref="T:System.Threading.Tasks.Task" />.</summary>
+            <summary>
+                Determines whether the method is not an async method which returns a
+                <see cref="T:System.Threading.Tasks.Task" />.
+            </summary>
         </member>
-        <member name="M:Extensions.MethodInfoExtensions.InvokeGeneric(System.Reflection.MethodInfo,System.Type,System.Object[])">
+        <member
+            name="M:Extensions.MethodInfoExtensions.InvokeGeneric(System.Reflection.MethodInfo,System.Type,System.Object[])">
             <summary>Helps to invoke a generic methods without knowing internals.</summary>
             <param name="methodInfo">The method information.</param>
             <param name="genericType">Type of the generic.</param>
             <param name="arguments">The arguments.</param>
             <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.MethodInfoExtensions.InvokeGeneric(System.Reflection.MethodInfo,System.Object,System.Type,System.Object[])">
+        <member
+            name="M:Extensions.MethodInfoExtensions.InvokeGeneric(System.Reflection.MethodInfo,System.Object,System.Type,System.Object[])">
             <summary>Helps to invoke a generic methods without knowing internals.</summary>
             <param name="methodInfo">The method information.</param>
             <param name="instance">The instance.</param>
@@ -892,7 +1063,10 @@
             <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Extensions.MethodInfoExtensions.GetParamsAsExpressions(System.Reflection.MethodInfo)">
-            <summary>Gets the parameters of a method info as an enumeration of <see cref="T:System.Linq.Expressions.ParameterExpression" />.</summary>
+            <summary>
+                Gets the parameters of a method info as an enumeration of
+                <see cref="T:System.Linq.Expressions.ParameterExpression" />.
+            </summary>
             <param name="methodInfo">The methodInfo.</param>
             <returns>IEnumerable&lt;ParameterExpression&gt;.</returns>
         </member>
@@ -900,42 +1074,61 @@
             <summary>Represents the extensions fro the <see cref="T:System.Xml.Linq.XAttribute" /> class.</summary>
         </member>
         <member name="M:Extensions.XAttributeExtension.ToInt(System.Xml.Linq.XAttribute,System.Int32)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to <see cref="T:System.Int32" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to
+                <see cref="T:System.Int32" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Int32" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XAttributeExtension.ToDouble(System.Xml.Linq.XAttribute,System.Double)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to <see cref="T:System.Double" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to
+                <see cref="T:System.Double" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Double" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XAttributeExtension.ToDecimal(System.Xml.Linq.XAttribute,System.Decimal)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to <see cref="T:System.Decimal" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to
+                <see cref="T:System.Decimal" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Decimal" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XAttributeExtension.ToFloat(System.Xml.Linq.XAttribute,System.Single)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to <see cref="T:System.Single" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to
+                <see cref="T:System.Single" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Single" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XAttributeExtension.ToBool(System.Xml.Linq.XAttribute,System.Boolean)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to <see cref="T:System.Boolean" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to
+                <see cref="T:System.Boolean" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Boolean" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XAttributeExtension.ValueOrDefault(System.Xml.Linq.XAttribute,System.String)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to <see cref="T:System.String" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XAttribute" /> to
+                <see cref="T:System.String" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.String" /> or the default value.</returns>
         </member>
-        <member name="M:Extensions.XAttributeExtension.To``1(System.Xml.Linq.XAttribute,``0,System.Func{System.String,``0})">
+        <member
+            name="M:Extensions.XAttributeExtension.To``1(System.Xml.Linq.XAttribute,``0,System.Func{System.String,``0})">
             <summary>Converts the value of an <see cref="T:System.Xml.Linq.XAttribute" /> by an specific converter, or returns the default value.</summary>
             <typeparam name="T">The generic type, which has to be the convert result.</typeparam>
             <param name="element">The element which contains the value to convert.</param>
@@ -947,82 +1140,130 @@
             <summary>Represents the extensions fro the <see cref="T:System.Xml.Linq.XContainer" /> class.</summary>
         </member>
         <member name="M:Extensions.XContainerExtensions.ElementBy(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>
+                Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific
+                <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.
+            </summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="localName">The local name of the expected element.</param>
             <returns>A specific elements which expect the expected local name<see cref="T:System.Xml.Linq.XElement" />.</returns>
         </member>
         <member name="M:Extensions.XContainerExtensions.ElementsBy(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>
+                Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific
+                <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.
+            </summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="localName">The local name of the expected element.</param>
-            <returns>A specific enumeration of elements which expect the expected local name<see cref="T:System.Xml.Linq.XElement" />.</returns>
+            <returns>
+                A specific enumeration of elements which expect the expected local name
+                <see cref="T:System.Xml.Linq.XElement" />.
+            </returns>
         </member>
         <member name="M:Extensions.XContainerExtensions.ElementByAttribute(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>
+                Gets a specific of <see cref="T:System.Xml.Linq.XElement" /> from a specific
+                <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.
+            </summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="attributeName">The attribute name of the attribute element.</param>
             <returns>A specific element which expect the expected local name<see cref="T:System.Xml.Linq.XElement" />.</returns>
         </member>
         <member name="M:Extensions.XContainerExtensions.ElementsByAttribute(System.Xml.Linq.XContainer,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+            <summary>
+                Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific
+                <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.
+            </summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="attributeName">The attribute name of the attribute element.</param>
-            <returns>A specific enumeration of elements which expect the expected attribute name<see cref="T:System.Xml.Linq.XElement" />.</returns>
+            <returns>
+                A specific enumeration of elements which expect the expected attribute name
+                <see cref="T:System.Xml.Linq.XElement" />.
+            </returns>
         </member>
-        <member name="M:Extensions.XContainerExtensions.ElementByAttribute(System.Xml.Linq.XContainer,System.String,System.String)">
-            <summary>Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.</summary>
+        <member
+            name="M:Extensions.XContainerExtensions.ElementByAttribute(System.Xml.Linq.XContainer,System.String,System.String)">
+            <summary>
+                Gets a specific enumeration of <see cref="T:System.Xml.Linq.XElement" /> from a specific
+                <see cref="T:System.Xml.Linq.XElement" /> by its local name of type <see cref="!:TcLocalName" />.
+            </summary>
             <param name="xContainer">The <see cref="T:System.Xml.Linq.XContainer" /> which contains the expected value.</param>
             <param name="attributeName">Name of the attribute.</param>
             <param name="attributeValue">The attribute value.</param>
-            <returns>A specific enumeration of elements which expect the expected attribute name<see cref="T:System.Xml.Linq.XElement" />.</returns>
+            <returns>
+                A specific enumeration of elements which expect the expected attribute name
+                <see cref="T:System.Xml.Linq.XElement" />.
+            </returns>
         </member>
         <member name="T:Extensions.XElementExtensions">
             <summary>Represents the extensions fro the <see cref="T:System.Xml.Linq.XElement" /> class.</summary>
         </member>
         <member name="M:Extensions.XElementExtensions.ToInt(System.Xml.Linq.XElement,System.Int32)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to <see cref="T:System.Int32" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to
+                <see cref="T:System.Int32" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Int32" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XElementExtensions.ToDouble(System.Xml.Linq.XElement,System.Double)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to <see cref="T:System.Double" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to
+                <see cref="T:System.Double" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Double" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XElementExtensions.ToDecimal(System.Xml.Linq.XElement,System.Decimal)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to <see cref="T:System.Decimal" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to
+                <see cref="T:System.Decimal" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Decimal" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XElementExtensions.ToFloat(System.Xml.Linq.XElement,System.Single)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to <see cref="T:System.Single" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to
+                <see cref="T:System.Single" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Single" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XElementExtensions.ToBool(System.Xml.Linq.XElement,System.Boolean)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to <see cref="T:System.Boolean" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to
+                <see cref="T:System.Boolean" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="value">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.Boolean" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XElementExtensions.ValueOrDefault(System.Xml.Linq.XElement,System.String)">
-            <summary>Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to <see cref="T:System.String" />.</summary>
+            <summary>
+                Converts the value of the <see cref="T:System.Xml.Linq.XElement" /> to
+                <see cref="T:System.String" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
             <returns>The converted <see cref="T:System.String" /> or the default value.</returns>
         </member>
         <member name="M:Extensions.XElementExtensions.AttributeBy(System.Xml.Linq.XElement,System.String)">
-            <summary>Gets a specific <see cref="T:System.Xml.Linq.XAttribute" /> from a specific <see cref="T:System.Xml.Linq.XElement" /> by its attribute name of type <see cref="!:TcAttributeName" />.</summary>
+            <summary>
+                Gets a specific <see cref="T:System.Xml.Linq.XAttribute" /> from a specific
+                <see cref="T:System.Xml.Linq.XElement" /> by its attribute name of type
+                <see cref="!:TcAttributeName" />.
+            </summary>
             <param name="element">The element which contains the expected value.</param>
             <param name="attributeName">The attribute name of the expected attribute.</param>
             <returns>The converted <see cref="T:System.String" /> or the default value.</returns>
         </member>
-        <member name="M:Extensions.XElementExtensions.To``1(System.Xml.Linq.XElement,``0,System.Func{System.String,``0})">
+        <member
+            name="M:Extensions.XElementExtensions.To``1(System.Xml.Linq.XElement,``0,System.Func{System.String,``0})">
             <summary>Converts the value of an <see cref="T:System.Xml.Linq.XElement" /> by an specific converter, or returns the default value.</summary>
             <typeparam name="T">The generic type, which has to be the convert result.</typeparam>
             <param name="element">The element which contains the value to convert.</param>
@@ -1068,7 +1309,8 @@
         <member name="T:Extensions.ClassExtensions">
             <summary>Represents the extension methods for the all generic types.</summary>
         </member>
-        <member name="M:Extensions.ClassExtensions.NameOf``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+        <member
+            name="M:Extensions.ClassExtensions.NameOf``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
             <summary>Extract the name of a property, method and so on.</summary>
             <param name="source">The class from which the expected name have to be extracted.</param>
             <param name="expression">The expression for the property or method and so on.</param>
@@ -1121,7 +1363,10 @@
             <param name="source">The source.</param>
             <param name="lowerLimit">The lower limit.</param>
             <param name="upperLimit">The upper limit.</param>
-            <returns><c>True</c> if the source is in range of the lower and upper limit including the interval corners; otherwise, <c>False</c>.</returns>
+            <returns>
+                <c>True</c> if the source is in range of the lower and upper limit including the interval corners; otherwise,
+                <c>False</c>.
+            </returns>
         </member>
         <member name="M:Extensions.ComparableExtensions.IsInRangeExcluding``1(``0,``0,``0)">
             <summary>Determines whether the source is in range of the lower and upper limit excluding the interval corners.</summary>
@@ -1129,7 +1374,10 @@
             <param name="source">The source.</param>
             <param name="lowerLimit">The lower limit.</param>
             <param name="upperLimit">The upper limit.</param>
-            <returns><c>True</c> if the source is in range of the lower and upper limit excluding the interval corners; otherwise, <c>False</c>.</returns>
+            <returns>
+                <c>True</c> if the source is in range of the lower and upper limit excluding the interval corners; otherwise,
+                <c>False</c>.
+            </returns>
         </member>
         <member name="M:Extensions.ComparableExtensions.IsOutOfRange``1(``0,``0,``0)">
             <summary>Determines whether the source is out of range of the lower and upper limit.</summary>
@@ -1137,7 +1385,10 @@
             <param name="source">The source.</param>
             <param name="lowerLimit">The lower limit.</param>
             <param name="upperLimit">The upper limit.</param>
-            <returns><c>True</c> if the source is out of range of the lower and upper limit including the interval corners; otherwise, <c>False</c>.</returns>
+            <returns>
+                <c>True</c> if the source is out of range of the lower and upper limit including the interval corners; otherwise,
+                <c>False</c>.
+            </returns>
         </member>
         <member name="T:Extensions.DoubleExtensions">
             <summary>Represents extensions for types of <see cref="T:System.Double" />.</summary>
@@ -1287,7 +1538,8 @@
             <param name="action">The action.</param>
             <returns>The source object back again.</returns>
         </member>
-        <member name="M:Extensions.GenericTypeExtensions.ToString``1(``0,System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+        <member
+            name="M:Extensions.GenericTypeExtensions.ToString``1(``0,System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
             <summary>Creates a string from an enumeration of objects.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source enumeration.</param>
@@ -1295,14 +1547,16 @@
             <param name="infoSelector">The information selector.</param>
             <returns>A string which was prepared by the info selector.</returns>
         </member>
-        <member name="M:Extensions.GenericTypeExtensions.ToString``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
+        <member
+            name="M:Extensions.GenericTypeExtensions.ToString``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}}[])">
             <summary>Creates a string from an enumeration of objects.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source enumeration.</param>
             <param name="infoSelector">The information selector.</param>
             <returns>A string which was prepared by the info selector.</returns>
         </member>
-        <member name="M:Extensions.GenericTypeExtensions.ToString``1(``0,System.Collections.Generic.Dictionary{System.String,System.Func{``0,System.Object}})">
+        <member
+            name="M:Extensions.GenericTypeExtensions.ToString``1(``0,System.Collections.Generic.Dictionary{System.String,System.Func{``0,System.Object}})">
             <summary>Creates a string from an enumeration of expressions.</summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The source enumeration.</param>
@@ -1355,7 +1609,10 @@
         <member name="M:Extensions.IntegerExtensions.ToInt(System.Nullable{System.Int32})">
             <summary>Converts a nullable integer value into a value of <see cref="T:System.Int32" /> type.</summary>
             <param name="value">The value of the nullable <see cref="T:System.Int32" />.</param>
-            <returns>The converted <see cref="T:System.Int32" /> value if the type has a value; otherwise default of <see cref="T:System.Int32" />.</returns>
+            <returns>
+                The converted <see cref="T:System.Int32" /> value if the type has a value; otherwise default of
+                <see cref="T:System.Int32" />.
+            </returns>
         </member>
         <member name="M:Extensions.IntegerExtensions.ToBool(System.Int32)">
             <summary>Converts an <see cref="T:System.Int32" /> to a <see cref="T:System.Boolean" />.</summary>
@@ -1414,21 +1671,30 @@
             <param name="startIndex">The start index.</param>
         </member>
         <member name="M:Extensions.IntegerExtensions.Times``1(System.Int32,System.Func{``0})">
-            <summary>Returns the result of a function several times as an <see cref="T:System.Collections.Generic.IEnumerable`1" />. The function takes the index of the for loop as a parameter, which starts at zero.</summary>
+            <summary>
+                Returns the result of a function several times as an
+                <see cref="T:System.Collections.Generic.IEnumerable`1" />. The function takes the index of the for loop as a parameter, which starts at zero.
+            </summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The value representing how often the action will be executed.</param>
             <param name="func">The function whose result gets returned.</param>
             <returns>The enumerable containing the yielded results.</returns>
         </member>
         <member name="M:Extensions.IntegerExtensions.Times``1(System.Int32,System.Func{System.Int32,``0})">
-            <summary>Returns the result of a function several times as an <see cref="T:System.Collections.Generic.IEnumerable`1" />. The function takes the index of the for loop as a parameter, which starts at zero.</summary>
+            <summary>
+                Returns the result of a function several times as an
+                <see cref="T:System.Collections.Generic.IEnumerable`1" />. The function takes the index of the for loop as a parameter, which starts at zero.
+            </summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The value representing how often the action will be executed.</param>
             <param name="func">The function whose result gets returned.</param>
             <returns>The enumerable containing the yielded results.</returns>
         </member>
         <member name="M:Extensions.IntegerExtensions.Times``1(System.Int32,System.Func{System.Int32,``0},System.Int32)">
-            <summary>Returns the result of a function several times as an <see cref="T:System.Collections.Generic.IEnumerable`1" />. The function takes the index of the for loop as a parameter, which starts at a specified start index.</summary>
+            <summary>
+                Returns the result of a function several times as an
+                <see cref="T:System.Collections.Generic.IEnumerable`1" />. The function takes the index of the for loop as a parameter, which starts at a specified start index.
+            </summary>
             <typeparam name="T">The generic type.</typeparam>
             <param name="source">The value representing how often the action will be executed.</param>
             <param name="func">The function whose result gets returned.</param>
@@ -1555,7 +1821,10 @@
             <returns><c>True</c> if source string is not empty; otherwise <c>False</c>.</returns>
         </member>
         <member name="M:Extensions.StringExtensions.StartWith(System.String,System.String)">
-            <summary>Comfort way to use starts with, using <see cref="F:System.StringComparison.OrdinalIgnoreCase" /> as the string comparison.</summary>
+            <summary>
+                Comfort way to use starts with, using <see cref="F:System.StringComparison.OrdinalIgnoreCase" />
+                as the string comparison.
+            </summary>
             <param name="source">The source.</param>
             <param name="value">The value.</param>
             <returns><c>True</c> if source string starts with expected value; otherwise <c>False</c>.</returns>
@@ -1612,7 +1881,8 @@
             <param name="dateTimeFormatInfo">The date time format information.</param>
             <returns>The converted <see cref="T:System.DateTime" />.</returns>
         </member>
-        <member name="M:Extensions.StringExtensions.ToDateTime(System.String,System.Globalization.DateTimeFormatInfo,System.Globalization.DateTimeStyles)">
+        <member
+            name="M:Extensions.StringExtensions.ToDateTime(System.String,System.Globalization.DateTimeFormatInfo,System.Globalization.DateTimeStyles)">
             <summary>Parse a string to convert to <see cref="T:System.DateTime" />.</summary>
             <param name="source">The source string, which has to be converted.</param>
             <param name="dateTimeFormatInfo">The date time format information.</param>
@@ -1620,7 +1890,10 @@
             <returns>The converted <see cref="T:System.DateTime" />.</returns>
         </member>
         <member name="M:Extensions.StringExtensions.FormatInvariantCulture(System.String,System.Object[])">
-            <summary>Formats the specified string with the given format arguments. Uses <see cref="P:System.Globalization.CultureInfo.InvariantCulture" /> for formatting.</summary>
+            <summary>
+                Formats the specified string with the given format arguments. Uses
+                <see cref="P:System.Globalization.CultureInfo.InvariantCulture" /> for formatting.
+            </summary>
             <param name="source">The source.</param>
             <param name="formatArguments">The format arguments.</param>
             <returns>The resulting string.</returns>
@@ -1698,12 +1971,18 @@
             <summary>Enumeration of available type definitions of <see cref="T:System.Func`1" />.</summary>
         </member>
         <member name="M:Extensions.TypeExtensions.IsImmutable(System.Type)">
-            <summary>Check if the type is decorated with <see cref="T:System.ComponentModel.ImmutableObjectAttribute" />.</summary>
+            <summary>
+                Check if the type is decorated with
+                <see cref="T:System.ComponentModel.ImmutableObjectAttribute" />.
+            </summary>
             <param name="type">The type.</param>
             <returns>Indicates whether the type is decorated with ImmutableAttribute.</returns>
         </member>
         <member name="M:Extensions.TypeExtensions.IsNotImmutable(System.Type)">
-            <summary>Check if the type is not decorated with <see cref="T:System.ComponentModel.ImmutableObjectAttribute" />.</summary>
+            <summary>
+                Check if the type is not decorated with
+                <see cref="T:System.ComponentModel.ImmutableObjectAttribute" />.
+            </summary>
             <param name="type">The type.</param>
             <returns>Indicates whether the type is decorated with ImmutableAttribute.</returns>
         </member>
@@ -1807,7 +2086,8 @@
             <param name="type">The type to check for type of <see cref="T:System.Action" />.</param>
             <returns><c>true</c> if the specified type is <see cref="T:System.Func`1" />; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Extensions.TypeExtensions.InvokeGenericMethod(System.Type,System.String,System.Type[],System.Object[])">
+        <member
+            name="M:Extensions.TypeExtensions.InvokeGenericMethod(System.Type,System.String,System.Type[],System.Object[])">
             <summary>Invokes the generic method.</summary>
             <param name="classType">Type of the class.</param>
             <param name="methodName">Name of the method.</param>
@@ -1815,7 +2095,8 @@
             <param name="arguments">The arguments type info.</param>
             <returns>The return value of the invoked method. </returns>
         </member>
-        <member name="M:Extensions.TypeExtensions.InvokeGenericMethod``1(``0,System.String,System.Type,System.Object[])">
+        <member
+            name="M:Extensions.TypeExtensions.InvokeGenericMethod``1(``0,System.String,System.Type,System.Object[])">
             <summary>Invokes the generic method.</summary>
             <typeparam name="TClass">The type of the class.</typeparam>
             <param name="source">The source.</param>
@@ -1824,7 +2105,8 @@
             <param name="arguments">The arguments type info.</param>
             <returns>The return value of the invoked method.</returns>
         </member>
-        <member name="M:Extensions.TypeExtensions.InvokeExpectedMethod(System.Type,System.String,System.Type[],System.Object[])">
+        <member
+            name="M:Extensions.TypeExtensions.InvokeExpectedMethod(System.Type,System.String,System.Type[],System.Object[])">
             <summary>Invokes a method where parameter length is as expected.</summary>
             <param name="classType">Type of the class.</param>
             <param name="methodName">Name of the method.</param>

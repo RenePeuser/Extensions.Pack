@@ -9,7 +9,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="int" /> or the default value.</returns>
-        public static int ToInt(this XAttribute element, int defaultValue = 0)
+        public static int ToInt(this XAttribute element,
+                                int defaultValue = 0)
         {
             return element.To(defaultValue, Convert.ToInt32);
         }
@@ -18,7 +19,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="double" /> or the default value.</returns>
-        public static double ToDouble(this XAttribute element, double defaultValue = 0)
+        public static double ToDouble(this XAttribute element,
+                                      double defaultValue = 0)
         {
             return element.To(defaultValue, Convert.ToDouble);
         }
@@ -27,7 +29,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="decimal" /> or the default value.</returns>
-        public static decimal ToDecimal(this XAttribute element, decimal defaultValue = 0)
+        public static decimal ToDecimal(this XAttribute element,
+                                        decimal defaultValue = 0)
         {
             return element.To(defaultValue, Convert.ToDecimal);
         }
@@ -36,7 +39,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="float" /> or the default value.</returns>
-        public static float ToFloat(this XAttribute element, float value = 0)
+        public static float ToFloat(this XAttribute element,
+                                    float value = 0)
         {
             return element.To(value, Convert.ToSingle);
         }
@@ -45,7 +49,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="bool" /> or the default value.</returns>
-        public static bool ToBool(this XAttribute element, bool value = false)
+        public static bool ToBool(this XAttribute element,
+                                  bool value = false)
         {
             return element.To(value, Convert.ToBoolean);
         }
@@ -54,7 +59,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
-        public static string? ValueOrDefault(this XAttribute element, string defaultValue = "")
+        public static string? ValueOrDefault(this XAttribute element,
+                                             string defaultValue = "")
         {
             return element.To(defaultValue, Convert.ToString);
         }
@@ -65,7 +71,9 @@ namespace Extensions.Pack
         /// <param name="defaultValue">The default value.</param>
         /// <param name="converter">The converter.</param>
         /// <returns>The converted or default value.</returns>
-        private static T To<T>(this XAttribute element, T defaultValue, Func<string, T> converter)
+        private static T To<T>(this XAttribute element,
+                               T defaultValue,
+                               Func<string, T> converter)
         {
             if (element.IsNull())
             {

@@ -4,7 +4,8 @@ namespace Extensions.Pack.TypeConversion
 {
     internal sealed class PrimitiveTypeConverter
     {
-        internal object ConvertTo(object source, Type targetType)
+        internal object ConvertTo(object source,
+                                  Type targetType)
         {
             if (targetType.IsEnum)
             {
@@ -24,6 +25,7 @@ namespace Extensions.Pack.TypeConversion
             // This is a real dirty workaround => this has to be removed soon => background => Some UI specific flags comes currently as number !!!
             // TableCreated and more
             var targetType = typeof(T);
+
             if (targetType == typeof(bool))
             {
                 if (bool.TryParse(source, out var boolResult))
@@ -45,6 +47,7 @@ namespace Extensions.Pack.TypeConversion
             // ToDo: a lot of checks are needed here, because we just can transform primitive types
             // no enumerations or others
             var changedType = Convert.ChangeType(source, targetType, CultureInfo.InvariantCulture);
+
             if (changedType.IsNotNull())
             {
                 return (T)changedType;

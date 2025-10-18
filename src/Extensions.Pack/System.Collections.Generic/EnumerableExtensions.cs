@@ -72,11 +72,9 @@ namespace Extensions.Pack
 
             if (result.IsNull())
             {
-                throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Enumeration does not contains any item of the specific type: {0}",
-                        typeof(TSource).Name));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                                                                  "Enumeration does not contains any item of the specific type: {0}",
+                                                                  typeof(TSource).Name));
             }
 
             return result;
@@ -114,7 +112,8 @@ namespace Extensions.Pack
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is null.</exception>
         /// <exception cref="InvalidOperationException">No element satisfies the condition in <paramref name="predicate" />.-or-The source sequence is empty.</exception>
-        public static TSource FirstOfType<TSource>(this IEnumerable source, Func<TSource, bool> predicate)
+        public static TSource FirstOfType<TSource>(this IEnumerable source,
+                                                   Func<TSource, bool> predicate)
         {
             Throw.IfNull(source);
             Throw.IfNull(predicate);
@@ -123,11 +122,9 @@ namespace Extensions.Pack
 
             if (result.IsNull())
             {
-                throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Enumeration does not contains any item of the specific type: {0}",
-                        typeof(TSource).Name));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                                                                  "Enumeration does not contains any item of the specific type: {0}",
+                                                                  typeof(TSource).Name));
             }
 
             return result;
@@ -138,7 +135,8 @@ namespace Extensions.Pack
         /// <param name="source">An <see cref="IEnumerable" /> to return an element from.</param>
         /// <param name="predicate">The predicate.</param>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
-        public static TSource? FirstOrDefaultOfType<TSource>(this IEnumerable source, Func<TSource, bool> predicate)
+        public static TSource? FirstOrDefaultOfType<TSource>(this IEnumerable source,
+                                                             Func<TSource, bool> predicate)
         {
             Throw.IfNull(source);
             Throw.IfNull(predicate);
@@ -150,7 +148,8 @@ namespace Extensions.Pack
         /// <typeparam name="TSource">Generic Type for the expected type.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="action">The <see cref="Action" /> delegate to perform on each element of the <see cref="IEnumerable{T}" />.</param>
-        public static IEnumerable<TSource> ForEach<TSource>(this IEnumerable<TSource> source, Action<TSource> action)
+        public static IEnumerable<TSource> ForEach<TSource>(this IEnumerable<TSource> source,
+                                                            Action<TSource> action)
         {
             Throw.IfNull(source);
             Throw.IfNull(action);
@@ -165,12 +164,14 @@ namespace Extensions.Pack
         /// <typeparam name="TSource">Generic Type for the expected type.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="action">The <see cref="Action" /> delegate to perform on each element of the <see cref="IEnumerable{T}" /> and index.</param>
-        public static void ForEachIndex<TSource>(this IEnumerable<TSource> source, Action<TSource, int> action)
+        public static void ForEachIndex<TSource>(this IEnumerable<TSource> source,
+                                                 Action<TSource, int> action)
         {
             Throw.IfNull(source);
             Throw.IfNull(action);
 
             var index = 0;
+
             foreach (var item in source)
             {
                 action(item, index++);
@@ -181,7 +182,8 @@ namespace Extensions.Pack
         /// <typeparam name="TSource">Generic Type for the expected type.</typeparam>
         /// <param name="source">The source.</param>
         /// <param name="action">The <see cref="Action" /> delegate to perform on each element of the <see cref="IEnumerable" />.</param>
-        public static IEnumerable<TSource> ForEachOfType<TSource>(this IEnumerable source, Action<TSource> action)
+        public static IEnumerable<TSource> ForEachOfType<TSource>(this IEnumerable source,
+                                                                  Action<TSource> action)
         {
             Throw.IfNull(source);
             Throw.IfNull(action);
@@ -197,7 +199,8 @@ namespace Extensions.Pack
         /// <param name="second">The second enumeration for the sequence equal operation.</param>
         /// <typeparam name="T">The generic type of the enumerations.</typeparam>
         /// <returns><c>True</c> if both enumerations are equal; otherwise <c>false</c>.</returns>
-        public static bool NotSequenceEqualsTo<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        public static bool NotSequenceEqualsTo<T>(this IEnumerable<T> first,
+                                                  IEnumerable<T> second)
         {
             // no argument checking is needed because SequenceEqualsTo can handle null values.
             return !first.SequenceEqualsTo(second);
@@ -208,7 +211,8 @@ namespace Extensions.Pack
         /// <param name="second">The second enumeration for the sequence equal operation.</param>
         /// <typeparam name="T">The generic type of the enumerations.</typeparam>
         /// <returns><c>True</c> if both enumerations are equal; otherwise <c>false</c>.</returns>
-        public static bool SequenceEqualsTo<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        public static bool SequenceEqualsTo<T>(this IEnumerable<T> first,
+                                               IEnumerable<T> second)
         {
             if (first == null && second == null)
             {
@@ -228,7 +232,8 @@ namespace Extensions.Pack
         /// <param name="second">The second enumeration.</param>
         /// <typeparam name="TSource">Expected generic type.</typeparam>
         /// <returns>Indicates whether to enumeration are sequence equal.</returns>
-        public static bool SequenceEqualsOfType<TSource>(this IEnumerable first, IEnumerable second)
+        public static bool SequenceEqualsOfType<TSource>(this IEnumerable first,
+                                                         IEnumerable second)
         {
             Throw.IfNull(first);
             Throw.IfNull(second);
@@ -301,7 +306,8 @@ namespace Extensions.Pack
         /// <param name="predicate">A function to test each element for a condition.</param>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is null.</exception>
-        public static IEnumerable<TSource> WhereOfType<TSource>(this IEnumerable source, Func<TSource, bool> predicate)
+        public static IEnumerable<TSource> WhereOfType<TSource>(this IEnumerable source,
+                                                                Func<TSource, bool> predicate)
         {
             Throw.IfNull(source);
             Throw.IfNull(predicate);
@@ -335,7 +341,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="check">The expected state check.</param>
         /// <returns><c>True</c>if any item is null; otherwise <c>false</c>.</returns>
-        public static bool IsAnyItem<T>(this IEnumerable<T> source, Predicate<T> check)
+        public static bool IsAnyItem<T>(this IEnumerable<T> source,
+                                        Predicate<T> check)
         {
             Throw.IfNull(source);
 
@@ -382,7 +389,8 @@ namespace Extensions.Pack
         /// <param name="source">The source list of <see cref="Enum" /> type.</param>
         /// <param name="itemsToRemove">The types to ignore in the list.</param>
         /// <returns>The list without items of the ignored types.</returns>
-        public static List<T> Remove<T>(this IEnumerable<T> source, params T[] itemsToRemove)
+        public static List<T> Remove<T>(this IEnumerable<T> source,
+                                        params T[] itemsToRemove)
         {
             Throw.IfNull(source);
             Throw.IfNull(itemsToRemove);
@@ -395,7 +403,9 @@ namespace Extensions.Pack
 
         /// <summary>Removes the first item from a list that satisfies the equality comparer.</summary>
         /// <returns><c>True</c> if the item was successfully removed. Otherwise <c>False</c>.</returns>
-        public static bool Remove<T>(this IList<T> source, T item, IEqualityComparer<T> equalityComparer)
+        public static bool Remove<T>(this IList<T> source,
+                                     T item,
+                                     IEqualityComparer<T> equalityComparer)
         {
             Throw.IfNull(source);
             Throw.IfNull(equalityComparer);
@@ -413,7 +423,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="expectedItems">The expected items.</param>
         /// <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
-        public static bool ContainsAll<T>(this IEnumerable<T> source, params T[] expectedItems)
+        public static bool ContainsAll<T>(this IEnumerable<T> source,
+                                          params T[] expectedItems)
         {
             Throw.IfNull(source);
             Throw.IfNull(expectedItems);
@@ -426,7 +437,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="expectedItems">The expected items.</param>
         /// <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
-        public static bool ContainsAll<T>(this IEnumerable<T> source, IEnumerable<T> expectedItems)
+        public static bool ContainsAll<T>(this IEnumerable<T> source,
+                                          IEnumerable<T> expectedItems)
         {
             Throw.IfNull(source);
             Throw.IfNull(expectedItems);
@@ -470,7 +482,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="expectedItems">The expected items.</param>
         /// <returns><c>True</c>if at least one item is not in source; otherwise <c>false</c>.</returns>
-        public static bool ContainsNotAll<T>(this IEnumerable<T> source, IEnumerable<T> expectedItems)
+        public static bool ContainsNotAll<T>(this IEnumerable<T> source,
+                                             IEnumerable<T> expectedItems)
         {
             Throw.IfNull(source);
             Throw.IfNull(expectedItems);
@@ -483,7 +496,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="expectedItems">The expected items.</param>
         /// <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
-        public static bool ContainsAny<T>(this IEnumerable<T> source, params T[] expectedItems)
+        public static bool ContainsAny<T>(this IEnumerable<T> source,
+                                          params T[] expectedItems)
         {
             Throw.IfNull(source);
             Throw.IfNull(expectedItems);
@@ -516,14 +530,18 @@ namespace Extensions.Pack
         /// <param name="second">The target.</param>
         /// <param name="selector">The selector.</param>
         /// <returns>A list with the expected items which will be found by the selector.</returns>
-        public static IEnumerable<T> Except<T, TProperty>(this IEnumerable<T> first, IEnumerable<T> second, Func<T, TProperty> selector)
+        public static IEnumerable<T> Except<T, TProperty>(this IEnumerable<T> first,
+                                                          IEnumerable<T> second,
+                                                          Func<T, TProperty> selector)
             where T : class
         {
             return first.Except(second, selector, selector);
         }
 
         /// <summary>Intersects the specified target.</summary>
-        public static IEnumerable<T> Intersect<T, TProperty>(this IEnumerable<T> first, IEnumerable<T> second, Func<T, TProperty> selector)
+        public static IEnumerable<T> Intersect<T, TProperty>(this IEnumerable<T> first,
+                                                             IEnumerable<T> second,
+                                                             Func<T, TProperty> selector)
             where T : class
         {
             return first.Intersect(second, selector, selector);
@@ -574,7 +592,9 @@ namespace Extensions.Pack
         /// <param name="second">The target.</param>
         /// <param name="selector">The selector.</param>
         /// <returns>A list with the expected items which will be found by the selector.</returns>
-        public static bool SequenceEqualsTo<T, TProperty>(this IEnumerable<T> first, IEnumerable<T> second, Func<T, TProperty> selector)
+        public static bool SequenceEqualsTo<T, TProperty>(this IEnumerable<T> first,
+                                                          IEnumerable<T> second,
+                                                          Func<T, TProperty> selector)
             where T : class
         {
             Throw.IfNull(first);
@@ -647,7 +667,9 @@ namespace Extensions.Pack
         /// <param name="title">The title.</param>
         /// <param name="infoSelector">The information selector.</param>
         /// <returns>A string which was prepared by the info selector.</returns>
-        public static string ToString<T>(this IEnumerable<T> source, string title, params Expression<Func<T, object>>[] infoSelector)
+        public static string ToString<T>(this IEnumerable<T> source,
+                                         string title,
+                                         params Expression<Func<T, object>>[] infoSelector)
         {
             Throw.IfNull(source);
             Throw.IfNull(title);
@@ -666,7 +688,8 @@ namespace Extensions.Pack
         /// <param name="source">The source enumeration.</param>
         /// <param name="predicate">The predicate which is needed to check against each item.</param>
         /// <returns><c>True</c>if all items not expecting the predicate; otherwise <c>false</c>.</returns>
-        public static bool None<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        public static bool None<T>(this IEnumerable<T> source,
+                                   Func<T, bool> predicate)
         {
             Throw.IfNull(source);
             Throw.IfNull(predicate);
@@ -679,7 +702,8 @@ namespace Extensions.Pack
         /// <param name="source">Array of source values.</param>
         /// <param name="expectedValues">The expected values to check.</param>
         /// <returns><c>True</c> if the source include at least one value; otherwise, <c>false</c>.</returns>
-        public static bool HasAny<T>(this IEnumerable<T> source, params object[] expectedValues)
+        public static bool HasAny<T>(this IEnumerable<T> source,
+                                     params object[] expectedValues)
         {
             Throw.IfNull(source);
 
@@ -692,7 +716,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="selector">The selector.</param>
         /// <returns>The enumeration without duplicates which are checked by the selector.</returns>
-        public static IEnumerable<T> Distinct<T, TProperty>(this IEnumerable<T> source, Func<T, TProperty> selector) where TProperty : notnull
+        public static IEnumerable<T> Distinct<T, TProperty>(this IEnumerable<T> source,
+                                                            Func<T, TProperty> selector) where TProperty : notnull
         {
             Throw.IfNull(source);
             Throw.IfNull(selector);
@@ -714,7 +739,8 @@ namespace Extensions.Pack
         /// <param name="source">The source sequence.</param>
         /// <param name="itemToConcat">The element to join.</param>
         /// <returns>New sequence with appended element.</returns>
-        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T itemToConcat)
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> source,
+                                               T itemToConcat)
         {
             Throw.IfNull(source);
 
@@ -731,7 +757,8 @@ namespace Extensions.Pack
         /// <param name="list1">The first list.</param>
         /// <param name="list2">The second list.</param>
         /// <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
-        public static bool HasSameItems<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
+        public static bool HasSameItems<T>(this IEnumerable<T> list1,
+                                           IEnumerable<T> list2)
         {
             Throw.IfNull(list1);
             Throw.IfNull(list2);
@@ -797,7 +824,8 @@ namespace Extensions.Pack
         /// <param name="list1">The first list.</param>
         /// <param name="list2">The second list.</param>
         /// <returns><c>True</c>if all items containing; otherwise <c>false</c>.</returns>
-        public static bool HasNotSameItems<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
+        public static bool HasNotSameItems<T>(this IEnumerable<T> list1,
+                                              IEnumerable<T> list2)
         {
             Throw.IfNull(list1);
             Throw.IfNull(list2);
@@ -819,7 +847,8 @@ namespace Extensions.Pack
         /// <param name="strings">The strings.</param>
         /// <param name="separator">A separator, which will be used in between the single values.</param>
         /// <returns>The strings flattened to a single string.</returns>
-        public static string Flatten(this IEnumerable<string> strings, string separator)
+        public static string Flatten(this IEnumerable<string> strings,
+                                     string separator)
         {
             Throw.IfNull(strings);
             Throw.IfNull(separator);
@@ -844,7 +873,9 @@ namespace Extensions.Pack
         /// <param name="slave">The slave.</param>
         /// <param name="selectors">The selectors.</param>
         /// <returns><c>true</c> if [has one that equals] [the specified slave]; otherwise, <c>false</c>.</returns>
-        public static bool HasOneThatEquals<T>(this IEnumerable<T> master, IEnumerable<T> slave, params Func<T, object>[] selectors)
+        public static bool HasOneThatEquals<T>(this IEnumerable<T> master,
+                                               IEnumerable<T> slave,
+                                               params Func<T, object>[] selectors)
             where T : class
         {
             Throw.IfNull(master);
@@ -853,6 +884,7 @@ namespace Extensions.Pack
 
             using var masterEnumerator = master.GetEnumerator();
             using var slaveEnumerator = slave.GetEnumerator();
+
             while (masterEnumerator.MoveNext())
             {
                 var allValues = masterEnumerator.GetSelectorResults(selectors).ToList();
@@ -915,7 +947,8 @@ namespace Extensions.Pack
         }
 
         /// <summary>Index of.</summary>
-        public static int IndexOf<T>(this IEnumerable<T> source, T item)
+        public static int IndexOf<T>(this IEnumerable<T> source,
+                                     T item)
         {
             Throw.IfNull(source);
 
@@ -923,12 +956,16 @@ namespace Extensions.Pack
         }
 
         /// <summary>Creates a readable string from a linq grouping.</summary>
-        public static string ToString<TKey, TValue>(this IEnumerable<IGrouping<TKey, TValue>> groups, Expression<Func<TValue, object>> groupKey, params Expression<Func<TValue, object>>[] infoSelector)
+        public static string ToString<TKey, TValue>(this IEnumerable<IGrouping<TKey, TValue>> groups,
+                                                    Expression<Func<TValue, object>> groupKey,
+                                                    params Expression<Func<TValue, object>>[] infoSelector)
         {
             var stringBuilder = new StringBuilder();
+
             foreach (var group in groups)
             {
                 stringBuilder.AppendLine($"{groupKey.NameOf()}: {group.Key}");
+
                 foreach (var value in group)
                 {
                     foreach (var expression in infoSelector)
@@ -941,23 +978,29 @@ namespace Extensions.Pack
             return stringBuilder.ToString();
         }
 
-        public static IImmutableList<IImmutableList<T>> ChunkImmutable<T>(this IEnumerable<T> source, int chunksize)
+        public static IImmutableList<IImmutableList<T>> ChunkImmutable<T>(this IEnumerable<T> source,
+                                                                          int chunksize)
         {
             return Chunk(source, chunksize).ToImmutableList();
 
-            static IEnumerable<IImmutableList<T>> Chunk(IEnumerable<T> source, int chunksize)
+            static IEnumerable<IImmutableList<T>> Chunk(IEnumerable<T> source,
+                                                        int chunksize)
             {
                 while (source.Any())
                 {
                     yield return source.Take(chunksize).ToImmutableList();
+
                     source = source.Skip(chunksize);
                 }
             }
         }
 
-        public static T SingleOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T defaultValue)
+        public static T SingleOrDefault<T>(this IEnumerable<T> source,
+                                           Func<T, bool> predicate,
+                                           T defaultValue)
         {
             var result = source.SingleOrDefault(predicate);
+
             return result.IsNull() ? defaultValue : result;
         }
 
@@ -975,12 +1018,15 @@ namespace Extensions.Pack
             return stringCollection;
         }
 
-        public static IEnumerable<T> Page<T>(this IEnumerable<T> source, int page, int pageSize)
+        public static IEnumerable<T> Page<T>(this IEnumerable<T> source,
+                                             int page,
+                                             int pageSize)
         {
             return source.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
-        public static string ToFlattenString<T>(this IEnumerable<T> source, string separator = "") where T : notnull
+        public static string ToFlattenString<T>(this IEnumerable<T> source,
+                                                string separator = "") where T : notnull
         {
             return source.Select(item => item.ToString() ?? string.Empty).Flatten(separator);
         }
@@ -1040,7 +1086,8 @@ namespace Extensions.Pack
         /// <param name="enumerator">The enumerator.</param>
         /// <param name="selectors">The selectors.</param>
         /// <returns>The selected values of an specific object.</returns>
-        private static IEnumerable<object> GetSelectorResults<T>(this IEnumerator<T> enumerator, params Func<T, object>[] selectors)
+        private static IEnumerable<object> GetSelectorResults<T>(this IEnumerator<T> enumerator,
+                                                                 params Func<T, object>[] selectors)
             where T : class
         {
             return selectors.Select(func => func(enumerator.Current));

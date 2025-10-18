@@ -7,13 +7,19 @@ namespace Extensions.Pack
     internal sealed class ProblemDetailsJsonConverter : JsonConverter<ProblemDetails>
     {
         private static readonly JsonEncodedText JsonEncodedType = JsonEncodedText.Encode("type");
+
         private static readonly JsonEncodedText Title = JsonEncodedText.Encode("title");
+
         private static readonly JsonEncodedText Status = JsonEncodedText.Encode("status");
+
         private static readonly JsonEncodedText Detail = JsonEncodedText.Encode("detail");
+
         private static readonly JsonEncodedText Instance = JsonEncodedText.Encode("instance");
 
         [UnconditionalSuppressMessage("Trimmer", "IL2026", Justification = "Trimmer does not allow annotating overriden methods with annotations different from the ones in base type.")]
-        public override ProblemDetails Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override ProblemDetails Read(ref Utf8JsonReader reader,
+                                            Type typeToConvert,
+                                            JsonSerializerOptions options)
         {
             var problemDetails = new ProblemDetails();
 
@@ -36,7 +42,9 @@ namespace Extensions.Pack
         }
 
         [UnconditionalSuppressMessage("Trimmer", "IL2026", Justification = "Trimmer does not allow annotating overriden methods with annotations different from the ones in base type.")]
-        public override void Write(Utf8JsonWriter writer, ProblemDetails value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer,
+                                   ProblemDetails value,
+                                   JsonSerializerOptions options)
         {
             writer.WriteStartObject();
             WriteProblemDetails(writer, value, options);
@@ -44,7 +52,9 @@ namespace Extensions.Pack
         }
 
         [RequiresUnreferencedCode("JSON serialization and deserialization of ProblemDetails.Extensions might require types that cannot be statically analyzed.")]
-        internal static void ReadValue(ref Utf8JsonReader reader, ProblemDetails value, JsonSerializerOptions options)
+        internal static void ReadValue(ref Utf8JsonReader reader,
+                                       ProblemDetails value,
+                                       JsonSerializerOptions options)
         {
             if (TryReadStringProperty(ref reader, JsonEncodedType, out var propertyValue))
             {
@@ -65,6 +75,7 @@ namespace Extensions.Pack
             else if (reader.ValueTextEquals(Status.EncodedUtf8Bytes))
             {
                 reader.Read();
+
                 if (reader.TokenType == JsonTokenType.Null)
                 {
                     // Nothing to do here.
@@ -82,21 +93,27 @@ namespace Extensions.Pack
             }
         }
 
-        internal static bool TryReadStringProperty(ref Utf8JsonReader reader, JsonEncodedText propertyName, [NotNullWhen(true)] out string? value)
+        internal static bool TryReadStringProperty(ref Utf8JsonReader reader,
+                                                   JsonEncodedText propertyName,
+                                                   [NotNullWhen(true)] out string? value)
         {
             if (!reader.ValueTextEquals(propertyName.EncodedUtf8Bytes))
             {
                 value = default;
+
                 return false;
             }
 
             reader.Read();
             value = reader.GetString()!;
+
             return true;
         }
 
         [RequiresUnreferencedCode("JSON serialization and deserialization of ProblemDetails.Extensions might require types that cannot be statically analyzed.")]
-        internal static void WriteProblemDetails(Utf8JsonWriter writer, ProblemDetails value, JsonSerializerOptions options)
+        internal static void WriteProblemDetails(Utf8JsonWriter writer,
+                                                 ProblemDetails value,
+                                                 JsonSerializerOptions options)
         {
             if (value.Type != null)
             {
@@ -126,7 +143,9 @@ namespace Extensions.Pack
             foreach (var kvp in value.Extensions)
             {
                 writer.WritePropertyName(kvp.Key);
-                JsonSerializer.Serialize(writer, kvp.Value, kvp.Value?.GetType() ?? typeof(object), options);
+
+                JsonSerializer.Serialize(writer, kvp.Value, kvp.Value?.GetType() ?? typeof(object),
+                                         options);
             }
         }
     }

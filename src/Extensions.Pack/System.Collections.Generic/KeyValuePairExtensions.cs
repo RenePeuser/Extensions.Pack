@@ -13,11 +13,13 @@ namespace Extensions.Pack
         /// <param name="compiledExpression">The compiled expression.</param>
         /// <param name="argument">The argument to invoke the function.</param>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public static string ToString<T>(this KeyValuePair<string, Func<T, object>> compiledExpression, T argument)
+        public static string ToString<T>(this KeyValuePair<string, Func<T, object>> compiledExpression,
+                                         T argument)
         {
             Throw.IfNull<object>(argument);
 
-            var result = string.Format(CultureInfo.InvariantCulture, "{0}[{1}] ", compiledExpression.Key, compiledExpression.Value.Invoke(argument));
+            var result = string.Format(CultureInfo.InvariantCulture, "{0}[{1}] ", compiledExpression.Key,
+                                       compiledExpression.Value.Invoke(argument));
 
             return result;
         }

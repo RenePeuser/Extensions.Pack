@@ -10,6 +10,7 @@ namespace Extensions.Pack
 
             var divisor = Math.Pow(1024, 3);
             var result = driveInfo.TotalFreeSpace / divisor;
+
             return Math.Round(result, 1);
         }
     }

@@ -18,7 +18,6 @@ namespace Extensions.Pack
             Converters = { new JsonStringEnumConverter() }
         };
 
-
         public static async Task<T> PutAsAsync<T>(this HttpClient httpClient,
                                                   string url,
                                                   object body)

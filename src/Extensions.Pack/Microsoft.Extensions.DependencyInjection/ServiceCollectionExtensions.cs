@@ -7,7 +7,6 @@ namespace Extensions.Pack
     {
         public MissingSettingsException() : base($"The setting: '{typeof(TSettings).Name}' is missing. Please check your specific appsettings.json or your environment variables.")
         {
-
         }
     }
 
@@ -18,14 +17,15 @@ namespace Extensions.Pack
         {
             var existingRegistrations = services.Where(descriptor => descriptor.IsKeyedService.IsFalse() &&
                                                                      (descriptor.ServiceType == typeof(TImplementation) ||
-                                                                     descriptor.ImplementationType == typeof(TImplementation)));
+                                                                      descriptor.ImplementationType == typeof(TImplementation)));
+
             return existingRegistrations.Any();
         }
-
 
         public static T GetOrThrowMissingException<T>(this IServiceProvider services)
         {
             var service = services.GetService<T>();
+
             if (service.IsNull())
             {
                 throw new ProblemDetailsException("Service could not be resolved",
@@ -37,9 +37,11 @@ namespace Extensions.Pack
             return service;
         }
 
-        public static void AddSingletonOption<T>(this IServiceCollection serviceCollection, IConfiguration configuration) where T : class, new()
+        public static void AddSingletonOption<T>(this IServiceCollection serviceCollection,
+                                                 IConfiguration configuration) where T : class, new()
         {
             var setting = configuration.GetSettings<T>();
+
             if (setting.IsNull())
             {
                 throw new ProblemDetailsException(500,
@@ -56,10 +58,12 @@ namespace Extensions.Pack
             services.AddSingletonIfNotExists<TImplementation, TImplementation>();
         }
 
-        public static void AddSingletonIfNotExists<TImplementation>(this IServiceCollection services, TImplementation instance)
+        public static void AddSingletonIfNotExists<TImplementation>(this IServiceCollection services,
+                                                                    TImplementation instance)
             where TImplementation : class
         {
             var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TImplementation));
+
             if (existingRegistrations.Any())
             {
                 return;
@@ -73,6 +77,7 @@ namespace Extensions.Pack
             where TImplementation : class, TInterface
         {
             var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TInterface) && descriptor.ImplementationType == typeof(TImplementation));
+
             if (existingRegistrations.Any())
             {
                 return;
@@ -86,20 +91,23 @@ namespace Extensions.Pack
         public static T GetSettings<T>(this IConfiguration configuration) where T : class, new()
         {
             var originalTypeSettings = configuration.TryGetSettings<T>(out var settings);
+
             if (originalTypeSettings)
             {
                 return settings;
             }
 
             var typeNameTrimmedSettings = typeof(T).Name;
-            return configuration.GetSettings<T>(typeNameTrimmedSettings);
 
+            return configuration.GetSettings<T>(typeNameTrimmedSettings);
         }
 
-        public static T GetSettings<T>(this IConfiguration configuration, string settingsKeyPath)
+        public static T GetSettings<T>(this IConfiguration configuration,
+                                       string settingsKeyPath)
             where T : class
         {
             var settings = configuration.GetSection(settingsKeyPath).Get<T>();
+
             if (settings.IsNull())
             {
                 throw new MissingSettingsException<T>();
@@ -108,23 +116,31 @@ namespace Extensions.Pack
             return settings;
         }
 
-        public static bool TryGetSettings<T>(this IConfiguration configuration, out T settings) where T : new()
+        public static bool TryGetSettings<T>(this IConfiguration configuration,
+                                             out T settings) where T : new()
         {
             // original settings by type name
             var type = typeof(T);
             var settingsByTypeExists = configuration.TryGetSettings(type.Name, out settings);
+
             return settingsByTypeExists;
         }
-        public static bool TryGetSettings<T>(this IConfiguration configuration, string settingsKeyPath, out T settings) where T : new()
+
+        public static bool TryGetSettings<T>(this IConfiguration configuration,
+                                             string settingsKeyPath,
+                                             out T settings) where T : new()
         {
             var section = configuration.GetSection(settingsKeyPath).Get<T>();
+
             if (section is null)
             {
                 settings = new T();
+
                 return false;
             }
 
             settings = section;
+
             return true;
         }
 
@@ -157,6 +173,7 @@ namespace Extensions.Pack
                 {
                     // Case 1: ImplementationTypes exists
                     var implementatonTypes = multipleRegistrations.Where(g => g.ImplementationType.IsNotNull()).GroupBy(g => g.ImplementationType!.Name).Where(g => g.Count() > 1).ToList();
+
                     if (implementatonTypes.Count >= 1)
                     {
                         foreach (var implementatonType in implementatonTypes.SelectMany(item => item))
@@ -165,9 +182,9 @@ namespace Extensions.Pack
                         }
                     }
 
-
                     // Case 2: ImplementatonInstances exists
                     var implemenationInstances = multipleRegistrations.Where(g => g.ImplementationInstance.IsNotNull()).GroupBy(g => g.ImplementationInstance?.GetType().Name).Where(g => g.Count() > 1).ToList();
+
                     if (implemenationInstances.Count >= 1)
                     {
                         foreach (var implementatonType in implemenationInstances.SelectMany(item => item))

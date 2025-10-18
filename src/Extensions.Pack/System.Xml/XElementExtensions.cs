@@ -10,7 +10,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="int" /> or the default value.</returns>
-        public static int ToInt(this XElement element, int value = 0)
+        public static int ToInt(this XElement element,
+                                int value = 0)
         {
             return element.To(value, Convert.ToInt32);
         }
@@ -19,7 +20,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="double" /> or the default value.</returns>
-        public static double ToDouble(this XElement element, double value = 0)
+        public static double ToDouble(this XElement element,
+                                      double value = 0)
         {
             return element.To(value, Convert.ToDouble);
         }
@@ -28,7 +30,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="decimal" /> or the default value.</returns>
-        public static decimal ToDecimal(this XElement element, decimal value = 0)
+        public static decimal ToDecimal(this XElement element,
+                                        decimal value = 0)
         {
             return element.To(value, Convert.ToDecimal);
         }
@@ -37,7 +40,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="float" /> or the default value.</returns>
-        public static float ToFloat(this XElement element, float value = 0)
+        public static float ToFloat(this XElement element,
+                                    float value = 0)
         {
             return element.To(value, Convert.ToSingle);
         }
@@ -46,7 +50,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="value">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="bool" /> or the default value.</returns>
-        public static bool ToBool(this XElement element, bool value = false)
+        public static bool ToBool(this XElement element,
+                                  bool value = false)
         {
             return element.To(value, Convert.ToBoolean);
         }
@@ -55,7 +60,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="defaultValue">The default value, which has to be return if no value or not exists.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
-        public static string? ValueOrDefault(this XElement element, string? defaultValue = null)
+        public static string? ValueOrDefault(this XElement element,
+                                             string? defaultValue = null)
         {
             return element.To(defaultValue, Convert.ToString);
         }
@@ -64,7 +70,8 @@ namespace Extensions.Pack
         /// <param name="element">The element which contains the expected value.</param>
         /// <param name="attributeName">The attribute name of the expected attribute.</param>
         /// <returns>The converted <see cref="string" /> or the default value.</returns>
-        public static XAttribute? AttributeBy(this XElement element, string attributeName)
+        public static XAttribute? AttributeBy(this XElement element,
+                                              string attributeName)
         {
             Throw.IfNull(element);
             Throw.IfNull(attributeName);
@@ -80,7 +87,9 @@ namespace Extensions.Pack
         /// <param name="defaultValue">The default value.</param>
         /// <param name="converter">The converter.</param>
         /// <returns>The converted or default value.</returns>
-        private static T? To<T>(this XElement? element, T defaultValue, Func<string, T> converter)
+        private static T? To<T>(this XElement? element,
+                                T defaultValue,
+                                Func<string, T> converter)
         {
             if (element is null)
             {
@@ -93,6 +102,7 @@ namespace Extensions.Pack
             }
 
             var result = converter(element.Value);
+
             return result;
         }
     }

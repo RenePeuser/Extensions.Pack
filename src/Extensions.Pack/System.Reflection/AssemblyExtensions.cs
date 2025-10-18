@@ -286,6 +286,7 @@ namespace Extensions.Pack
             await using (stream.ConfigureAwait(false))
             {
                 var ms = new MemoryStream();
+
                 await using (ms.ConfigureAwait(false))
                 {
                     await stream.CopyToAsync(ms).ConfigureAwait(false);

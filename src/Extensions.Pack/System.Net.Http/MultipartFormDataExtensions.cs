@@ -8,10 +8,12 @@
         /// <param name="source">The <see cref="MultipartFormDataContent"/></param>
         /// <param name="controllerParameterName">This has to be the parameter name of your controller method !!!</param>
         /// <returns></returns>
-        public static MultipartFormDataContent ToMultipartFormDataContent(this InMemoryFileAsByteArray source, string controllerParameterName)
+        public static MultipartFormDataContent ToMultipartFormDataContent(this InMemoryFileAsByteArray source,
+                                                                          string controllerParameterName)
         {
             var multiPartFormData = new MultipartFormDataContent();
             multiPartFormData.Add(new ByteArrayContent(source.FileContent), controllerParameterName, source.Name);
+
             return multiPartFormData;
         }
 
@@ -21,10 +23,12 @@
         /// <param name="source">The <see cref="MultipartFormDataContent"/></param>
         /// <param name="controllerParameterName">This has to be the parameter name of your controller method !!!</param>
         /// <returns></returns>
-        public static MultipartFormDataContent ToMultipartFormDataContent(this InMemoryFileAsStream source, string controllerParameterName)
+        public static MultipartFormDataContent ToMultipartFormDataContent(this InMemoryFileAsStream source,
+                                                                          string controllerParameterName)
         {
             var multiPartFormData = new MultipartFormDataContent();
             multiPartFormData.Add(new StreamContent(source.FileStream), controllerParameterName, source.FileName);
+
             return multiPartFormData;
         }
     }

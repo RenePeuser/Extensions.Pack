@@ -12,7 +12,8 @@ namespace Extensions.Pack
         /// <typeparam name="TNameOf">Generic type of the expected property or method which have to be extracted.</typeparam>
         /// <returns>The name of the expected property.</returns>
         /// <remarks>Argument checking is not necessary, because this extension calls another extension which do argument checking.</remarks>
-        public static string NameOf<TClass, TNameOf>(this TClass _, Expression<Func<TClass, TNameOf>> expression)
+        public static string NameOf<TClass, TNameOf>(this TClass _,
+                                                     Expression<Func<TClass, TNameOf>> expression)
             where TClass : class
         {
             return expression.NameOf();

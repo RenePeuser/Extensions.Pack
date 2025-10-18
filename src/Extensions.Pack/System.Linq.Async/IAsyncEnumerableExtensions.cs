@@ -4,17 +4,20 @@ namespace Extensions.Pack
 {
     public static class IAsyncEnumerableExtensions
     {
-        public static async ValueTask<IImmutableList<TSource>> ToImmutableListAsync<TSource>(this IAsyncEnumerable<TSource> source, CancellationToken cancellationToken = default)
+        public static async ValueTask<IImmutableList<TSource>> ToImmutableListAsync<TSource>(this IAsyncEnumerable<TSource> source,
+                                                                                             CancellationToken cancellationToken = default)
         {
             if (source is IAsyncIListProvider<TSource> listProvider)
             {
                 var listItems = await listProvider.ToListAsync(cancellationToken).ConfigureAwait(false);
+
                 return listItems.ToImmutableList();
             }
 
             return await Core(source, cancellationToken).ConfigureAwait(false);
 
-            static async ValueTask<IImmutableList<TSource>> Core(IAsyncEnumerable<TSource> source, CancellationToken cancellationToken)
+            static async ValueTask<IImmutableList<TSource>> Core(IAsyncEnumerable<TSource> source,
+                                                                 CancellationToken cancellationToken)
             {
                 var immutableListBuilder = ImmutableList.CreateBuilder<TSource>();
 

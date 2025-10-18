@@ -23,7 +23,8 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks. </param>
         /// <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static IEnumerable<T> GetCustomAttributes<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
+        public static IEnumerable<T> GetCustomAttributes<T>(this ICustomAttributeProvider customAttributeProvider,
+                                                            bool inherit)
             where T : Attribute
         {
             Throw.IfNull(customAttributeProvider);
@@ -52,7 +53,8 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks. </param>
         /// <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static bool HasCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
+        public static bool HasCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider,
+                                                 bool inherit)
             where T : Attribute
         {
             Throw.IfNull(customAttributeProvider);
@@ -80,7 +82,8 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks.</param>
         /// <typeparam name="T">Generic type of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static T? GetCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider, bool inherit)
+        public static T? GetCustomAttribute<T>(this ICustomAttributeProvider customAttributeProvider,
+                                               bool inherit)
             where T : Attribute
         {
             Throw.IfNull(customAttributeProvider);

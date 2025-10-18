@@ -52,13 +52,11 @@ namespace Extensions.Pack
 
             if (!Enum.TryParse(value, true, out T result))
             {
-                throw new ArgumentException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Convert string: '{0}' to enum: {1} not successful",
-                        value,
-                        typeof(T).Name),
-                    nameof(value));
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                                                          "Convert string: '{0}' to enum: {1} not successful",
+                                                          value,
+                                                          typeof(T).Name),
+                                            nameof(value));
             }
 
             return result;
@@ -79,7 +77,8 @@ namespace Extensions.Pack
         /// <param name="value">The enum value.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns>The converted int.</returns>
-        public static int ToIntOrDefault<T>(this T? value, int defaultValue)
+        public static int ToIntOrDefault<T>(this T? value,
+                                            int defaultValue)
             where T : struct, IComparable, IFormattable, IConvertible
         {
             if (value == null)

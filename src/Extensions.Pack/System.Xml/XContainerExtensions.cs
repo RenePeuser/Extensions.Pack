@@ -10,7 +10,8 @@ namespace Extensions.Pack
         /// <param name="xContainer">The <see cref="XContainer" /> which contains the expected value.</param>
         /// <param name="localName">The local name of the expected element.</param>
         /// <returns>A specific elements which expect the expected local name<see cref="XElement" />.</returns>
-        public static XElement? ElementBy(this XContainer xContainer, string localName)
+        public static XElement? ElementBy(this XContainer xContainer,
+                                          string localName)
         {
             Throw.IfNull(xContainer);
             Throw.IfNull(localName);
@@ -24,7 +25,8 @@ namespace Extensions.Pack
         /// <param name="xContainer">The <see cref="XContainer" /> which contains the expected value.</param>
         /// <param name="localName">The local name of the expected element.</param>
         /// <returns>A specific enumeration of elements which expect the expected local name<see cref="XElement" />.</returns>
-        public static IEnumerable<XElement> ElementsBy(this XContainer xContainer, string localName)
+        public static IEnumerable<XElement> ElementsBy(this XContainer xContainer,
+                                                       string localName)
         {
             Throw.IfNull(xContainer);
             Throw.IfNull(localName);
@@ -38,7 +40,8 @@ namespace Extensions.Pack
         /// <param name="xContainer">The <see cref="XContainer" /> which contains the expected value.</param>
         /// <param name="attributeName">The attribute name of the attribute element.</param>
         /// <returns>A specific element which expect the expected local name<see cref="XElement" />.</returns>
-        public static XElement? ElementByAttribute(this XContainer xContainer, string attributeName)
+        public static XElement? ElementByAttribute(this XContainer xContainer,
+                                                   string attributeName)
         {
             Throw.IfNull(xContainer);
             Throw.IfNull(attributeName);
@@ -52,7 +55,8 @@ namespace Extensions.Pack
         /// <param name="xContainer">The <see cref="XContainer" /> which contains the expected value.</param>
         /// <param name="attributeName">The attribute name of the attribute element.</param>
         /// <returns>A specific enumeration of elements which expect the expected attribute name<see cref="XElement" />.</returns>
-        public static IEnumerable<XElement> ElementsByAttribute(this XContainer xContainer, string attributeName)
+        public static IEnumerable<XElement> ElementsByAttribute(this XContainer xContainer,
+                                                                string attributeName)
         {
             Throw.IfNull(xContainer);
             Throw.IfNull(attributeName);
@@ -67,16 +71,16 @@ namespace Extensions.Pack
         /// <param name="attributeName">Name of the attribute.</param>
         /// <param name="attributeValue">The attribute value.</param>
         /// <returns>A specific enumeration of elements which expect the expected attribute name<see cref="XElement" />.</returns>
-        public static XElement? ElementByAttribute(this XContainer xContainer, string attributeName, string attributeValue)
+        public static XElement? ElementByAttribute(this XContainer xContainer,
+                                                   string attributeName,
+                                                   string attributeValue)
         {
             Throw.IfNull(xContainer);
             Throw.IfNull(attributeName);
 
             var element = xContainer.Descendants()
-                .FirstOrDefault(
-                    item => item.Attributes()
-                        .Any(
-                            a => a.Name.LocalName.EqualsTo(attributeName) && a.Value.EqualsTo(attributeValue)));
+                                    .FirstOrDefault(item => item.Attributes()
+                                                                .Any(a => a.Name.LocalName.EqualsTo(attributeName) && a.Value.EqualsTo(attributeValue)));
 
             return element;
         }

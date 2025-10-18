@@ -6,27 +6,31 @@ namespace Extensions.Pack
     internal sealed class ProblemDetailsException : Exception
     {
         public ProblemDetailsException(string title,
-                                       params (string key, string value)[] extensions) : this(HttpStatusCode.InternalServerError, title, string.Empty, extensions)
+                                       params (string key, string value)[] extensions) : this(HttpStatusCode.InternalServerError, title, string.Empty,
+                                                                                              extensions)
         {
         }
 
         public ProblemDetailsException(string title,
                                        string details,
-                                       params (string key, string value)[] extensions) : this(HttpStatusCode.InternalServerError, title, details, extensions)
+                                       params (string key, string value)[] extensions) : this(HttpStatusCode.InternalServerError, title, details,
+                                                                                              extensions)
         {
         }
 
         public ProblemDetailsException(HttpStatusCode statusCode,
                                        string title,
                                        string details,
-                                       params (string key, string value)[] extensions) : this(statusCode.ToInt(), title, details, extensions.ToImmutableDictionary(item => item.key, item => item.value.ToString()))
+                                       params (string key, string value)[] extensions) : this(statusCode.ToInt(), title, details,
+                                                                                              extensions.ToImmutableDictionary(item => item.key, item => item.value.ToString()))
         {
         }
 
         public ProblemDetailsException(int statusCode,
                                        string title,
                                        string details,
-                                       params (string key, string value)[] extensions) : this(statusCode.ToInt(), title, details, extensions.ToImmutableDictionary(item => item.key, item => item.value.ToString()))
+                                       params (string key, string value)[] extensions) : this(statusCode.ToInt(), title, details,
+                                                                                              extensions.ToImmutableDictionary(item => item.key, item => item.value.ToString()))
         {
         }
 
@@ -45,10 +49,10 @@ namespace Extensions.Pack
             };
 
             errorDetails.OrderBy(item => item.Key).ForEach(keyValue =>
-            {
-                var key = keyValue.Key.Split(" ").Select(value => value.FirstCharToUpper()).Flatten().FirstCharToLower();
-                problemDetails.Extensions.Add(key, keyValue.Value);
-            });
+                                                           {
+                                                               var key = keyValue.Key.Split(" ").Select(value => value.FirstCharToUpper()).Flatten().FirstCharToLower();
+                                                               problemDetails.Extensions.Add(key, keyValue.Value);
+                                                           });
 
             ProblemDetails = problemDetails;
         }

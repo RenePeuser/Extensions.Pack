@@ -10,7 +10,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">The type of the collection items.</typeparam>
         /// <param name="collection">The collection to add the items to.</param>
         /// <param name="items">The items to add to the collection.</param>
-        public static void ClearAndAddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        public static void ClearAndAddRange<T>(this ICollection<T> collection,
+                                               IEnumerable<T> items)
         {
             Throw.IfNull(collection);
             Throw.IfNull(items);
@@ -23,7 +24,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">The type of the collection items.</typeparam>
         /// <param name="collection">The collection to add the items to.</param>
         /// <param name="items">The items to add to the collection.</param>
-        public static void ClearAndAddRange<T>(this ICollection<T> collection, params T[] items)
+        public static void ClearAndAddRange<T>(this ICollection<T> collection,
+                                               params T[] items)
         {
             Throw.IfNull(collection);
             Throw.IfNull(items);
@@ -36,7 +38,8 @@ namespace Extensions.Pack
         /// <param name="collection">The second collection where the items have to be added.</param>
         /// <param name="items">The item which have to be added.</param>
         /// <typeparam name="T">Generic type of the collection.</typeparam>
-        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        public static void AddRange<T>(this ICollection<T> collection,
+                                       IEnumerable<T> items)
         {
             Throw.IfNull(collection);
             Throw.IfNull(items);
@@ -48,7 +51,8 @@ namespace Extensions.Pack
         /// <param name="collection">The second collection where the items have to be added.</param>
         /// <param name="items">The item which have to be added.</param>
         /// <typeparam name="T">Generic type of the collection.</typeparam>
-        public static void AddRange<T>(this ICollection<T> collection, params T[] items)
+        public static void AddRange<T>(this ICollection<T> collection,
+                                       params T[] items)
         {
             Throw.IfNull(collection);
             Throw.IfNull(items);
@@ -60,7 +64,8 @@ namespace Extensions.Pack
         /// <param name="collection">The collection where the items have to be removed.</param>
         /// <param name="items">The items which have to be removed from the collection.</param>
         /// <typeparam name="T">Generic type of the collection.</typeparam>
-        public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        public static void RemoveRange<T>(this ICollection<T> collection,
+                                          IEnumerable<T> items)
         {
             Throw.IfNull(collection);
             Throw.IfNull(items);
@@ -72,7 +77,8 @@ namespace Extensions.Pack
         /// <param name="collection">The collection where the items have to be removed.</param>
         /// <param name="selector">The selector used to specify what items should be removed.</param>
         /// <typeparam name="T">Generic type of the collection.</typeparam>
-        public static void RemoveRange<T>(this ICollection<T> collection, Func<T, bool> selector)
+        public static void RemoveRange<T>(this ICollection<T> collection,
+                                          Func<T, bool> selector)
         {
             Throw.IfNull(collection);
             Throw.IfNull(selector);
@@ -85,7 +91,8 @@ namespace Extensions.Pack
         /// <param name="collection">The second collection.</param>
         /// <param name="predicate">Predicate to get the items for removing.</param>
         /// <typeparam name="T">Generic type of the collection.</typeparam>
-        public static void RemoveAll<T>(this ICollection<T> collection, Func<T, bool> predicate)
+        public static void RemoveAll<T>(this ICollection<T> collection,
+                                        Func<T, bool> predicate)
         {
             Throw.IfNull(collection);
             Throw.IfNull(predicate);
@@ -98,7 +105,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">The generic type.</typeparam>
         /// <param name="collection">The collection.</param>
         /// <param name="item">The item to add.</param>
-        public static void AddOnce<T>(this ICollection<T> collection, T item)
+        public static void AddOnce<T>(this ICollection<T> collection,
+                                      T item)
             where T : class
         {
             Throw.IfNull(collection);
@@ -115,7 +123,9 @@ namespace Extensions.Pack
         /// <param name="index">The index on which position the item have to be replaced.</param>
         /// <param name="newItem">The new item.</param>
         /// <typeparam name="T">Generic type of the collection.</typeparam>
-        public static void ReplaceAt<T>(this Collection<T> collection, int index, T newItem)
+        public static void ReplaceAt<T>(this Collection<T> collection,
+                                        int index,
+                                        T newItem)
         {
             Throw.IfNull(collection);
 
@@ -127,7 +137,9 @@ namespace Extensions.Pack
         /// <param name="sourceCollection">The second collection.</param>
         /// <param name="oldItem">The original item.</param>
         /// <param name="newItem">The new item.</param>
-        public static void Replace<T>(this Collection<T> sourceCollection, T oldItem, T newItem)
+        public static void Replace<T>(this Collection<T> sourceCollection,
+                                      T oldItem,
+                                      T newItem)
         {
             Throw.IfNull(sourceCollection);
 
@@ -139,7 +151,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">Generic type of the collection.</typeparam>
         /// <param name="target">The target collection to be united.</param>
         /// <param name="source">The source collection to unite from.</param>
-        public static void UnionByReplacing<T>(this ICollection<T> target, ICollection<T> source)
+        public static void UnionByReplacing<T>(this ICollection<T> target,
+                                               ICollection<T> source)
         {
             Throw.IfNull(target);
             Throw.IfNull(source);
@@ -155,7 +168,8 @@ namespace Extensions.Pack
         /// <typeparam name="T">The generic type of the collections.</typeparam>
         /// <param name="target">The first collection which have to be synchronized.</param>
         /// <param name="source">The second collection.</param>
-        public static void SyncCollectionFrom<T>(this ICollection<T> target, IEnumerable<T> source)
+        public static void SyncCollectionFrom<T>(this ICollection<T> target,
+                                                 IEnumerable<T> source)
             where T : class
         {
             Throw.IfNull(target);
@@ -173,7 +187,9 @@ namespace Extensions.Pack
         /// <param name="target">The first collection which have to be synchronized.</param>
         /// <param name="source">The second collection.</param>
         /// <param name="selector">The selector for the criteria of the synchronization.</param>
-        public static void SyncCollectionFrom<T, TProperty>(this ICollection<T> target, IEnumerable<T> source, Func<T, TProperty> selector)
+        public static void SyncCollectionFrom<T, TProperty>(this ICollection<T> target,
+                                                            IEnumerable<T> source,
+                                                            Func<T, TProperty> selector)
             where T : class
         {
             Throw.IfNull(target);
@@ -182,8 +198,11 @@ namespace Extensions.Pack
 
             var sourceItems = source.ToList();
 
-            InvokeActionForExceptItems(target, sourceItems, selector, target.Add);
-            InvokeActionForExceptItems(sourceItems, target, selector, item => target.Remove(item));
+            InvokeActionForExceptItems(target, sourceItems, selector,
+                                       target.Add);
+
+            InvokeActionForExceptItems(sourceItems, target, selector,
+                                       item => target.Remove(item));
         }
 
         /// <summary>Synchronizes the target collection with a source collection without deleting the items that are not in source.</summary>
@@ -203,14 +222,17 @@ namespace Extensions.Pack
             Throw.IfNull(selector);
 
             var sourceItems = source.ToList();
-            InvokeActionForExceptItems(target, sourceItems, selector, target.Add);
+
+            InvokeActionForExceptItems(target, sourceItems, selector,
+                                       target.Add);
         }
 
         /// <summary>Synchronizes the target collection with a source collection without deleting the items that are not in source.</summary>
         /// <typeparam name="T">The generic type of the collections.</typeparam>
         /// <param name="target">The first collection which have to be synchronized.</param>
         /// <param name="source">The second collection.</param>
-        public static void SyncCollectionWithoutDeleteFrom<T>(this ICollection<T> target, IEnumerable<T> source)
+        public static void SyncCollectionWithoutDeleteFrom<T>(this ICollection<T> target,
+                                                              IEnumerable<T> source)
             where T : class
         {
             Throw.IfNull(target);
@@ -225,7 +247,9 @@ namespace Extensions.Pack
         /// <param name="first">The first collection.</param>
         /// <param name="second">The second enumeration.</param>
         /// <param name="action">The action which have to be invoked on each except items.</param>
-        private static void InvokeActionForExceptItems<T>(ICollection<T> first, IEnumerable<T> second, Action<T> action)
+        private static void InvokeActionForExceptItems<T>(ICollection<T> first,
+                                                          IEnumerable<T> second,
+                                                          Action<T> action)
             where T : class
         {
             var exceptItems = second.Except(first).ToList();

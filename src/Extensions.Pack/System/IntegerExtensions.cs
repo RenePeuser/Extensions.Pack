@@ -25,7 +25,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="divisor">The divisor.</param>
         /// <returns>System.Int32.</returns>
-        public static double DivideBy(this int value, double divisor)
+        public static double DivideBy(this int value,
+                                      double divisor)
         {
             if (divisor.IsZero())
             {
@@ -44,7 +45,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="divisor">The divisor.</param>
         /// <returns>System.Int32.</returns>
-        public static int DivideBy(this int value, int divisor)
+        public static int DivideBy(this int value,
+                                   int divisor)
         {
             if (divisor.EqualsTo(0))
             {
@@ -58,7 +60,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="multiplier">The multiplier.</param>
         /// <returns>System.Int32.</returns>
-        public static int MultiplyBy(this int value, int multiplier)
+        public static int MultiplyBy(this int value,
+                                     int multiplier)
         {
             return value * multiplier;
         }
@@ -67,7 +70,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="subtrahend">The subtrahend.</param>
         /// <returns>System.Int32.</returns>
-        public static int Minus(this int value, int subtrahend)
+        public static int Minus(this int value,
+                                int subtrahend)
         {
             return value - subtrahend;
         }
@@ -76,7 +80,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>System.Int32.</returns>
-        public static int Plus(this int value, int addend)
+        public static int Plus(this int value,
+                               int addend)
         {
             return value + addend;
         }
@@ -92,7 +97,8 @@ namespace Extensions.Pack
         /// <summary>Executes a specified action several times.</summary>
         /// <param name="source">The value representing how often the action will be executed.</param>
         /// <param name="action">The action to execute.</param>
-        public static void Times(this int source, Action action)
+        public static void Times(this int source,
+                                 Action action)
         {
             Throw.IfNull(action);
             Throw.IfLessThan(source, 0);
@@ -103,7 +109,8 @@ namespace Extensions.Pack
         /// <summary>Executes a specified action several times. The action takes the index of the for loop as a parameter, which starts at zero.</summary>
         /// <param name="source">The value representing how often the action will be executed.</param>
         /// <param name="action">The action to execute.</param>
-        public static void Times(this int source, Action<int> action)
+        public static void Times(this int source,
+                                 Action<int> action)
         {
             Throw.IfNull(action);
             Throw.IfLessThan(source, 0);
@@ -115,7 +122,9 @@ namespace Extensions.Pack
         /// <param name="source">The value representing how often the action will be executed.</param>
         /// <param name="action">The action to execute.</param>
         /// <param name="startIndex">The start index.</param>
-        public static void Times(this int source, Action<int> action, int startIndex)
+        public static void Times(this int source,
+                                 Action<int> action,
+                                 int startIndex)
         {
             Throw.IfNull(action);
 
@@ -130,7 +139,8 @@ namespace Extensions.Pack
         /// <param name="source">The value representing how often the action will be executed.</param>
         /// <param name="func">The function whose result gets returned.</param>
         /// <returns>The enumerable containing the yielded results.</returns>
-        public static IEnumerable<T> Times<T>(this int source, Func<T> func)
+        public static IEnumerable<T> Times<T>(this int source,
+                                              Func<T> func)
         {
             Throw.IfNull(func);
             Throw.IfLessThan(source, 0);
@@ -143,7 +153,8 @@ namespace Extensions.Pack
         /// <param name="source">The value representing how often the action will be executed.</param>
         /// <param name="func">The function whose result gets returned.</param>
         /// <returns>The enumerable containing the yielded results.</returns>
-        public static IEnumerable<T> Times<T>(this int source, Func<int, T> func)
+        public static IEnumerable<T> Times<T>(this int source,
+                                              Func<int, T> func)
         {
             Throw.IfNull(func);
             Throw.IfLessThan(source, 0);
@@ -157,7 +168,9 @@ namespace Extensions.Pack
         /// <param name="func">The function whose result gets returned.</param>
         /// <param name="startIndex">The start index.</param>
         /// <returns>The enumerable containing the yielded results.</returns>
-        public static IEnumerable<T> Times<T>(this int source, Func<int, T> func, int startIndex)
+        public static IEnumerable<T> Times<T>(this int source,
+                                              Func<int, T> func,
+                                              int startIndex)
         {
             Throw.IfNull(func);
 

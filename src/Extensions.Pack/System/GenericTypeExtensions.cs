@@ -10,34 +10,85 @@ namespace Extensions.Pack
     public static class GenericTypeExtensions
     {
         /// <summary>The default tolerance used to distinguish between two different doubles. The value has proven to be sufficient.</summary>
-        private const double DEFAULT_DOUBLE_TOLERANCE = 0.000001;
+        private const double DefaultDoubleTolerance = 0.000001;
 
-        /// <summary>Simplify the usage of the equality comparer to compare two objects.</summary>
-        /// <typeparam name="T">The generic type of the objects which have to be compared.</typeparam>
-        /// <param name="source">The source object to compare.</param>
-        /// <param name="target">The target object to compare.</param>
-        /// <returns><c>true</c> if the objects are equal; otherwise <c>false</c>.</returns>
-        public static bool EqualsTo<T>(this T? source, T? target)
+        /// <summary>
+        /// Compares two nullable value types (e.g. Guid?, Enum?) for equality.
+        /// </summary>
+        public static bool EqualsTo<T>(this T? source,
+                                       T? target) where T : struct
         {
-            return EqualityComparer<T>.Default.Equals(source, target);
+            return EqualityComparer<T?>.Default.Equals(source, target);
+        }
+
+        /// <summary>
+        /// Compares a non-nullable value type with a nullable one (e.g. Guid vs Guid?).
+        /// </summary>
+        public static bool EqualsTo<T>(this T source,
+                                       T? target) where T : struct
+        {
+            return target.HasValue && EqualityComparer<T>.Default.Equals(source, target.Value);
+        }
+
+        /// <summary>
+        /// Negated comparison for two nullable value types (e.g. Guid? vs Guid?).
+        /// </summary>
+        public static bool NotEqualsTo<T>(this T? source,
+                                          T? target) where T : struct
+        {
+            return !EqualityComparer<T?>.Default.Equals(source, target);
+        }
+
+        /// <summary>
+        /// Negated comparison for a non-nullable and a nullable value type (e.g. Guid vs Guid?).
+        /// </summary>
+        public static bool NotEqualsTo<T>(this T source,
+                                          T? target) where T : struct
+        {
+            return !target.HasValue || !EqualityComparer<T>.Default.Equals(source, target.Value);
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // 🧩 REFERENCE TYPES (classes, strings, records, etc.)
+        // ─────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// Compares two reference types safely (handles nulls automatically).
+        /// </summary>
+        public static bool EqualsTo<T>(this T? source,
+                                       T? target)
+        {
+            return EqualityComparer<T?>.Default.Equals(source, target);
+        }
+
+        /// <summary>
+        /// Negated comparison for two reference types (handles nulls automatically).
+        /// </summary>
+        public static bool NotEqualsTo<T>(this T source,
+                                          T target)
+            where T : class
+        {
+            return !EqualsTo<T>(source, target);
         }
 
         /// <summary>Simplify the usage of the equality comparer for double with default tolerance.</summary>
         /// <param name="source">The source object to compare.</param>
         /// <param name="target">The target object to compare.</param>
         /// <returns><c>true</c> if the objects are equal; otherwise <c>false</c>.</returns>
-        public static bool EqualsTo(this double source, double target)
+        public static bool EqualsTo(this double source,
+                                    double target)
         {
-            return EqualsTo(source, target, DEFAULT_DOUBLE_TOLERANCE);
+            return EqualsTo(source, target, DefaultDoubleTolerance);
         }
 
         /// <summary>Simplify the usage of the equality comparer for double with default tolerance.</summary>
         /// <param name="source">The source object to compare.</param>
         /// <param name="target">The target object to compare.</param>
         /// <returns><c>false</c> if the objects are equal; otherwise <c>true</c>.</returns>
-        public static bool NotEqualsTo(this double source, double target)
+        public static bool NotEqualsTo(this double source,
+                                       double target)
         {
-            return NotEqualsTo(source, target, DEFAULT_DOUBLE_TOLERANCE);
+            return NotEqualsTo(source, target, DefaultDoubleTolerance);
         }
 
         /// <summary>Simplify the usage of the equality comparer for double with custom tolerance.</summary>
@@ -45,7 +96,9 @@ namespace Extensions.Pack
         /// <param name="target">The target object to compare.</param>
         /// <param name="tolerance">The tolerance for difference between the two doubles.</param>
         /// <returns><c>true</c> if the objects are equal; otherwise <c>false</c>.</returns>
-        public static bool EqualsTo(this double source, double target, double tolerance)
+        public static bool EqualsTo(this double source,
+                                    double target,
+                                    double tolerance)
         {
             return Math.Abs(source - target).IsLessThan(tolerance);
         }
@@ -55,19 +108,11 @@ namespace Extensions.Pack
         /// <param name="target">The target object to compare.</param>
         /// <param name="tolerance">The tolerance for difference between the two doubles.</param>
         /// <returns><c>false</c> if the objects are equal; otherwise <c>true</c>.</returns>
-        public static bool NotEqualsTo(this double source, double target, double tolerance)
+        public static bool NotEqualsTo(this double source,
+                                       double target,
+                                       double tolerance)
         {
             return !source.EqualsTo(target, tolerance);
-        }
-
-        /// <summary>Simplify the usage of the equality comparer to compare two objects with inverted result.</summary>
-        /// <typeparam name="T">The generic type of the objects which have to be compared.</typeparam>
-        /// <param name="source">The source object to compare.</param>
-        /// <param name="target">The target object to compare.</param>
-        /// <returns><c>false</c> if the objects are equal; otherwise <c>true</c>.</returns>
-        public static bool NotEqualsTo<T>(this T? source, T? target)
-        {
-            return !source.EqualsTo(target);
         }
 
         /// <summary>Simplify the usage of the equality comparer to compare two URIs (<c>Uri.Compare</c> is called) with inverted result.</summary>
@@ -78,10 +123,19 @@ namespace Extensions.Pack
         /// <param name="source">The source URI to compare.</param>
         /// <param name="target">The target URI to compare.</param>
         /// <returns><c>false</c> if the objects are equal; otherwise <c>true</c>.</returns>
-        public static bool NotEqualsToUri(this Uri source, Uri target)
+        public static bool NotEquals(this Uri source,
+                                     Uri target)
         {
-            var compareResult = Uri.Compare(source, target, UriComponents.AbsoluteUri, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase);
-            var isNotEqual = compareResult != 0;
+            return !EqualsTo(source, target);
+        }
+
+        public static bool EqualsTo(this Uri source,
+                                    Uri target)
+        {
+            var compareResult = Uri.Compare(source, target, UriComponents.AbsoluteUri,
+                                            UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase);
+
+            var isNotEqual = compareResult == 0;
 
             return isNotEqual;
         }
@@ -97,7 +151,7 @@ namespace Extensions.Pack
 
         public static IImmutableList<T> AsImmutableList<T>(this T item)
         {
-            return ImmutableList.Create(item);
+            return item.AsImmutableList();
         }
 
         /// <summary>Determines whether source is any of the expected values.</summary>
@@ -105,7 +159,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="expectedValues">The expected values.</param>
         /// <returns><c>true</c> if the source value is at least one of the expected values; otherwise, <c>false</c>.</returns>
-        public static bool EqualsAny<T>(this T source, params object[] expectedValues)
+        public static bool EqualsAny<T>(this T source,
+                                        params object[] expectedValues)
             where T : class
         {
             if (source.EqualsTo<object>(expectedValues))
@@ -128,7 +183,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T? IfNotNullThen<T>(this T? source, Func<T, Action> action)
+        public static T? IfNotNullThen<T>(this T? source,
+                                          Func<T, Action> action)
             where T : class
         {
             if (source == null)
@@ -148,7 +204,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T? IfNotNullThen<T>(this T? source, Action action)
+        public static T? IfNotNullThen<T>(this T? source,
+                                          Action action)
             where T : class
         {
             if (source is null)
@@ -168,7 +225,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T? IfNotNullThen<T>(this T? source, Action<T> action)
+        public static T? IfNotNullThen<T>(this T? source,
+                                          Action<T> action)
             where T : class
         {
             if (source == null)
@@ -188,7 +246,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T? IfNullThen<T>(this T? source, Func<T, Action> action)
+        public static T? IfNullThen<T>(this T? source,
+                                       Func<T, Action> action)
             where T : class
         {
             if (source != null)
@@ -208,7 +267,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="action">The action.</param>
         /// <returns>The source object back again.</returns>
-        public static T? IfNullThen<T>(this T? source, Action action)
+        public static T? IfNullThen<T>(this T? source,
+                                       Action action)
             where T : class
         {
             if (source != null)
@@ -229,7 +289,9 @@ namespace Extensions.Pack
         /// <param name="title">The title.</param>
         /// <param name="infoSelector">The information selector.</param>
         /// <returns>A string which was prepared by the info selector.</returns>
-        public static string ToString<T>(this T source, string title, params Expression<Func<T, object>>[] infoSelector)
+        public static string ToString<T>(this T source,
+                                         string title,
+                                         params Expression<Func<T, object>>[] infoSelector)
             where T : class
         {
             Throw.IfNull(source);
@@ -249,7 +311,8 @@ namespace Extensions.Pack
         /// <param name="source">The source enumeration.</param>
         /// <param name="infoSelector">The information selector.</param>
         /// <returns>A string which was prepared by the info selector.</returns>
-        public static string ToString<T>(this T source, params Expression<Func<T, object>>[] infoSelector)
+        public static string ToString<T>(this T source,
+                                         params Expression<Func<T, object>>[] infoSelector)
             where T : class
         {
             Throw.IfNull(source);
@@ -268,7 +331,8 @@ namespace Extensions.Pack
         /// string
         /// <param name="compiledExpressions">The compiled expressions.</param>
         /// <returns>A string which was prepared by the info selector.</returns>
-        public static string ToString<T>(this T source, Dictionary<string, Func<T, object>> compiledExpressions)
+        public static string ToString<T>(this T source,
+                                         Dictionary<string, Func<T, object>> compiledExpressions)
         {
             Throw.IfNull<object>(source);
             Throw.IfNull(compiledExpressions);
@@ -284,7 +348,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="count">The repeat count.</param>
         /// <returns>The created enumeration of the specific type with the specific expected count of items.</returns>
-        public static IEnumerable<T> Repeat<T>(this T source, int count)
+        public static IEnumerable<T> Repeat<T>(this T source,
+                                               int count)
         {
             Throw.IfLessThan(count, 0);
 
@@ -308,7 +373,8 @@ namespace Extensions.Pack
         /// <param name="source">The source which hast to be concatenated with the expected enumeration.</param>
         /// <param name="items">The items.</param>
         /// <returns>The concatenated enumeration.</returns>
-        public static IEnumerable<T> Concat<T>(this T source, IEnumerable<T> items)
+        public static IEnumerable<T> Concat<T>(this T source,
+                                               IEnumerable<T> items)
         {
             Throw.IfNull<object>(source);
 
@@ -335,7 +401,8 @@ namespace Extensions.Pack
             return Task.Run(() => elements.ToCsv(typeof(T).Name));
         }
 
-        public static Task<InMemoryFileAsStream> ToCsvAsync<T>(this IEnumerable<T> elements, string fileName) where T : class
+        public static Task<InMemoryFileAsStream> ToCsvAsync<T>(this IEnumerable<T> elements,
+                                                               string fileName) where T : class
         {
             return Task.Run(() => elements.ToCsv(fileName));
         }
@@ -345,7 +412,8 @@ namespace Extensions.Pack
             return elements.ToCsv(typeof(T).Name);
         }
 
-        public static InMemoryFileAsStream ToCsv<T>(this IEnumerable<T> elements, string fileName) where T : class
+        public static InMemoryFileAsStream ToCsv<T>(this IEnumerable<T> elements,
+                                                    string fileName) where T : class
         {
             fileName = fileName.EndWith(".csv") ? fileName : $"{fileName}.csv";
 
@@ -363,6 +431,7 @@ namespace Extensions.Pack
             }
 
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(stringBuilder.ToString()));
+
             return new InMemoryFileAsStream(memoryStream, fileName);
         }
     }

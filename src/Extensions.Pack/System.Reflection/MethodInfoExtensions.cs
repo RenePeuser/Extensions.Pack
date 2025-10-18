@@ -30,7 +30,9 @@ namespace Extensions.Pack
         /// <param name="genericType">Type of the generic.</param>
         /// <param name="arguments">The arguments.</param>
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
-        public static object? InvokeGeneric(this MethodInfo methodInfo, Type genericType, object[] arguments)
+        public static object? InvokeGeneric(this MethodInfo methodInfo,
+                                            Type genericType,
+                                            object[] arguments)
         {
             Throw.IfNull(methodInfo);
 
@@ -43,7 +45,10 @@ namespace Extensions.Pack
         /// <param name="genericType">Type of the generic.</param>
         /// <param name="arguments">The arguments.</param>
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
-        public static object? InvokeGeneric(this MethodInfo methodInfo, object? instance, Type genericType, object[] arguments)
+        public static object? InvokeGeneric(this MethodInfo methodInfo,
+                                            object? instance,
+                                            Type genericType,
+                                            object[] arguments)
         {
             Throw.IfNull(methodInfo);
 
@@ -56,7 +61,8 @@ namespace Extensions.Pack
         /// <param name="methodInfo">The method information.</param>
         /// <param name="genericType">Type of the generic.</param>
         /// <returns><c>true</c> if method is async; otherwise, <c>false</c>.</returns>
-        public static object? InvokeGeneric(this MethodInfo methodInfo, Type genericType)
+        public static object? InvokeGeneric(this MethodInfo methodInfo,
+                                            Type genericType)
         {
             Throw.IfNull(methodInfo);
 

@@ -14,7 +14,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is null or empty; otherwise <c>False</c>.</returns>
         public static bool IsNullOrEmpty([NotNullWhen(false)] this string? source)
         {
-            return string.IsNullOrEmpty(source);
+            return source.IsNullOrEmpty();
         }
 
         /// <summary>Checks if the source string is NOT null or empty.</summary>
@@ -45,7 +45,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="value">The value.</param>
         /// <returns><c>True</c> if source string starts with expected value; otherwise <c>False</c>.</returns>
-        public static bool StartWith(this string source, string value)
+        public static bool StartWith(this string source,
+                                     string value)
         {
             Throw.IfNull(source);
             Throw.IfNull(value);
@@ -57,7 +58,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="value">The value.</param>
         /// <returns><c>True</c> if source string starts with expected value; otherwise <c>False</c>.</returns>
-        public static bool EndWith(this string source, string value)
+        public static bool EndWith(this string source,
+                                   string value)
         {
             Throw.IfNull(source);
             Throw.IfNull(value);
@@ -72,7 +74,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is null or only a whitespace; otherwise <c>False</c>.</returns>
         public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? source)
         {
-            return string.IsNullOrWhiteSpace(source);
+            return source.IsNullOrWhiteSpace();
         }
 
         /// <summary>Checks if the source string is null or whitespace.</summary>
@@ -88,12 +90,12 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is a whitespace; otherwise <c>False</c>.</returns>
         public static bool IsWhitespace(this string source)
         {
-            if (string.IsNullOrEmpty(source))
+            if (source.IsNullOrEmpty())
             {
                 return false;
             }
 
-            return string.IsNullOrWhiteSpace(source);
+            return source.IsNullOrWhiteSpace();
         }
 
         /// <summary>Converts a string (representing a boolean value) to a boolean value.</summary>
@@ -131,12 +133,12 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified source is valid; otherwise, <c>false</c>.</returns>
         public static bool IsValid(this string source)
         {
-            if (string.IsNullOrEmpty(source))
+            if (source.IsNullOrEmpty())
             {
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(source))
+            if (source.IsNullOrWhiteSpace())
             {
                 return false;
             }
@@ -166,7 +168,8 @@ namespace Extensions.Pack
         /// <param name="source">The source string, which has to be converted.</param>
         /// <param name="dateTimeFormatInfo">The date time format information.</param>
         /// <returns>The converted <see cref="DateTime" />.</returns>
-        public static DateTime ToDateTime(this string source, DateTimeFormatInfo dateTimeFormatInfo)
+        public static DateTime ToDateTime(this string source,
+                                          DateTimeFormatInfo dateTimeFormatInfo)
         {
             Throw.IfNullOrWhiteSpace(source);
             Throw.IfNull(dateTimeFormatInfo);
@@ -179,11 +182,14 @@ namespace Extensions.Pack
         /// <param name="dateTimeFormatInfo">The date time format information.</param>
         /// <param name="dateTimeStyles">The date time styles.</param>
         /// <returns>The converted <see cref="DateTime" />.</returns>
-        public static DateTime ToDateTime(this string source, DateTimeFormatInfo dateTimeFormatInfo, DateTimeStyles dateTimeStyles)
+        public static DateTime ToDateTime(this string source,
+                                          DateTimeFormatInfo dateTimeFormatInfo,
+                                          DateTimeStyles dateTimeStyles)
         {
             Throw.IfNullOrWhiteSpace(source);
 
-            var result = DateTime.TryParse(source, dateTimeFormatInfo, dateTimeStyles, out var dateTime);
+            var result = DateTime.TryParse(source, dateTimeFormatInfo, dateTimeStyles,
+                                           out var dateTime);
 
             if (!result)
             {
@@ -197,7 +203,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="formatArguments">The format arguments.</param>
         /// <returns>The resulting string.</returns>
-        public static string FormatInvariantCulture(this string source, params object[] formatArguments)
+        public static string FormatInvariantCulture(this string source,
+                                                    params object[] formatArguments)
         {
             Throw.IfNullOrWhiteSpace(source);
             Throw.IfNull(formatArguments);
@@ -212,20 +219,20 @@ namespace Extensions.Pack
         /// <param name="expectedBlocks">The expected bytes.</param>
         /// <param name="blockLength">Length of the block.</param>
         /// <returns>The expected string blocks.</returns>
-        public static IEnumerable<string> SplitBlocks(this string value, int expectedBlocks, int blockLength)
+        public static IEnumerable<string> SplitBlocks(this string value,
+                                                      int expectedBlocks,
+                                                      int blockLength)
         {
             Throw.IfNullOrWhiteSpace(value);
 
             if (value.Length.NotEqualsTo(expectedBlocks.MultiplyBy(blockLength)))
             {
-                throw new ArgumentException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "Can not split string in expected blocks, because of string length: '{0}' which is not equals as the product of expected blocks: '{1}' and bloock length: '{2}'",
-                        value.Length,
-                        expectedBlocks,
-                        blockLength),
-                    nameof(value));
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                                                          "Can not split string in expected blocks, because of string length: '{0}' which is not equals as the product of expected blocks: '{1}' and bloock length: '{2}'",
+                                                          value.Length,
+                                                          expectedBlocks,
+                                                          blockLength),
+                                            nameof(value));
             }
 
             for (var i = 0; i < expectedBlocks; i++)
@@ -238,7 +245,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="blockLength">Length of the block.</param>
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
-        public static IEnumerable<string> Split(this string value, int blockLength)
+        public static IEnumerable<string> Split(this string value,
+                                                int blockLength)
         {
             if (value.IsNotValid())
             {
@@ -262,7 +270,8 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="length">The length.</param>
         /// <returns>System.String.</returns>
-        public static string SubstringUpTo(this string value, int length)
+        public static string SubstringUpTo(this string value,
+                                           int length)
         {
             Throw.IfNullOrWhiteSpace(value);
 
@@ -274,7 +283,9 @@ namespace Extensions.Pack
         /// <param name="startIndex">The start index.</param>
         /// <param name="length">The length.</param>
         /// <returns>System.String.</returns>
-        public static string SubstringUpTo(this string value, int startIndex, int length)
+        public static string SubstringUpTo(this string value,
+                                           int startIndex,
+                                           int length)
         {
             Throw.IfNullOrWhiteSpace(value);
 
@@ -288,7 +299,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="count">The count.</param>
         /// <returns>System.String.</returns>
-        public static string Repeat(this string source, int count)
+        public static string Repeat(this string source,
+                                    int count)
         {
             Throw.IfNull(source);
             Throw.IfLessThan(count, 0);
@@ -300,7 +312,8 @@ namespace Extensions.Pack
         /// <param name="value">The source.</param>
         /// <param name="values">The strings to concatenate.</param>
         /// <returns>The concatenated string.</returns>
-        public static string ConcatWith(this string value, params string[] values)
+        public static string ConcatWith(this string value,
+                                        params string[] values)
         {
             Throw.IfNull(values);
 
@@ -335,7 +348,8 @@ namespace Extensions.Pack
         /// <param name="fullqualifiedTypeName">The full qualified type name.</param>
         /// <param name="fullQualifiedAssemblyName">The full qualified assembly name.</param>
         /// <returns>The type info.</returns>
-        public static Type? FromAssembly(this string fullqualifiedTypeName, string fullQualifiedAssemblyName)
+        public static Type? FromAssembly(this string fullqualifiedTypeName,
+                                         string fullQualifiedAssemblyName)
         {
             Throw.IfNullOrWhiteSpace(fullqualifiedTypeName);
             Throw.IfNullOrWhiteSpace(fullQualifiedAssemblyName);
@@ -347,7 +361,8 @@ namespace Extensions.Pack
         /// <param name="value1">The value1.</param>
         /// <param name="value2">The value2.</param>
         /// <returns>True if the strings are the same (ignoring case), else false.</returns>
-        public static bool EqualsToIgnoringCase(this string value1, string value2)
+        public static bool EqualsToIgnoringCase(this string value1,
+                                                string value2)
         {
             Throw.IfNull(value1);
             Throw.IfNull(value2);
@@ -356,19 +371,22 @@ namespace Extensions.Pack
         }
 
         /// <summary>Nots the contains.</summary>
-        public static bool DoesNotContain(this string value, string notExpected)
+        public static bool DoesNotContain(this string value,
+                                          string notExpected)
         {
             Throw.IfNullOrWhiteSpace(value);
 
             return !value.Contains(notExpected);
         }
 
-        public static bool ContainsNotAnyOf(this string source, params string[] notContainStrings)
+        public static bool ContainsNotAnyOf(this string source,
+                                            params string[] notContainStrings)
         {
             return !notContainStrings.Any(source.Contains);
         }
 
-        public static bool EqualsAnyOf(this string source, params string[] notContainStrings)
+        public static bool EqualsAnyOf(this string source,
+                                       params string[] notContainStrings)
         {
             return notContainStrings.Any(s => s.ToLower(CultureInfo.InvariantCulture).EqualsTo(source));
         }
@@ -398,7 +416,8 @@ namespace Extensions.Pack
             return new Uri(source);
         }
 
-        public static string BuildUriPathWith(this string basePath, params string[] pathSegments)
+        public static string BuildUriPathWith(this string basePath,
+                                              params string[] pathSegments)
         {
             var normalizeBasPath = basePath.TrimEnd('/');
             var normalizePathSegments = pathSegments.Select(segment => segment.TrimStart('/'));
@@ -406,7 +425,8 @@ namespace Extensions.Pack
             return normalizeBasPath.Concat(normalizePathSegments).Flatten("/");
         }
 
-        public static int ToIntOrDefault(this string value, int defaultValue = 0)
+        public static int ToIntOrDefault(this string value,
+                                         int defaultValue = 0)
         {
             if (value.IsNullOrWhiteSpace())
             {
@@ -421,25 +441,31 @@ namespace Extensions.Pack
             return defaultValue;
         }
 
-        public static bool TryChangeType<T>(this string source, out T? targetType)
+        public static bool TryChangeType<T>(this string source,
+                                            out T? targetType)
         {
             if (source.TryChangeType(typeof(T), out var objectResult))
             {
                 if (objectResult.IsNull())
                 {
                     targetType = default;
+
                     return false;
                 }
 
                 targetType = objectResult.Cast<T>();
+
                 return true;
             }
 
             targetType = default;
+
             return false;
         }
 
-        public static bool TryChangeType(this string source, Type newType, out object? targetType)
+        public static bool TryChangeType(this string source,
+                                         Type newType,
+                                         out object? targetType)
         {
             try
             {
@@ -448,6 +474,7 @@ namespace Extensions.Pack
             catch (Exception)
             {
                 targetType = null;
+
                 return false;
             }
 
@@ -469,6 +496,5 @@ namespace Extensions.Pack
 
             return trimmedJsonValue;
         }
-
     }
 }

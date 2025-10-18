@@ -8,7 +8,7 @@
         /// <returns><c>True</c>if the <see cref="Guid" /> is empty; otherwise <c>false</c>.</returns>
         public static bool IsEmpty(this Guid guidValue)
         {
-            return guidValue == Guid.Empty;
+            return guidValue.EqualsTo(Guid.Empty);
         }
 
         /// <summary>Determines whether this <see cref="Guid" /> is empty.</summary>

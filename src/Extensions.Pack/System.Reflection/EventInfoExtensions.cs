@@ -12,7 +12,8 @@ namespace Extensions.Pack
         /// <param name="eventInfo">The event info.</param>
         /// <param name="actionHandler">The action handler.</param>
         /// <returns>The <see cref="Delegate" />.</returns>
-        public static Delegate CreateDelegate<TSender, TEventArgs>(this EventInfo eventInfo, Action<TSender, TEventArgs> actionHandler)
+        public static Delegate CreateDelegate<TSender, TEventArgs>(this EventInfo eventInfo,
+                                                                   Action<TSender, TEventArgs> actionHandler)
         {
             Throw.IfNull(eventInfo);
             Throw.IfNull(actionHandler);
@@ -20,10 +21,10 @@ namespace Extensions.Pack
             var eventHandlerType = eventInfo.EventHandlerType;
             Throw.IfNull(eventHandlerType);
 
-            var createdDelegate = Delegate.CreateDelegate(
-                eventHandlerType,
-                actionHandler.Target,
-                actionHandler.Method);
+            var createdDelegate = Delegate.CreateDelegate(eventHandlerType,
+                                                          actionHandler.Target,
+                                                          actionHandler.Method);
+
             return createdDelegate;
         }
     }

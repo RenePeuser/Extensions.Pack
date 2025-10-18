@@ -15,24 +15,34 @@ namespace Extensions.Pack
             var jsonString = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             T typeResult;
             var type = typeof(T);
+
             try
             {
                 typeResult = type.IsPrimitive || type == typeof(string) ? PrimitiveTypeConverter.ConvertTo<T>(jsonString) : jsonString.FromJsonStringAs<T>(HttpExtensions.JsonSerializerOptions);
             }
             catch (Exception)
             {
-                var errorResponse = new { Url = $"{responseMessage.RequestMessage?.Method} {responseMessage.RequestMessage?.RequestUri}", ExpectedResponse = type.Name, CurrentResponse = jsonString }.ToIList();
+                var errorResponse = new
+                {
+                    Url = $"{responseMessage.RequestMessage?.Method} {responseMessage.RequestMessage?.RequestUri}",
+                    ExpectedResponse = type.Name,
+                    CurrentResponse = jsonString
+                }.ToIList();
+
                 var table = ConsoleTable.From(errorResponse).ToString();
+
                 throw new UnexpectedResultException($"{Environment.NewLine}{Environment.NewLine}Your expected response type: '{type.Name}' can not be deserialized from current response json string{Environment.NewLine}{Environment.NewLine}{table}{Environment.NewLine}{Environment.NewLine}Current result: {jsonString}");
             }
 
             return typeResult;
         }
 
-        internal static async Task<string> GetResponseInfoAsync(this HttpResponseMessage response, string expected)
+        internal static async Task<string> GetResponseInfoAsync(this HttpResponseMessage response,
+                                                                string expected)
         {
             var errorResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             errorResponse = errorResponse.IsNullOrWhiteSpace() ? errorResponse : JToken.Parse(errorResponse).ToString(Formatting.Indented);
+
             var errorResult = new
             {
                 Request = $"{response.RequestMessage?.Method} {response.RequestMessage?.RequestUri}",
@@ -41,6 +51,7 @@ namespace Extensions.Pack
             }.ToIList();
 
             var table = ConsoleTable.From(errorResult).ToString();
+
             var errorOutput = $@"
 {table}
 

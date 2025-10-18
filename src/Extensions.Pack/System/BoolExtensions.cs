@@ -25,7 +25,8 @@ namespace Extensions.Pack
         /// <param name="source">The boolean source that decides whether the specified action will be invoked.</param>
         /// <param name="action">The action.</param>
         /// <returns><c>true</c> if the specified action is true; otherwise, <c>false</c>.</returns>
-        public static bool IfTrueThen(this bool source, Action action)
+        public static bool IfTrueThen(this bool source,
+                                      Action action)
         {
             Throw.IfNull(action);
 
@@ -41,7 +42,8 @@ namespace Extensions.Pack
         /// <param name="source">The source, which is checked for true.</param>
         /// <param name="action">The action.</param>
         /// <returns><c>true</c> if the specified action.IsFalse(); otherwise, <c>false</c>.</returns>
-        public static bool IfFalseThen(this bool source, Action action)
+        public static bool IfFalseThen(this bool source,
+                                       Action action)
         {
             Throw.IfNull(action);
 

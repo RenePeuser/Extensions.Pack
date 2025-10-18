@@ -11,7 +11,8 @@ namespace Extensions.Pack
         /// <typeparam name="TKey">The generic type of the key.</typeparam>
         /// <typeparam name="TValue">The generic type of the value.</typeparam>
         /// <returns>The value of the expected key.</returns>
-        public static TValue GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TKey : notnull
+        public static TValue GetValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+                                                    TKey key) where TKey : notnull
         {
             Throw.IfNull(dictionary);
 
@@ -31,7 +32,8 @@ namespace Extensions.Pack
         /// <typeparam name="TKey">The generic type of the key.</typeparam>
         /// <typeparam name="TValue">The generic type of the value.</typeparam>
         /// <returns>The value of the expected key.</returns>
-        public static TValue? GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TKey : notnull
+        public static TValue? GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+                                                              TKey key) where TKey : notnull
         {
             Throw.IfNull(dictionary);
             Throw.IfNull<object>(key);
@@ -46,7 +48,9 @@ namespace Extensions.Pack
         /// <typeparam name="TKey">The generic type of the key.</typeparam>
         /// <typeparam name="TValue">The generic type of the value.</typeparam>
         /// <returns>The value of the expected key.</returns>
-        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+        public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+                                                             TKey key,
+                                                             TValue defaultValue)
         {
             Throw.IfNull(dictionary);
             Throw.IfNull<object>(defaultValue);
@@ -64,7 +68,8 @@ namespace Extensions.Pack
         /// <param name="dictionary">The dictionary.</param>
         /// <param name="value">The value.</param>
         /// <returns>The generic key of the dictionary.</returns>
-        public static TKey? GetKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TValue value) where TKey : notnull
+        public static TKey? GetKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+                                                 TValue value) where TKey : notnull
         {
             Throw.IfNull(dictionary);
             Throw.IfNull<object>(value);
@@ -86,7 +91,9 @@ namespace Extensions.Pack
         /// <param name="value">The value.</param>
         /// <param name="defaultValue">The custom default value.</param>
         /// <returns>The value of the expected key.</returns>
-        public static TKey? GetKeyOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TValue value, TKey defaultValue)
+        public static TKey? GetKeyOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+                                                          TValue value,
+                                                          TKey defaultValue)
         {
             Throw.IfNull(dictionary);
             Throw.IfNull<object>(value);
@@ -100,7 +107,8 @@ namespace Extensions.Pack
         /// <param name="dictionary">The dictionary.</param>
         /// <param name="value">The value.</param>
         /// <returns><c>true</c> if the specified value contains value; otherwise, <c>false</c>.</returns>
-        public static bool ContainsValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TValue value)
+        public static bool ContainsValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+                                                       TValue value)
         {
             Throw.IfNull(dictionary);
             Throw.IfNull<object>(value);
@@ -161,7 +169,8 @@ namespace Extensions.Pack
             /// <summary>Initializes a new instance of the <see cref="DictionaryResult{T}" /> class.</summary>
             /// <param name="value">The value.</param>
             /// <param name="exists">If set to <c>true</c> [exists].</param>
-            internal DictionaryResult(T? value, bool exists)
+            internal DictionaryResult(T? value,
+                                      bool exists)
             {
                 Value = value;
                 Exists = exists;

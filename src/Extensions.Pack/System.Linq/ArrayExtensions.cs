@@ -10,7 +10,8 @@ namespace Extensions.Pack
         /// <param name="source">Array of source values.</param>
         /// <param name="values">The values to check.</param>
         /// <returns><c>True</c> if the source includes at least one of the given values; otherwise, <c>False</c>.</returns>
-        public static bool HasAny<T>(this T[] source, params object[] values)
+        public static bool HasAny<T>(this T[] source,
+                                     params object[] values)
         {
             Throw.IfNull(source);
 

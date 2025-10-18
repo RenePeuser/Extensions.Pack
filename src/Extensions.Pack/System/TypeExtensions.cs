@@ -13,10 +13,26 @@ namespace Extensions.Pack
         private static readonly IEnumerable<Type> sDictionaryGenericTypeDefinitions = new[] { typeof(IDictionary<,>), typeof(IReadOnlyDictionary<,>) };
 
         /// <summary>Enumeration of available type definitions of <see cref="Action" />.</summary>
-        private static readonly IEnumerable<Type> sActionDeclarations = new[] { typeof(Action), typeof(Action<>), typeof(Action<,>), typeof(Action<,,>), typeof(Action<,,,>), typeof(Action<,,,,>), typeof(Action<,,,,,>), typeof(Action<,,,,,,>), typeof(Action<,,,,,,,>), typeof(Action<,,,,,,,,>), typeof(Action<,,,,,,,,,>), typeof(Action<,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,,,>) };
+        private static readonly IEnumerable<Type> sActionDeclarations = new[]
+                                                                        {
+                                                                            typeof(Action), typeof(Action<>), typeof(Action<,>),
+                                                                            typeof(Action<,,>), typeof(Action<,,,>), typeof(Action<,,,,>),
+                                                                            typeof(Action<,,,,,>), typeof(Action<,,,,,,>), typeof(Action<,,,,,,,>),
+                                                                            typeof(Action<,,,,,,,,>), typeof(Action<,,,,,,,,,>), typeof(Action<,,,,,,,,,,>),
+                                                                            typeof(Action<,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,>),
+                                                                            typeof(Action<,,,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,,,>)
+                                                                        };
 
         /// <summary>Enumeration of available type definitions of <see cref="Func{TResult}" />.</summary>
-        private static readonly IEnumerable<Type> sFuncDeclarations = new[] { typeof(Func<>), typeof(Func<,>), typeof(Func<,,>), typeof(Func<,,,>), typeof(Func<,,,,>), typeof(Func<,,,,,>), typeof(Func<,,,,,,>), typeof(Func<,,,,,,,>), typeof(Func<,,,,,,,,>), typeof(Func<,,,,,,,,,>), typeof(Func<,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,,,>) };
+        private static readonly IEnumerable<Type> sFuncDeclarations = new[]
+                                                                      {
+                                                                          typeof(Func<>), typeof(Func<,>), typeof(Func<,,>),
+                                                                          typeof(Func<,,,>), typeof(Func<,,,,>), typeof(Func<,,,,,>),
+                                                                          typeof(Func<,,,,,,>), typeof(Func<,,,,,,,>), typeof(Func<,,,,,,,,>),
+                                                                          typeof(Func<,,,,,,,,,>), typeof(Func<,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,>),
+                                                                          typeof(Func<,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,>),
+                                                                          typeof(Func<,,,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,,,>)
+                                                                      };
 
         /// <summary>Check if the type is decorated with <see cref="ImmutableObjectAttribute" />.</summary>
         /// <param name="type">The type.</param>
@@ -236,7 +252,8 @@ namespace Extensions.Pack
         /// <param name="type">The source type to extract all properties.</param>
         /// <param name="length">The length of the expected array.</param>
         /// <returns>The <see cref="Array" /> with the expected length.</returns>
-        public static Array ToArray(this Type type, uint length)
+        public static Array ToArray(this Type type,
+                                    uint length)
         {
             Throw.IfNull(type);
 
@@ -291,9 +308,14 @@ namespace Extensions.Pack
             Throw.IfNull(type);
 
             var constructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                .Select(c => new { Constructur = c, Parameters = c.GetParameters() })
-                .OrderBy(c => c.Parameters.Length)
-                .ToList();
+                                   .Select(c => new
+                                   {
+                                       Constructur = c,
+                                       Parameters = c.GetParameters()
+                                   })
+                                   .OrderBy(c => c.Parameters.Length)
+                                   .ToList();
+
             var constructorWithMaxParameters = constructors.Last().Constructur;
 
             return constructorWithMaxParameters;
@@ -322,7 +344,10 @@ namespace Extensions.Pack
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The arguments type info.</param>
         /// <returns>The return value of the invoked method. </returns>
-        public static object? InvokeGenericMethod(this Type classType, string methodName, Type[] argumentTypes, params object[] arguments)
+        public static object? InvokeGenericMethod(this Type classType,
+                                                  string methodName,
+                                                  Type[] argumentTypes,
+                                                  params object[] arguments)
         {
             Throw.IfNull(classType);
             Throw.IfNullOrWhiteSpace(methodName);
@@ -343,7 +368,10 @@ namespace Extensions.Pack
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The arguments type info.</param>
         /// <returns>The return value of the invoked method.</returns>
-        public static object? InvokeGenericMethod<TClass>(this TClass source, string methodName, Type argumentTypes, params object[] arguments)
+        public static object? InvokeGenericMethod<TClass>(this TClass source,
+                                                          string methodName,
+                                                          Type argumentTypes,
+                                                          params object[] arguments)
             where TClass : class
         {
             Throw.IfNull(source);
@@ -364,7 +392,10 @@ namespace Extensions.Pack
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The method parameters.</param>
         /// <returns>The return value of the invoked method. </returns>
-        public static object? InvokeExpectedMethod(this Type classType, string methodName, Type[] argumentTypes, params object[] arguments)
+        public static object? InvokeExpectedMethod(this Type classType,
+                                                   string methodName,
+                                                   Type[] argumentTypes,
+                                                   params object[] arguments)
         {
             Throw.IfNull(classType);
             Throw.IfNullOrWhiteSpace(methodName);
@@ -374,7 +405,8 @@ namespace Extensions.Pack
             var argumentsTypes = arguments.Select(a => a.GetType());
 
             var expectedMethod = classType.GetMethods(EXPECTED_BINDING_FLAGS)
-                .First(item => item.Name == methodName && item.GetParameters().Select(p => p.ParameterType).SequenceEqualsTo(argumentsTypes));
+                                          .First(item => item.Name == methodName && item.GetParameters().Select(p => p.ParameterType).SequenceEqualsTo(argumentsTypes));
+
             var genericMethod = expectedMethod.MakeGenericMethod(argumentTypes);
             var result = genericMethod.Invoke(null, arguments);
 
@@ -396,24 +428,29 @@ namespace Extensions.Pack
             return sActionDeclarations.Contains(genericTypeDefinition);
         }
 
-        public static IEnumerable<T> GetCustomAttributes<T>(this Type type, bool inherit = false) where T : Attribute
+        public static IEnumerable<T> GetCustomAttributes<T>(this Type type,
+                                                            bool inherit = false) where T : Attribute
         {
             Throw.IfNull(type);
 
             var attributes = type.GetCustomAttributes(typeof(T), inherit).ToListOfType<T>();
+
             return attributes;
         }
 
-        public static bool HasCustomAttribute<T>(this Type type, bool inherit = false) where T : Attribute
+        public static bool HasCustomAttribute<T>(this Type type,
+                                                 bool inherit = false) where T : Attribute
         {
             Throw.IfNull(type);
 
             var attribute = type.GetCustomAttribute<T>(inherit);
             var hasCustomAttribute = attribute != null;
+
             return hasCustomAttribute;
         }
 
-        public static T? GetCustomAttribute<T>(this Type type, bool inherit = false) where T : Attribute
+        public static T? GetCustomAttribute<T>(this Type type,
+                                               bool inherit = false) where T : Attribute
         {
             return type.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }

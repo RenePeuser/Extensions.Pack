@@ -11,7 +11,8 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks.</param>
         /// <typeparam name="T">Generic object of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static T? GetCustomAttribute<T>(this object source, bool inherit = false)
+        public static T? GetCustomAttribute<T>(this object source,
+                                               bool inherit = false)
             where T : Attribute
         {
             Throw.IfNull(source);
@@ -24,7 +25,8 @@ namespace Extensions.Pack
         /// <param name="inherit">True to search this member's inheritance chain to find the attributes; otherwise, false. This parameter is ignored for properties and events; see Remarks.</param>
         /// <typeparam name="T">Generic object of the expected attribute to find.</typeparam>
         /// <returns>An enumeration of the expected attributes.</returns>
-        public static bool HasCustomAttribute<T>(this object source, bool inherit = false)
+        public static bool HasCustomAttribute<T>(this object source,
+                                                 bool inherit = false)
             where T : Attribute
         {
             Throw.IfNull(source);
@@ -46,7 +48,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <returns>The <see cref="bool" />.</returns>
-        public static bool NotRefEquals(this object source, object target)
+        public static bool NotRefEquals(this object source,
+                                        object target)
         {
             // Argument checking is not necessary because call extension on null object is allowed => RefrenceEquals will be called
             return !source.RefEquals(target);
@@ -56,7 +59,8 @@ namespace Extensions.Pack
         /// <param name="source">The source.</param>
         /// <param name="target">The target.</param>
         /// <returns>The <see cref="bool" />.</returns>
-        public static bool RefEquals(this object source, object target)
+        public static bool RefEquals(this object source,
+                                     object target)
         {
             // Argument checking is not necessary because compare null objects are valid
             return ReferenceEquals(source, target);
@@ -68,7 +72,6 @@ namespace Extensions.Pack
         /// <returns><c>T</c> of the safe casted object; otherwise <c>null</c>.</returns>
         public static T? As<T>(this object? source)
         {
-
             if (source is T result)
             {
                 return result;
@@ -170,13 +173,13 @@ namespace Extensions.Pack
         /// <typeparam name="TType">The type to check for.</typeparam>
         /// <param name="source">The object which should be checked.</param>
         /// <param name="action">The action to execute.</param>
-        public static void IfType<TType>(this object source, Action<TType?> action)
+        public static void IfType<TType>(this object source,
+                                         Action<TType?> action)
             where TType : class
         {
             Throw.IfNull(action);
 
             var expectedType = source.As<TType>();
-
 
             expectedType.IfNotNullThen(() => action(expectedType));
         }

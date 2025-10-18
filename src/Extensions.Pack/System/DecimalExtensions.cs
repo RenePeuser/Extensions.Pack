@@ -2,7 +2,8 @@
 {
     public static class DecimalExtensions
     {
-        public static decimal CalcPercent(this decimal source, decimal divisor)
+        public static decimal CalcPercent(this decimal source,
+                                          decimal divisor)
         {
             if (divisor.Equals(0))
             {
@@ -10,6 +11,7 @@
             }
 
             var percent = divisor / source * 100;
+
             return Math.Round(percent, 0);
         }
 
