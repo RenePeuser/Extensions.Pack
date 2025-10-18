@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 using Argument.Check;
+using Microsoft.Extensions.Configuration;
 
 namespace Extensions.Pack
 {
@@ -66,7 +67,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(methodInfo);
 
-            return methodInfo.InvokeGeneric(genericType, Array.Empty<object>());
+            return methodInfo.InvokeGeneric(genericType, []);
         }
 
         /// <summary>Gets the parameters of a method info as an enumeration of <see cref="ParameterExpression" />.</summary>
@@ -74,6 +75,8 @@ namespace Extensions.Pack
         /// <returns>IEnumerable&lt;ParameterExpression&gt;.</returns>
         public static IEnumerable<ParameterExpression> GetParamsAsExpressions(this MethodInfo methodInfo)
         {
+            Throw.IfNull(methodInfo);
+
             foreach (var parameterInfo in methodInfo.GetParameters())
             {
                 yield return Expression.Parameter(parameterInfo.ParameterType, parameterInfo.Name);

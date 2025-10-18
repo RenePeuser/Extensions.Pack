@@ -13,7 +13,7 @@
         public static TimeSpan Min(this TimeSpan source,
                                    TimeSpan target)
         {
-            if (source == TimeSpan.Zero)
+            if (source.EqualsTo(TimeSpan.Zero))
             {
                 return target;
             }

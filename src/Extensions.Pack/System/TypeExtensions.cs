@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 using Argument.Check;
@@ -8,31 +9,31 @@ namespace Extensions.Pack
     /// <summary>Extension class for <see cref="Type" /> extensions.</summary>
     public static class TypeExtensions
     {
-        private const BindingFlags EXPECTED_BINDING_FLAGS = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+        private const BindingFlags ExpectedBindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
-        private static readonly IEnumerable<Type> sDictionaryGenericTypeDefinitions = new[] { typeof(IDictionary<,>), typeof(IReadOnlyDictionary<,>) };
+        private static readonly IEnumerable<Type> DictionaryGenericTypeDefinitions = new[] { typeof(IDictionary<,>), typeof(IReadOnlyDictionary<,>) };
 
         /// <summary>Enumeration of available type definitions of <see cref="Action" />.</summary>
-        private static readonly IEnumerable<Type> sActionDeclarations = new[]
-                                                                        {
-                                                                            typeof(Action), typeof(Action<>), typeof(Action<,>),
-                                                                            typeof(Action<,,>), typeof(Action<,,,>), typeof(Action<,,,,>),
-                                                                            typeof(Action<,,,,,>), typeof(Action<,,,,,,>), typeof(Action<,,,,,,,>),
-                                                                            typeof(Action<,,,,,,,,>), typeof(Action<,,,,,,,,,>), typeof(Action<,,,,,,,,,,>),
-                                                                            typeof(Action<,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,>),
-                                                                            typeof(Action<,,,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,,,>)
-                                                                        };
+        private static readonly IEnumerable<Type> ActionDeclarations =
+        [
+            typeof(Action), typeof(Action<>), typeof(Action<,>),
+            typeof(Action<,,>), typeof(Action<,,,>), typeof(Action<,,,,>),
+            typeof(Action<,,,,,>), typeof(Action<,,,,,,>), typeof(Action<,,,,,,,>),
+            typeof(Action<,,,,,,,,>), typeof(Action<,,,,,,,,,>), typeof(Action<,,,,,,,,,,>),
+            typeof(Action<,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,>),
+            typeof(Action<,,,,,,,,,,,,,,>), typeof(Action<,,,,,,,,,,,,,,,>)
+        ];
 
         /// <summary>Enumeration of available type definitions of <see cref="Func{TResult}" />.</summary>
-        private static readonly IEnumerable<Type> sFuncDeclarations = new[]
-                                                                      {
-                                                                          typeof(Func<>), typeof(Func<,>), typeof(Func<,,>),
-                                                                          typeof(Func<,,,>), typeof(Func<,,,,>), typeof(Func<,,,,,>),
-                                                                          typeof(Func<,,,,,,>), typeof(Func<,,,,,,,>), typeof(Func<,,,,,,,,>),
-                                                                          typeof(Func<,,,,,,,,,>), typeof(Func<,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,>),
-                                                                          typeof(Func<,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,>),
-                                                                          typeof(Func<,,,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,,,>)
-                                                                      };
+        private static readonly IEnumerable<Type> FuncDeclarations =
+        [
+            typeof(Func<>), typeof(Func<,>), typeof(Func<,,>),
+            typeof(Func<,,,>), typeof(Func<,,,,>), typeof(Func<,,,,,>),
+            typeof(Func<,,,,,,>), typeof(Func<,,,,,,,>), typeof(Func<,,,,,,,,>),
+            typeof(Func<,,,,,,,,,>), typeof(Func<,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,>),
+            typeof(Func<,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,>),
+            typeof(Func<,,,,,,,,,,,,,,,>), typeof(Func<,,,,,,,,,,,,,,,,>)
+        ];
 
         /// <summary>Check if the type is decorated with <see cref="ImmutableObjectAttribute" />.</summary>
         /// <param name="type">The type.</param>
@@ -43,7 +44,7 @@ namespace Extensions.Pack
 
             var result = CustomAttributeExtensions.GetCustomAttribute<ImmutableObjectAttribute>(type);
 
-            if (result == null)
+            if (result.IsNull())
             {
                 return false;
             }
@@ -70,7 +71,7 @@ namespace Extensions.Pack
 
             var attribute = CustomAttributeExtensions.GetCustomAttribute<CLSCompliantAttribute>(type);
 
-            if (attribute == null)
+            if (attribute.IsNull())
             {
                 return false;
             }
@@ -97,7 +98,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(type);
 
-            return type == typeof(T);
+            return type.EqualsTo(typeof(T));
         }
 
         /// <summary>Determines whether this <see cref="Type" /> is <see cref="Action{TResult}" />.</summary>
@@ -117,7 +118,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(type);
 
-            if (type.FullName == null)
+            if (type.FullName.IsNull())
             {
                 return true;
             }
@@ -134,7 +135,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(type);
 
-            var constructor = type.GetConstructors(EXPECTED_BINDING_FLAGS).FirstOrDefault();
+            var constructor = type.GetConstructors(ExpectedBindingFlags).FirstOrDefault();
 
             return constructor;
         }
@@ -176,7 +177,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(type);
 
-            if (type == typeof(IDictionary))
+            if (type.EqualsTo(typeof(IDictionary)))
             {
                 return true;
             }
@@ -203,7 +204,7 @@ namespace Extensions.Pack
                     return true;
                 }
 
-                return sDictionaryGenericTypeDefinitions.Contains(type.GetGenericTypeDefinition());
+                return DictionaryGenericTypeDefinitions.Contains(type.GetGenericTypeDefinition());
             }
 
             return false;
@@ -216,7 +217,7 @@ namespace Extensions.Pack
         {
             Throw.IfNull(type);
 
-            return IsInterfaceImplemented<IEnumerator>(type) || type == typeof(IEnumerator);
+            return IsInterfaceImplemented<IEnumerator>(type) || type.EqualsTo(typeof(IEnumerator));
         }
 
         /// <summary>Checks if a specific interface type is implemented.</summary>
@@ -335,7 +336,7 @@ namespace Extensions.Pack
 
             var genericTypeDefinition = type.GetGenericTypeDefinition();
 
-            return sFuncDeclarations.Contains(genericTypeDefinition);
+            return FuncDeclarations.Contains(genericTypeDefinition);
         }
 
         /// <summary>Invokes the generic method.</summary>
@@ -354,7 +355,7 @@ namespace Extensions.Pack
             Throw.IfNull(argumentTypes);
             Throw.IfNull(arguments);
 
-            var expectedMethod = classType.GetMethods(EXPECTED_BINDING_FLAGS).First(m => m.Name == methodName);
+            var expectedMethod = classType.GetMethods(ExpectedBindingFlags).First(m => m.Name.EqualsTo(methodName));
             var genericMethod = expectedMethod.MakeGenericMethod(argumentTypes);
             var result = genericMethod.Invoke(null, arguments);
 
@@ -379,7 +380,7 @@ namespace Extensions.Pack
             Throw.IfNull(argumentTypes);
             Throw.IfNull(arguments);
 
-            var expectedMethod = typeof(TClass).GetMethods(EXPECTED_BINDING_FLAGS).First(m => m.Name == methodName);
+            var expectedMethod = typeof(TClass).GetMethods(ExpectedBindingFlags).First(m => m.Name.EqualsTo(methodName));
             var genericMethod = expectedMethod.MakeGenericMethod(argumentTypes);
             var result = genericMethod.Invoke(source, arguments);
 
@@ -404,8 +405,8 @@ namespace Extensions.Pack
 
             var argumentsTypes = arguments.Select(a => a.GetType());
 
-            var expectedMethod = classType.GetMethods(EXPECTED_BINDING_FLAGS)
-                                          .First(item => item.Name == methodName && item.GetParameters().Select(p => p.ParameterType).SequenceEqualsTo(argumentsTypes));
+            var expectedMethod = classType.GetMethods(ExpectedBindingFlags)
+                                          .First(item => item.Name.EqualsTo(methodName) && item.GetParameters().Select(p => p.ParameterType).SequenceEqualsTo(argumentsTypes));
 
             var genericMethod = expectedMethod.MakeGenericMethod(argumentTypes);
             var result = genericMethod.Invoke(null, arguments);
@@ -418,14 +419,16 @@ namespace Extensions.Pack
         /// <returns><c>true</c> if the specified type is <see cref="Action" />; otherwise, <c>false</c>.</returns>
         public static bool IsAction(this Type type)
         {
+            Throw.IfNull(type);
+
             if (!type.IsGenericType)
             {
-                return type == typeof(Action);
+                return type.EqualsTo(typeof(Action));
             }
 
             var genericTypeDefinition = type.GetGenericTypeDefinition();
 
-            return sActionDeclarations.Contains(genericTypeDefinition);
+            return ActionDeclarations.Contains(genericTypeDefinition);
         }
 
         public static IEnumerable<T> GetCustomAttributes<T>(this Type type,

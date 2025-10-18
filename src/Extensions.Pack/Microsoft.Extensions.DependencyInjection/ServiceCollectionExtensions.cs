@@ -1,37 +1,30 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Net.Http;
+using Argument.Check;
+using Extensions.Pack.Exceptions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Extensions.Pack
 {
-    public class MissingSettingsException<TSettings> : Exception where TSettings : class
-    {
-        public MissingSettingsException() : base($"The setting: '{typeof(TSettings).Name}' is missing. Please check your specific appsettings.json or your environment variables.")
-        {
-        }
-    }
-
     public static class ServiceCollectionExtensions
     {
         public static bool IsAlreadyRegistered<TImplementation>(this IServiceCollection services)
             where TImplementation : class
         {
             var existingRegistrations = services.Where(descriptor => descriptor.IsKeyedService.IsFalse() &&
-                                                                     (descriptor.ServiceType == typeof(TImplementation) ||
-                                                                      descriptor.ImplementationType == typeof(TImplementation)));
+                                                                     (descriptor.ServiceType.EqualsTo(typeof(TImplementation)) || descriptor.ImplementationType.EqualsTo(typeof(TImplementation))));
 
             return existingRegistrations.Any();
         }
 
-        public static T GetOrThrowMissingException<T>(this IServiceProvider services)
+        public static T GetOrThrowMissingException<T>(this IServiceProvider services) where T : class
         {
             var service = services.GetService<T>();
 
             if (service.IsNull())
             {
-                throw new ProblemDetailsException("Service could not be resolved",
-                                                  $"The service: {typeof(T).Name} could not be resolved please check your service registrations",
-                                                  ("One time registration", $"services.{nameof(AddSingletonIfNotExists)}<{typeof(T).Name}>();"),
-                                                  ("Standard registration", $"services.AddSingleton<{typeof(T).Name}>();"));
+                throw new MissingServiceException<T>();
             }
 
             return service;
@@ -44,9 +37,7 @@ namespace Extensions.Pack
 
             if (setting.IsNull())
             {
-                throw new ProblemDetailsException(500,
-                                                  $"Setting of type: {typeof(T).Name} could not be found",
-                                                  $"Please check your appsettings.json, or check if the name of your class '{typeof(T).Name}' mach the section name in your appsettings.json");
+                throw new MissingSettingsException<T>();
             }
 
             serviceCollection.AddSingletonIfNotExists(setting);
@@ -62,7 +53,7 @@ namespace Extensions.Pack
                                                                     TImplementation instance)
             where TImplementation : class
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TImplementation));
+            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType.EqualsTo(typeof(TImplementation)));
 
             if (existingRegistrations.Any())
             {
@@ -76,7 +67,7 @@ namespace Extensions.Pack
             where TInterface : class
             where TImplementation : class, TInterface
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType == typeof(TInterface) && descriptor.ImplementationType == typeof(TImplementation));
+            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType.EqualsTo(typeof(TInterface)) && descriptor.ImplementationType.EqualsTo(typeof(TImplementation)));
 
             if (existingRegistrations.Any())
             {
@@ -103,9 +94,11 @@ namespace Extensions.Pack
         }
 
         public static T GetSettings<T>(this IConfiguration configuration,
-                                       string settingsKeyPath)
-            where T : class
+                                       string settingsKeyPath) where T : class
         {
+            Throw.IfNull(configuration);
+            Throw.IfNullOrWhiteSpace(settingsKeyPath);
+
             var settings = configuration.GetSection(settingsKeyPath).Get<T>();
 
             if (settings.IsNull())
@@ -130,6 +123,9 @@ namespace Extensions.Pack
                                              string settingsKeyPath,
                                              out T settings) where T : new()
         {
+            Throw.IfNull(configuration);
+            Throw.IfNullOrWhiteSpace(settingsKeyPath);
+
             var section = configuration.GetSection(settingsKeyPath).Get<T>();
 
             if (section is null)

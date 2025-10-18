@@ -18,7 +18,7 @@ namespace Extensions.Pack
             Throw.IfNull<object>(source);
             Throw.IfNull<object>(target);
 
-            return source.CompareTo(target) == 0;
+            return source.CompareTo(target).EqualsTo(0);
         }
 
         /// <summary>Determines whether the source is less than the specified target.</summary>

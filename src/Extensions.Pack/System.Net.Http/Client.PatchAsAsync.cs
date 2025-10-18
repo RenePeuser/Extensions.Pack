@@ -1,6 +1,7 @@
 ﻿using System.Net.Mime;
 using System.Reflection;
 using System.Text;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -26,9 +27,16 @@ namespace Extensions.Pack
                                                               string payloadAsJson,
                                                               Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+
+            using var httpResponseMessage = await httpClient.PatchAsync(url, stringContent).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
@@ -52,9 +60,16 @@ namespace Extensions.Pack
                                                                              string payloadAsJson,
                                                                              Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+
+            using var httpResponseMessage = await httpClient.PatchAsync(url, stringContent).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
@@ -68,8 +83,12 @@ namespace Extensions.Pack
                                                                           string url,
                                                                           T content)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             var jsonContent = content.ToJson(JsonSerializerOptions);
-            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonContent, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonContent, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+            var patchResponse = await httpClient.PatchAsync(url, stringContent).ConfigureAwait(false);
 
             return patchResponse;
         }
@@ -86,8 +105,15 @@ namespace Extensions.Pack
                                                                        string payloadAsJson,
                                                                        Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
-            var patchResponse = await httpClient.PatchAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+
+            var patchResponse = await httpClient.PatchAsync(url, stringContent).ConfigureAwait(false);
 
             return patchResponse;
         }

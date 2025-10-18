@@ -17,12 +17,12 @@
 
         public static bool IsMinValue(this decimal value)
         {
-            return value == decimal.MinValue;
+            return value.EqualsTo(decimal.MinValue);
         }
 
         public static bool IsMaxValue(this decimal value)
         {
-            return value == decimal.MaxValue;
+            return value.EqualsTo(decimal.MaxValue);
         }
 
         public static int ToInt(this decimal value)

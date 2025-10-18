@@ -15,6 +15,7 @@
         <PackageId>Extensions.Pack</PackageId>
         <OutputType>Library</OutputType>
         <LangVersion>latest</LangVersion>
+        <NoWarn>CA1054;CA2234;CA1002;CA1055</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

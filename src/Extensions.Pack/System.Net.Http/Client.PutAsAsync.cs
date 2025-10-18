@@ -3,13 +3,14 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
     public static partial class HttpExtensions
     {
         // Quickfix until refactoring
-        public static JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions()
+        public static JsonSerializerOptions JsonSerializerOptions { get; set; } = new()
         {
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -60,9 +61,15 @@ namespace Extensions.Pack
                                                             string payloadAsJson,
                                                             Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+            using var httpResponseMessage = await httpClient.PutAsync(url, stringContent).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
@@ -84,9 +91,15 @@ namespace Extensions.Pack
                                                                            string payloadAsJson,
                                                                            Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+            using var httpResponseMessage = await httpClient.PutAsync(url, stringContent).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
@@ -110,9 +123,16 @@ namespace Extensions.Pack
                                                                      string payloadAsJson,
                                                                      Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            return httpClient.PutAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json));
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+
+            return httpClient.PutAsync(url, stringContent);
         }
     }
 }

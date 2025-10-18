@@ -26,7 +26,7 @@ namespace Extensions.Pack.TypeConversion
             // TableCreated and more
             var targetType = typeof(T);
 
-            if (targetType == typeof(bool))
+            if (targetType.EqualsTo(typeof(bool)))
             {
                 if (bool.TryParse(source, out var boolResult))
                 {
@@ -39,7 +39,7 @@ namespace Extensions.Pack.TypeConversion
                 }
             }
 
-            if (targetType == typeof(string))
+            if (targetType.EqualsTo(typeof(string)))
             {
                 return (T)(object)source.Trim('\"');
             }

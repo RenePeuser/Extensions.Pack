@@ -1,10 +1,15 @@
-﻿namespace Extensions.Pack
+﻿using Argument.Check;
+
+namespace Extensions.Pack
 {
     public static partial class HttpExtensions
     {
         public static async Task DeleteAsAsync(this HttpClient httpClient,
                                                string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -20,6 +25,9 @@
         public static async Task<T> DeleteAsAsync<T>(this HttpClient httpClient,
                                                      string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -35,6 +43,9 @@
         public static async Task<T> DeleteAsErrorResultAsync<T>(this HttpClient httpClient,
                                                                 string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())

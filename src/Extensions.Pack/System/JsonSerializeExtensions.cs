@@ -70,7 +70,9 @@ namespace Extensions.Pack
                 // Try catch because of invalid json strings !
                 return JsonSerializer.Deserialize<T>(source, JsonSerializerOptions);
             }
+#pragma warning disable CA1031
             catch (Exception)
+#pragma warning restore CA1031
             {
                 return default;
             }
@@ -84,7 +86,9 @@ namespace Extensions.Pack
                 // Try catch because of invalid json strings !
                 return JsonSerializer.Deserialize<T>(source, jsonSerializerOptions);
             }
+#pragma warning disable CA1031
             catch (Exception)
+#pragma warning restore CA1031
             {
                 return default;
             }
@@ -107,7 +111,9 @@ namespace Extensions.Pack
                 });
 #pragma warning restore CA1869
             }
+#pragma warning disable CA1031
             catch (Exception)
+#pragma warning restore CA1031
             {
                 // Try catch because of invalid json strings !
                 return default;

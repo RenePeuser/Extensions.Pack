@@ -39,7 +39,7 @@ namespace Extensions.Pack
         {
             var result = dateTime.HoursPerDay();
 
-            return result == 12;
+            return result.EqualsTo(12);
         }
 
         public static string? ActiveDesignator(this DateTime dateTime)

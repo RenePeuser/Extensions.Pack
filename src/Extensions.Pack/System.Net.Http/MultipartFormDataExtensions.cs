@@ -1,4 +1,6 @@
-﻿namespace Extensions.Pack
+﻿using Argument.Check;
+
+namespace Extensions.Pack
 {
     public static class InMemoryFileExtensions
     {
@@ -11,8 +13,13 @@
         public static MultipartFormDataContent ToMultipartFormDataContent(this InMemoryFileAsByteArray source,
                                                                           string controllerParameterName)
         {
+            Throw.IfNull(source);
+
             var multiPartFormData = new MultipartFormDataContent();
-            multiPartFormData.Add(new ByteArrayContent(source.FileContent), controllerParameterName, source.Name);
+#pragma warning disable CA2000 // Consumer is responsible for disposing the StreamContent
+            var byteArrayContent = new ByteArrayContent(source.FileContent);
+#pragma warning restore CA2000 // Consumer is responsible for disposing the StreamContent
+            multiPartFormData.Add(byteArrayContent, controllerParameterName, source.Name);
 
             return multiPartFormData;
         }
@@ -26,8 +33,13 @@
         public static MultipartFormDataContent ToMultipartFormDataContent(this InMemoryFileAsStream source,
                                                                           string controllerParameterName)
         {
+            Throw.IfNull(source);
+
             var multiPartFormData = new MultipartFormDataContent();
-            multiPartFormData.Add(new StreamContent(source.FileStream), controllerParameterName, source.FileName);
+#pragma warning disable CA2000 // Consumer is responsible for disposing the StreamContent
+            var streamContent = new StreamContent(source.FileStream);
+#pragma warning restore CA2000 // Consumer is responsible for disposing the StreamContent
+            multiPartFormData.Add(streamContent, controllerParameterName, source.FileName);
 
             return multiPartFormData;
         }

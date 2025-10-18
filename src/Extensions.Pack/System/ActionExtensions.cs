@@ -1,32 +1,25 @@
+﻿using Argument.Check;
+
 namespace Extensions.Pack
 {
     public static class ActionExtensions
     {
-        public static void NullableInvoke(this Action action)
+        public static void NullableInvoke(this Action? action)
         {
-            if (action.IsNotNull())
-            {
-                action();
-            }
+            action?.Invoke();
         }
 
-        public static void NullableInvoke<T>(this Action<T> action,
+        public static void NullableInvoke<T>(this Action<T>? action,
                                              T arg0)
         {
-            if (action.IsNotNull())
-            {
-                action(arg0);
-            }
+            action?.Invoke(arg0);
         }
 
-        public static void NullableInvoke<T1, T2>(this Action<T1, T2> action,
+        public static void NullableInvoke<T1, T2>(this Action<T1, T2>? action,
                                                   T1 arg1,
                                                   T2 arg2)
         {
-            if (action.IsNotNull())
-            {
-                action(arg1, arg2);
-            }
+            action?.Invoke(arg1, arg2);
         }
     }
 }

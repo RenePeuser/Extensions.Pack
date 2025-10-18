@@ -18,7 +18,7 @@ namespace Extensions.Pack
 
             try
             {
-                typeResult = type.IsPrimitive || type == typeof(string) ? PrimitiveTypeConverter.ConvertTo<T>(jsonString) : jsonString.FromJsonStringAs<T>(HttpExtensions.JsonSerializerOptions);
+                typeResult = type.IsPrimitive || type.EqualsTo(typeof(string)) ? PrimitiveTypeConverter.ConvertTo<T>(jsonString) : jsonString.FromJsonStringAs<T>(HttpExtensions.JsonSerializerOptions);
             }
             catch (Exception)
             {

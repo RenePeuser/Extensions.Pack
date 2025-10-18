@@ -14,7 +14,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is null or empty; otherwise <c>False</c>.</returns>
         public static bool IsNullOrEmpty([NotNullWhen(false)] this string? source)
         {
-            return source.IsNullOrEmpty();
+            return string.IsNullOrWhiteSpace(source);
         }
 
         /// <summary>Checks if the source string is NOT null or empty.</summary>
@@ -30,7 +30,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is empty; otherwise <c>False</c>.</returns>
         public static bool IsEmpty(this string source)
         {
-            return source == string.Empty;
+            return source.EqualsTo(string.Empty);
         }
 
         /// <summary>Checks if the source string is not empty.</summary>
@@ -74,7 +74,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is null or only a whitespace; otherwise <c>False</c>.</returns>
         public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? source)
         {
-            return source.IsNullOrWhiteSpace();
+            return string.IsNullOrWhiteSpace(source);
         }
 
         /// <summary>Checks if the source string is null or whitespace.</summary>
@@ -120,7 +120,7 @@ namespace Extensions.Pack
         /// <returns>The boolean value.</returns>
         public static bool ToBoolOrDefault(this string value)
         {
-            if (value == null)
+            if (value.IsNull())
             {
                 return false;
             }
@@ -224,11 +224,13 @@ namespace Extensions.Pack
                                                       int blockLength)
         {
             Throw.IfNullOrWhiteSpace(value);
+            Throw.IfLessOrEqual(expectedBlocks, 0);
+            Throw.IfLessOrEqual(blockLength, 0);
 
             if (value.Length.NotEqualsTo(expectedBlocks.MultiplyBy(blockLength)))
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                                                          "Can not split string in expected blocks, because of string length: '{0}' which is not equals as the product of expected blocks: '{1}' and bloock length: '{2}'",
+                                                          "Can not split string in expected blocks, because of string length: '{0}' which is not equals as the product of expected blocks: '{1}' and block length: '{2}'",
                                                           value.Length,
                                                           expectedBlocks,
                                                           blockLength),
@@ -248,15 +250,12 @@ namespace Extensions.Pack
         public static IEnumerable<string> Split(this string value,
                                                 int blockLength)
         {
-            if (value.IsNotValid())
+            if (value.IsNullOrWhiteSpace())
             {
                 yield break;
             }
 
-            if (blockLength.IsLessOrEqual(default))
-            {
-                throw new ArgumentException("The length of a block must not be 0 or smaller");
-            }
+            Throw.IfLessOrEqual(blockLength, 0);
 
             var expectedBlocks = value.Length.DivideBy(blockLength.ToDouble()).Ceiling();
 
@@ -382,6 +381,9 @@ namespace Extensions.Pack
         public static bool ContainsNotAnyOf(this string source,
                                             params string[] notContainStrings)
         {
+            Throw.IfNull(source);
+            Throw.IfNull(notContainStrings);
+
             return !notContainStrings.Any(source.Contains);
         }
 
@@ -419,6 +421,9 @@ namespace Extensions.Pack
         public static string BuildUriPathWith(this string basePath,
                                               params string[] pathSegments)
         {
+            Throw.IfNull(basePath);
+            Throw.IfNull(pathSegments);
+
             var normalizeBasPath = basePath.TrimEnd('/');
             var normalizePathSegments = pathSegments.Select(segment => segment.TrimStart('/'));
 
@@ -471,7 +476,9 @@ namespace Extensions.Pack
             {
                 targetType = Convert.ChangeType(source, newType, CultureInfo.InvariantCulture);
             }
+#pragma warning disable CA1031
             catch (Exception)
+#pragma warning restore CA1031
             {
                 targetType = null;
 

@@ -28,9 +28,23 @@ namespace Extensions.Pack
     public record EmbeddedFileStream(MemoryStream Stream,
                                      string Name) : IDisposable
     {
+        private bool _disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    Stream.Dispose();
+                }
+                _disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            Stream.Dispose();
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }
@@ -79,12 +93,18 @@ namespace Extensions.Pack
         public static T? ReadAs<T>(this object assembly,
                                    string fileName) where T : class
         {
+            Throw.IfNull(assembly);
+            Throw.IfNullOrWhiteSpace(fileName);
+
             return assembly.GetType().Assembly.ReadAs<T>(fileName);
         }
 
         public static T? ReadAs<T>(this Assembly assembly,
                                    string fileName) where T : class
         {
+            Throw.IfNull(assembly);
+            Throw.IfNullOrWhiteSpace(fileName);
+
             var result = assembly.GetFileAsByteArrayFrom(fileName);
 
             using var memoryStream = new MemoryStream(result.FileContent);
@@ -97,6 +117,9 @@ namespace Extensions.Pack
         public static string GetJsonFileContentFrom(this Assembly assembly,
                                                     string fileName)
         {
+            Throw.IfNull(assembly);
+            Throw.IfNullOrWhiteSpace(fileName);
+
             var result = assembly.GetFileAsByteArrayFrom(fileName);
             using var memoryStream = new MemoryStream(result.FileContent);
             using var streamReader = new StreamReader(memoryStream);
@@ -108,6 +131,9 @@ namespace Extensions.Pack
                                                              string fileName,
                                                              string defaultValue = "")
         {
+            Throw.IfNull(assembly);
+            Throw.IfNullOrWhiteSpace(fileName);
+
             var result = assembly.GetFileAsByteArrayOrDefaultFrom(fileName);
 
             if (result.IsNull())
@@ -270,7 +296,7 @@ namespace Extensions.Pack
             // 9. If the target type is a primitive type or a string then return the json value
             var type = typeof(T);
 
-            if (type.IsPrimitive || type == typeof(string))
+            if (type.IsPrimitive || type.EqualsTo(typeof(string)))
             {
                 return jsonValueOrEmbeddedFile;
             }

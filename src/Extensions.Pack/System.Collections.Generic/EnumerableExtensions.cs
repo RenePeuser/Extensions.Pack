@@ -960,6 +960,10 @@ namespace Extensions.Pack
                                                     Expression<Func<TValue, object>> groupKey,
                                                     params Expression<Func<TValue, object>>[] infoSelector)
         {
+            Throw.IfNull(groups);
+            Throw.IfNull(groupKey);
+            Throw.IfNull(infoSelector);
+
             var stringBuilder = new StringBuilder();
 
             foreach (var group in groups)

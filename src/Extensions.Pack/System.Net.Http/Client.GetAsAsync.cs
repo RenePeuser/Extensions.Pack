@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using Argument.Check;
 
 namespace Extensions.Pack
 {
@@ -7,6 +8,9 @@ namespace Extensions.Pack
         public static async Task GetAsAsync(this HttpClient httpClient,
                                             string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -22,6 +26,9 @@ namespace Extensions.Pack
         public static async Task<T> GetAsAsync<T>(this HttpClient httpClient,
                                                   string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -37,6 +44,9 @@ namespace Extensions.Pack
         public static async Task<T> GetAsErrorResultAsync<T>(this HttpClient httpClient,
                                                              string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
@@ -50,6 +60,9 @@ namespace Extensions.Pack
         public static async Task<byte[]> GetFileStreamAsByteArray(this HttpClient httpClient,
                                                                   string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -76,6 +89,9 @@ namespace Extensions.Pack
         public static async Task<InMemoryFileAsByteArray> GetFileAsync(this HttpClient httpClient,
                                                                        string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -102,6 +118,9 @@ namespace Extensions.Pack
         public static async IAsyncEnumerable<InMemoryFileAsByteArray> GetFilesFromZipResponseAsync(this HttpClient httpClient,
                                                                                                    string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)

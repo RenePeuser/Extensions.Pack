@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Immutable;
+using System.Globalization;
 using Argument.Check;
 
 namespace Extensions.Pack
@@ -6,22 +7,21 @@ namespace Extensions.Pack
     /// <summary>Represents extensions for types of <see cref="Enum" />.</summary>
     public static class EnumExtensions
     {
-        public static IEnumerable<string> GetAllNames<T>(this T _) where T : struct, Enum
+        public static ImmutableList<string> GetAllNames<T>(this T _) where T : struct, Enum
         {
-            return Enum.GetNames<T>();
+            return Enum.GetNames<T>().ToImmutableList();
         }
 
         /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <param name="ignoreTypes">The types which have to be ignored from the original type list.</param>
         /// <returns>The list with all fields of the generic enumeration type except the types which have to be ignored.</returns>
-        public static List<T> GetEnumValuesExceptOf<T>(params T[] ignoreTypes)
-            where T : struct, IComparable, IFormattable, IConvertible
+        public static ImmutableList<T> GetEnumValuesExceptOf<T>(params T[] ignoreTypes) where T : struct, IComparable, IFormattable, IConvertible
         {
             Throw.IfNull(ignoreTypes);
 
             var enumValues = GetEnumValuesOf<T>();
-            enumValues.RemoveRange(ignoreTypes);
+            enumValues = enumValues.RemoveRange(ignoreTypes);
 
             return enumValues;
         }
@@ -81,7 +81,7 @@ namespace Extensions.Pack
                                             int defaultValue)
             where T : struct, IComparable, IFormattable, IConvertible
         {
-            if (value == null)
+            if (value.IsNull())
             {
                 return defaultValue;
             }
@@ -92,25 +92,24 @@ namespace Extensions.Pack
         /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <returns>The list with all fields of the generic enumeration type.</returns>
-        public static List<T> GetEnumValuesOf<T>()
-            where T : struct, IComparable, IFormattable, IConvertible
+        public static ImmutableList<T> GetEnumValuesOf<T>() where T : struct, IComparable, IFormattable, IConvertible
         {
             var type = typeof(T);
             Throw.If(type, t => t.IsNotNull() && t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
 
-            return Enum.GetValues(typeof(T)).ToListOfType<T>();
+            return Enum.GetValues(typeof(T)).OfType<T>().ToImmutableList();
         }
 
         /// <summary>Converts the values of an <see cref="Enum" /> type into a <see cref="List{T}" />. It helps to get all fields from an enumeration in a list.</summary>
         /// <typeparam name="T">The generic type of the expected enumeration.</typeparam>
         /// <param name="type">The enum type.</param>
         /// <returns>The list with all fields of the generic enumeration type.</returns>
-        public static List<T> GetEnumValuesOf<T>(this Type type)
+        public static ImmutableList<T> GetEnumValuesOf<T>(this Type type)
         {
             Throw.IfNull(type);
             Throw.If(type, t => t.IsNotNull() && t.IsEnum.IsNot(), $"The given type: '{type.Name}' is not an enum");
 
-            return Enum.GetValues(type).ToListOfType<T>();
+            return Enum.GetValues(type).OfType<T>().ToImmutableList();
         }
 
         /// <summary>Gets the custom attribute of an given enum value.</summary>

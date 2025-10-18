@@ -1,6 +1,8 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Net.Http;
 using System.Text;
 using Argument.Check;
 
@@ -64,11 +66,11 @@ namespace Extensions.Pack
         /// <summary>
         /// Negated comparison for two reference types (handles nulls automatically).
         /// </summary>
-        public static bool NotEqualsTo<T>(this T source,
-                                          T target)
+        public static bool NotEqualsTo<T>(this T? source,
+                                          T? target)
             where T : class
         {
-            return !EqualsTo<T>(source, target);
+            return !EqualsTo(source, target);
         }
 
         /// <summary>Simplify the usage of the equality comparer for double with default tolerance.</summary>
@@ -135,7 +137,7 @@ namespace Extensions.Pack
             var compareResult = Uri.Compare(source, target, UriComponents.AbsoluteUri,
                                             UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase);
 
-            var isNotEqual = compareResult == 0;
+            var isNotEqual = compareResult.EqualsTo(0);
 
             return isNotEqual;
         }
@@ -149,9 +151,14 @@ namespace Extensions.Pack
             return new List<T> { item };
         }
 
-        public static IImmutableList<T> AsImmutableList<T>(this T item)
+        public static List<T> AsList<T>(this T item)
         {
-            return item.AsImmutableList();
+            return new List<T> { item };
+        }
+
+        public static ImmutableList<T> AsImmutableList<T>(this T item)
+        {
+            return ImmutableList.Create(item);
         }
 
         /// <summary>Determines whether source is any of the expected values.</summary>
@@ -187,7 +194,7 @@ namespace Extensions.Pack
                                           Func<T, Action> action)
             where T : class
         {
-            if (source == null)
+            if (source.IsNull())
             {
                 return null;
             }
@@ -229,7 +236,7 @@ namespace Extensions.Pack
                                           Action<T> action)
             where T : class
         {
-            if (source == null)
+            if (source.IsNull())
             {
                 return null;
             }
@@ -377,6 +384,7 @@ namespace Extensions.Pack
                                                IEnumerable<T> items)
         {
             Throw.IfNull<object>(source);
+            Throw.IfNull<object>(items);
 
             yield return source;
 
@@ -415,6 +423,9 @@ namespace Extensions.Pack
         public static InMemoryFileAsStream ToCsv<T>(this IEnumerable<T> elements,
                                                     string fileName) where T : class
         {
+            Throw.IfNull(elements);
+            Throw.IfNullOrWhiteSpace(fileName);
+
             fileName = fileName.EndWith(".csv") ? fileName : $"{fileName}.csv";
 
             var type = typeof(T);
@@ -430,6 +441,7 @@ namespace Extensions.Pack
                 stringBuilder.AppendLine(properties.Select(p => p.GetValue(element)!.ToString()!).Flatten(";"));
             }
 
+            // Do not dispose, because the stream have to be used outside this method.
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(stringBuilder.ToString()));
 
             return new InMemoryFileAsStream(memoryStream, fileName);

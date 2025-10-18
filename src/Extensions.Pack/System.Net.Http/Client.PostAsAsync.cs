@@ -1,6 +1,8 @@
 ﻿using System.Net.Mime;
 using System.Reflection;
 using System.Text;
+using Argument.Check;
+using Microsoft.Extensions.Configuration;
 
 namespace Extensions.Pack
 {
@@ -9,6 +11,9 @@ namespace Extensions.Pack
         public static async Task<T> PostAsAsync<T>(this HttpClient httpClient,
                                                    string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.PostAsync(url, null).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
@@ -60,6 +65,9 @@ namespace Extensions.Pack
         public static async Task<T> PostAsErrorResultAsync<T>(this HttpClient httpClient,
                                                               string url)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+
             using var httpResponseMessage = await httpClient.PostAsync(url, null).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
@@ -76,6 +84,10 @@ namespace Extensions.Pack
                                                        string url,
                                                        string payloadAsJson)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+
             return httpClient.PostAsJsonStringAsync<T>(url, payloadAsJson, Assembly.GetCallingAssembly());
         }
 
@@ -84,9 +96,14 @@ namespace Extensions.Pack
                                                              string payloadAsJson,
                                                              Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+            using var httpResponseMessage = await httpClient.PostAsync(url, stringContent).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
@@ -110,9 +127,15 @@ namespace Extensions.Pack
                                                                             string payloadAsJson,
                                                                             Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var httpResponseMessage = await httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json)).ConfigureAwait(false);
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+            using var httpResponseMessage = await httpClient.PostAsync(url, stringContent).ConfigureAwait(false);
 
             if (httpResponseMessage.IsSuccessStatusCode.IsFalse())
             {
@@ -136,9 +159,16 @@ namespace Extensions.Pack
                                                                       string payloadAsJson,
                                                                       Assembly callingAssembly)
         {
+            Throw.IfNull(httpClient);
+            Throw.IfNullOrWhiteSpace(url);
+            Throw.IfNullOrWhiteSpace(payloadAsJson);
+            Throw.IfNull(callingAssembly);
+
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            return httpClient.PostAsync(url, new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json));
+            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+
+            return httpClient.PostAsync(url, stringContent);
         }
     }
 }

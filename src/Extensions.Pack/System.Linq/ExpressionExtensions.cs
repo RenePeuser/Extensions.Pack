@@ -262,7 +262,7 @@ namespace Extensions.Pack
                 name = methodCallExpression.Method.Name;
             }
 
-            if (name == null)
+            if (name.IsNull())
             {
                 throw new ArgumentException("Unknown expression type for extracting name.", nameof(expression));
             }

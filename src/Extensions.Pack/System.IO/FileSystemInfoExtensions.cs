@@ -22,14 +22,14 @@ namespace Extensions.Pack
         {
             Throw.IfNull(fileSystemInfo);
 
-            return fileSystemInfo is FileInfo;
+            return fileSystemInfo.Is<FileInfo>();
         }
 
         public static bool IsDirectory(this FileSystemInfo fileSystemInfo)
         {
             Throw.IfNull(fileSystemInfo);
 
-            return fileSystemInfo is DirectoryInfo;
+            return fileSystemInfo.Is<DirectoryInfo>();
         }
     }
 }
