@@ -130,7 +130,9 @@ namespace Extensions.Pack
 
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
 
-            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+#pragma warning disable CA2000 // We can not dispose it here, caller is responsible for disposing the HttpResponseMessage
+            var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNames.Application.Json);
+#pragma warning restore CA2000 // We can not dispose it here, caller is responsible for disposing the HttpResponseMessage
 
             return httpClient.PutAsync(url, stringContent);
         }

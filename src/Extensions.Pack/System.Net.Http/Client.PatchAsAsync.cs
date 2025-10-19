@@ -87,7 +87,9 @@ namespace Extensions.Pack
             Throw.IfNullOrWhiteSpace(url);
 
             var jsonContent = content.ToJson(JsonSerializerOptions);
-            using var stringContent = new StringContent(jsonContent, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+#pragma warning disable CA2000 // We can not dispose it here, caller is responsible for disposing the HttpResponseMessage
+            var stringContent = new StringContent(jsonContent, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+#pragma warning restore CA2000 // We can not dispose it here, caller is responsible for disposing the HttpResponseMessage
             var patchResponse = await httpClient.PatchAsync(url, stringContent).ConfigureAwait(false);
 
             return patchResponse;
@@ -111,7 +113,10 @@ namespace Extensions.Pack
             Throw.IfNull(callingAssembly);
 
             var jsonPayload = payloadAsJson.GetJsonStringFrom(callingAssembly);
-            using var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+
+#pragma warning disable CA2000 // We can not dispose it here, caller is responsible for disposing the HttpResponseMessage
+            var stringContent = new StringContent(jsonPayload, Encoding.UTF8, MediaTypeNamesExtensions.Application.MergePatchJson);
+#pragma warning restore CA2000 // We can not dispose it here, caller is responsible for disposing the HttpResponseMessage
 
             var patchResponse = await httpClient.PatchAsync(url, stringContent).ConfigureAwait(false);
 
