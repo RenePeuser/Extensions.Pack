@@ -27,7 +27,7 @@ namespace Extensions.Pack
             foreach (var item in source)
             {
                 // Hint not use 'item is TResult', because here we want explicit type not the derived type !!!
-                if (item.GetType() == typeof(TResult))
+                if (item.GetType().EqualsTo(typeof(TResult)))
                 {
                     yield return (TResult)item;
                 }
@@ -41,7 +41,7 @@ namespace Extensions.Pack
             foreach (var item in source)
             {
                 // Hint not use 'item is TResult', because here we want explicit type not the derived type !!!
-                if (item.GetType() == typeof(TResult))
+                if (item.GetType().EqualsTo(typeof(TResult)))
                 {
                     yield return (TResult)item;
                 }
@@ -214,12 +214,12 @@ namespace Extensions.Pack
         public static bool SequenceEqualsTo<T>(this IEnumerable<T> first,
                                                IEnumerable<T> second)
         {
-            if (first == null && second == null)
+            if (first.IsNull() && second.IsNull())
             {
                 return true;
             }
 
-            if (first == null || second == null)
+            if (first.IsNull() || second.IsNull())
             {
                 return false;
             }
@@ -270,7 +270,7 @@ namespace Extensions.Pack
         /// <returns>A list the generic copy from the enumeration. <see cref="IEnumerable" />.</returns>
         public static List<TSource> ToListOfTypeOrEmpty<TSource>(this IEnumerable source)
         {
-            if (source == null)
+            if (source.IsNull())
             {
                 return new List<TSource>();
             }
@@ -767,7 +767,7 @@ namespace Extensions.Pack
             var listCopy2 = list2.ToList();
 
             var result = listCopy1.ContainsAll(listCopy2);
-            var sameCount = listCopy1.Count == listCopy2.Count;
+            var sameCount = listCopy1.Count.EqualsTo(listCopy2.Count);
 
             return result && sameCount;
         }
@@ -1057,7 +1057,7 @@ namespace Extensions.Pack
             {
                 var result = secondItems.FirstOrDefault(i => selector2(i).EqualsTo(selector1(item)));
 
-                if (result == null)
+                if (result.IsNull())
                 {
                     yield return item;
                 }
