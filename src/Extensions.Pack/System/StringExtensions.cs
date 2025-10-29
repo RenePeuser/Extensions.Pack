@@ -14,7 +14,7 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is null or empty; otherwise <c>False</c>.</returns>
         public static bool IsNullOrEmpty([NotNullWhen(false)] this string? source)
         {
-            return string.IsNullOrWhiteSpace(source);
+            return string.IsNullOrEmpty(source);
         }
 
         /// <summary>Checks if the source string is NOT null or empty.</summary>
