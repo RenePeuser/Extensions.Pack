@@ -90,12 +90,12 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is a whitespace; otherwise <c>False</c>.</returns>
         public static bool IsWhitespace(this string source)
         {
-            if (source.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(source))
             {
                 return false;
             }
 
-            return source.IsNullOrWhiteSpace();
+            return source.All(char.IsWhiteSpace);
         }
 
         /// <summary>Converts a string (representing a boolean value) to a boolean value.</summary>
