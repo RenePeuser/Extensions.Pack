@@ -74,12 +74,8 @@ namespace Extensions.Pack
         /// <returns><c>True</c> if source string is null or only a whitespace; otherwise <c>False</c>.</returns>
         public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? source)
         {
-            if (source.IsNull())
-            {
-                return true;
-            }
-
-            return IsWhitespace(source);
+            var result = string.IsNullOrWhiteSpace(source);
+            return result;
         }
 
         /// <summary>Checks if the source string is null or whitespace.</summary>
