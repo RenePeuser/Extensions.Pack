@@ -49,5 +49,7 @@
 
         <!-- AnalysisMode: Enables all analyzer rules by default for maximum code quality enforcement. -->
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+
+        <RestoreEnablePackagePruning>true</RestoreEnablePackagePruning>
     </PropertyGroup>
 </Project>
