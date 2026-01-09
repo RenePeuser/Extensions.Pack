@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿[assembly: Parallelize(Scope = ExecutionScope.ClassLevel)]
 namespace Extensions.Pack.Test
 {
     [TestClass]
