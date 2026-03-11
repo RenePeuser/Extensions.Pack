@@ -133,7 +133,7 @@ namespace Extensions.Pack
 
                     foreach (var entry in zipArchive.Entries)
                     {
-                        using var stream = entry.Open();
+                        using var stream = await entry.OpenAsync().ConfigureAwait(false);
                         using var memoryStream = new MemoryStream();
 
                         await using (memoryStream.ConfigureAwait(false))
