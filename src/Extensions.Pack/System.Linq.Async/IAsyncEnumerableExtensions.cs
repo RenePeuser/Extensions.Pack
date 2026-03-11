@@ -5,29 +5,16 @@ namespace Extensions.Pack
     public static class IAsyncEnumerableExtensions
     {
         public static async ValueTask<ImmutableList<TSource>> ToImmutableListAsync<TSource>(this IAsyncEnumerable<TSource> source,
-                                                                                             CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default)
         {
-            if (source is IAsyncIListProvider<TSource> listProvider)
-            {
-                var listItems = await listProvider.ToListAsync(cancellationToken).ConfigureAwait(false);
+            var immutableListBuilder = ImmutableList.CreateBuilder<TSource>();
 
-                return listItems.ToImmutableList();
+            await foreach (var item in source.WithCancellation(cancellationToken).ConfigureAwait(false))
+            {
+                immutableListBuilder.Add(item);
             }
 
-            return await Core(source, cancellationToken).ConfigureAwait(false);
-
-            static async ValueTask<ImmutableList<TSource>> Core(IAsyncEnumerable<TSource> source,
-                                                                 CancellationToken cancellationToken)
-            {
-                var immutableListBuilder = ImmutableList.CreateBuilder<TSource>();
-
-                await foreach (var item in source.WithCancellation(cancellationToken).ConfigureAwait(false))
-                {
-                    immutableListBuilder.Add(item);
-                }
-
-                return immutableListBuilder.ToImmutable();
-            }
+            return immutableListBuilder.ToImmutable();
         }
     }
 }
