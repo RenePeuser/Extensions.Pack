@@ -12,10 +12,9 @@ namespace Extensions.Pack
         public static bool IsAlreadyRegistered<TImplementation>(this IServiceCollection services)
             where TImplementation : class
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.IsKeyedService.IsFalse() &&
-                                                                     (descriptor.ServiceType.EqualsTo(typeof(TImplementation)) || descriptor.ImplementationType.EqualsTo(typeof(TImplementation))));
-
-            return existingRegistrations.Any();
+            // Optimized: Use Any() with early termination instead of Where().Any()
+            return services.Any(descriptor => descriptor.IsKeyedService.IsFalse() &&
+                                             (descriptor.ServiceType.EqualsTo(typeof(TImplementation)) || descriptor.ImplementationType.EqualsTo(typeof(TImplementation))));
         }
 
         public static T GetOrThrowMissingException<T>(this IServiceProvider services) where T : class
@@ -53,9 +52,8 @@ namespace Extensions.Pack
                                                                     TImplementation instance)
             where TImplementation : class
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType.EqualsTo(typeof(TImplementation)));
-
-            if (existingRegistrations.Any())
+            // Optimized: Use Any() with early termination instead of Where().Any()
+            if (services.Any(descriptor => descriptor.ServiceType.EqualsTo(typeof(TImplementation))))
             {
                 return;
             }
@@ -67,9 +65,8 @@ namespace Extensions.Pack
             where TInterface : class
             where TImplementation : class, TInterface
         {
-            var existingRegistrations = services.Where(descriptor => descriptor.ServiceType.EqualsTo(typeof(TInterface)) && descriptor.ImplementationType.EqualsTo(typeof(TImplementation)));
-
-            if (existingRegistrations.Any())
+            // Optimized: Use Any() with early termination instead of Where().Any()
+            if (services.Any(descriptor => descriptor.ServiceType.EqualsTo(typeof(TInterface)) && descriptor.ImplementationType.EqualsTo(typeof(TImplementation))))
             {
                 return;
             }
