@@ -6,8 +6,8 @@
         <Company>Rene Peuser Softwaresolutions</Company>
         <Description>A set of useful extensions to make your code smooth and nice readable.</Description>
         <Copyright>Copyright 2020 (c) Rene Peuser. All rights reserved.</Copyright>
-        <PackageProjectUrl>https://renepeuser.visualstudio.com/Extensions.Pack</PackageProjectUrl>
-        <RepositoryUrl>https://renepeuser.visualstudio.com/Extensions.Pack</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/RenePeuser/Extensions.Pack</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/RenePeuser/Extensions.Pack</RepositoryUrl>
         <PackageReleaseNotes>
            - Package upgrade to .Net 9
         </PackageReleaseNotes>
